@@ -15,13 +15,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 @SpringBootApplication
-public class ScheduledDefaultProfileApplication {
+public class DefaultApplication {
 
   /** Run scheduler class {@link com.malexj.scheduler.SchedulerService} with profile */
   private static final String ACTIVE_PROFILE = "default-config";
 
   public static void main(String[] args) {
     SpringApplication.run(
-        ScheduledDefaultProfileApplication.class, buildActiveProfile(ACTIVE_PROFILE));
+        DefaultApplication.class, buildActiveProfile(ACTIVE_PROFILE));
   }
 }

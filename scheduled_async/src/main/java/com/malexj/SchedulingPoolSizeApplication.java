@@ -6,9 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * Configuration:
+ *
+ * <p>application.yaml add --spring.task.scheduling.pool.size=2
+ */
 @EnableScheduling
 @SpringBootApplication
-public class ScheduledUsePoolSizeProfileApplication {
+public class SchedulingPoolSizeApplication {
 
   /** Run scheduler class {@link com.malexj.scheduler.SchedulerService} with profile */
   private static final String ACTIVE_PROFILE = "pool-size-profile";
@@ -18,7 +23,7 @@ public class ScheduledUsePoolSizeProfileApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(
-        ScheduledUsePoolSizeProfileApplication.class,
+        SchedulingPoolSizeApplication.class,
         buildActiveProfile(ACTIVE_PROFILE),
         SPRING_TASK_SCHEDULING_POOL_SIZE);
   }

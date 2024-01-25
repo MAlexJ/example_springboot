@@ -6,10 +6,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/** benefits: */
+/**
+ * Action:
+ *
+ * <p>Apply configuration ScheduledTaskRegistrar in {@link
+ * com.malexj.configuration.SchedulingConfig}, add Executor
+ */
 @EnableScheduling
 @SpringBootApplication
-public class SchedulingConfigurerProfileApplication {
+public class SchedulingConfigurerApplication {
 
   /**
    * Run scheduler two classes: {@link com.malexj.scheduler.SchedulerService} and {@link
@@ -19,6 +24,6 @@ public class SchedulingConfigurerProfileApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(
-        SchedulingConfigurerProfileApplication.class, buildActiveProfile(ACTIVE_PROFILE));
+        SchedulingConfigurerApplication.class, buildActiveProfile(ACTIVE_PROFILE));
   }
 }
