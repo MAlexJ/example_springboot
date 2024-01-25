@@ -2,7 +2,6 @@ package com.malexj;
 
 import static com.malexj.utils.ProfileHelper.buildActiveProfile;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -14,16 +13,18 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 @SpringBootApplication
-public class SchedulingConfigurerApplication {
+public class SchedulingConfigurerApplication extends SpringRunner {
 
-  /**
-   * Run scheduler two classes: {@link com.malexj.scheduler.SchedulerService} and {@link
-   * com.malexj.configuration.SchedulingConfig} with profile
-   */
+  /** Run scheduler class {@link com.malexj.scheduler.SchedulerService} with profile */
   private static final String ACTIVE_PROFILE = "scheduling-configurer";
 
-  public static void main(String[] args) {
-    SpringApplication.run(
-        SchedulingConfigurerApplication.class, buildActiveProfile(ACTIVE_PROFILE));
+  @Override
+  Class<?> initPrimarySourceClass() {
+    return SchedulingConfigurerApplication.class;
+  }
+
+  @Override
+  String[] initMainArgs() {
+    return new String[] {buildActiveProfile(ACTIVE_PROFILE)};
   }
 }

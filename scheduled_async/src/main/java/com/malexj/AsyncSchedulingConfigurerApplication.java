@@ -2,7 +2,6 @@ package com.malexj;
 
 import static com.malexj.utils.ProfileHelper.buildActiveProfile;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,13 +19,21 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 @EnableScheduling
 @SpringBootApplication
-public class AsyncSchedulingConfigurerApplication {
+public class AsyncSchedulingConfigurerApplication extends SpringRunner {
 
-  /** Run scheduler class {@link com.malexj.scheduler.SchedulerService} with profile */
+  /**
+   * Profiler for {@link com.malexj.scheduler.AsyncSchedulerService} and {@link
+   * com.malexj.configuration.AsyncSchedulingConfig} with @Async annotation
+   */
   private static final String ACTIVE_PROFILE = "async-scheduling-config";
 
-  public static void main(String[] args) {
-    SpringApplication.run(
-        AsyncSchedulingConfigurerApplication.class, buildActiveProfile(ACTIVE_PROFILE));
+  @Override
+  Class<?> initPrimarySourceClass() {
+    return AsyncSchedulingConfigurerApplication.class;
+  }
+
+  @Override
+  String[] initMainArgs() {
+    return new String[] {buildActiveProfile(ACTIVE_PROFILE)};
   }
 }
