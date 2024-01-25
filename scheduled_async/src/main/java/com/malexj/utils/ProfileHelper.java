@@ -1,7 +1,10 @@
 package com.malexj.utils;
 
-
 public class ProfileHelper {
+
+  private ProfileHelper() {
+    // none
+  }
 
   private static final String PROFILE_TEMPLATE = "--spring.profiles.active=%s";
 

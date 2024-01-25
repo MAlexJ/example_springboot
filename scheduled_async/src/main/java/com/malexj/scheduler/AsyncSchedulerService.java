@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Profile("async-config")
+@Profile({"async-default-config", "async-scheduling-config"})
 public class AsyncSchedulerService {
 
   @Async
