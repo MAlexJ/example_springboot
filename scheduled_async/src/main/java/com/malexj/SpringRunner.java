@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.SpringApplication;
 
-public abstract class SpringRunner  {
+public abstract class SpringRunner {
 
   abstract Class<?> initPrimarySourceClass();
 
@@ -18,7 +18,7 @@ public abstract class SpringRunner  {
   }
 
   @SneakyThrows
-  public static void sleepOneMinutes() {
+  public void sleepOneMinutes() {
     TimeUnit.SECONDS.sleep(60);
   }
 }
