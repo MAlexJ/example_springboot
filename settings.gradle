@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'example-springboot'
-include 'scheduled_async', 'aop-web-service'
+include 'scheduled_async', 'aop-web-service', 'dmdev-base-springboot-course'
