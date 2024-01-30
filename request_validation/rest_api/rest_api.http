@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "X",
+  "email": "E"
+}
