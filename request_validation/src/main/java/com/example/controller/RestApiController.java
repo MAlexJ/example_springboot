@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.UserDto;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestApiController {
 
   @PostMapping("/books")
-  public ResponseEntity<String> validateUserRequestBody(@RequestBody UserDto userDto) {
+  public ResponseEntity<String> validateUserRequestBody(@RequestBody @Valid UserDto userDto) {
     log.info("Request - {}", userDto);
     return ResponseEntity.ok("Ok: " + userDto.toString());
   }
