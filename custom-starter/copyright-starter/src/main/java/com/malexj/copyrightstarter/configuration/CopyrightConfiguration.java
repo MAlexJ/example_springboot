@@ -1,6 +1,6 @@
-package com.malexj.copyrightstarter.auto_configuration;
+package com.malexj.copyrightstarter.configuration;
 
-import com.malexj.copyrightstarter.props.StarterCopyrightProperties;
+import com.malexj.copyrightstarter.properties.StarterCopyrightProperties;
 import com.malexj.copyrightstarter.service.CopyrightService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

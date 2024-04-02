@@ -1,15 +1,9 @@
-package com.malexj.copyrightstarter.props;
+package com.malexj.copyrightstarter.properties;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
-@Getter
-@Setter
 @ConfigurationProperties(prefix = "starter-copyright")
 @ConfigurationPropertiesScan("default-application.yml")
-public class StarterCopyrightProperties {
-
-  private String author;
-}
+public record StarterCopyrightProperties(@DefaultValue("author") String author) {}
