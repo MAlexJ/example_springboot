@@ -19,5 +19,6 @@ include 'scheduled_async',
         'base-rest-app',
         'cache',
         'custom-starter',
-        'custom-starter:copyright-starter'
+        'custom-starter:copyright-starter',
+        'custom-starter:run-app'
 

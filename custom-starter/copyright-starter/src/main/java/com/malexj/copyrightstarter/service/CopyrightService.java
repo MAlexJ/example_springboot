@@ -1,6 +1,6 @@
 package com.malexj.copyrightstarter.service;
 
-import com.malexj.copyrightstarter.configuration.StarterCopyrightProperties;
+import com.malexj.copyrightstarter.props.StarterCopyrightProperties;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

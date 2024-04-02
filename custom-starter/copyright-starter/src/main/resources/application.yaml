@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: copyright-starter
-
-starter-copyright:
-  author: Default-Author
