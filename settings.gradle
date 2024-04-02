@@ -17,4 +17,7 @@ include 'scheduled_async',
         'request_validation',
         'web-security',
         'base-rest-app',
-        'cache'
+        'cache',
+        'custom-starter',
+        'custom-starter:copyright-starter'
+
