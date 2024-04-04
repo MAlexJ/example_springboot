@@ -18,7 +18,7 @@ plugins {
     id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
-group = 'com.example'
+group = 'com.malexj'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -36,8 +36,6 @@ repositories {
 }
 
 dependencies {
-    implementation project(':custom-starter:copyright-starter')
-    implementation project(':custom-starter:signature-starter')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
