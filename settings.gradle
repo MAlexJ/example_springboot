@@ -22,4 +22,5 @@ include 'scheduled_async',
         'custom-starter:copyright-starter',
         'custom-starter:signature-starter',
         'custom-starter:run-app',
-        'properties'
+        'properties',
+        'docker_live_remote_debugging'
