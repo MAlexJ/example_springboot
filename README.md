@@ -14,3 +14,5 @@ command:
 ```
 gradle dependencyUpdates
 ```
+
+### Github action
