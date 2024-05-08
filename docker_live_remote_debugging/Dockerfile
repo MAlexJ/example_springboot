@@ -12,12 +12,17 @@ COPY --chown=gradle:gradle . /home/gradle/src
 # that follow it in the Dockerfile.
 # If the WORKDIR doesn't exist, it will be created even if it's not used in any subsequent Dockerfile instruction.
 WORKDIR /home/gradle/src
+# Debug command, see all logs/info into docker desktop logs
 RUN ls
+# Build command
 RUN gradle build
 
 LABEL org.name="malex"
 # Package stage
 FROM eclipse-temurin:21-jdk-jammy
+# EXPOSE instruction informs Docker that the container listens on the specified network ports
+# EXPOSE instruction doesn't actually publish the port.
+EXPOSE 8080 5005
 COPY --from=build /home/gradle/src/docker_live_remote_debugging/build/libs/docker_live_remote_debugging-0.0.1-SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005","-jar","/app.jar"]
