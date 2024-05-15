@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: configuration-properties
+
+app:
+  restaurant:
+    name: New way
+    menu:
+      - Salad
+      - Pasta
+      - Meat
+      - Coffee
+    employees:
+      paul:
+        position: Chef
+        salary: 350
+      amanda:
+        position: waiter
+        salary: 200
+
+bean:
+  restaurant:
+    name: New way
+    menu:
+      - Salad
+      - Pasta
+      - Meat
+      - Coffee
+    employees:
+      paul:
+        position: Chef
+        salary: 350
+      amanda:
+        position: waiter
+        salary: 200

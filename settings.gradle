@@ -23,4 +23,5 @@ include 'scheduled_async',
         'custom-starter:signature-starter',
         'custom-starter:run-app',
         'properties',
+        'properties:configuration-properties',
         'docker_live_remote_debugging'
