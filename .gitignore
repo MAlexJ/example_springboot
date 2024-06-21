@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 *.DS_Store
 .profileconfig.json
+.env
 
 ### STS ###
 .apt_generated

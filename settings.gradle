@@ -25,4 +25,6 @@ include 'scheduled_async',
         'logging-level',
         'properties',
         'properties:configuration-properties',
-        'docker_live_remote_debugging'
+        'docker_live_remote_debugging',
+        'database',
+        'database:multiple-databases-spring-data-jpa'
