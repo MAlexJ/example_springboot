@@ -1,0 +1,4 @@
+rootProject.name = 'events'
+include 'simple-application-event',
+        'asynchronous-events',
+        'rabbit_amqp'

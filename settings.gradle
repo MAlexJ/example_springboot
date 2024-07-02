@@ -27,4 +27,8 @@ include 'scheduled_async',
         'properties:configuration-properties',
         'docker_live_remote_debugging',
         'database',
-        'database:multiple-databases-spring-data-jpa'
+        'database:multiple-databases-spring-data-jpa',
+        'events',
+        'events:simple-application-event',
+        'events:asynchronous-events',
+        'events:rabbit_amqp'
