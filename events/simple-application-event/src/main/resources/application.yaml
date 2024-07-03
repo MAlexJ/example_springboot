@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: simple-application-event
+  config:
+    import: optional:file:.env[.properties]
+
+logging:
+  level:
+    root: info

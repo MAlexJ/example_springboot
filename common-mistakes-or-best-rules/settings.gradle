@@ -1,1 +1,2 @@
 rootProject.name = 'common-mistakes-or-best-rules'
+include 'run_method_or_code_at_application_start'

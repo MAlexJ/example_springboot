@@ -1,4 +1,10 @@
 spring:
   application:
     name: logging-level
+  config:
+    import: optional:file:.env[.properties]
 
+logging:
+  level:
+    root: ${APP_SERVICE_ROOT_LOG_LEVEL:INFO}
+    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}

@@ -1,25 +1,83 @@
-# Getting Started
+### Spring Events
 
-### Reference Documentation
+link: https://www.baeldung.com/spring-events
 
-For further reference, please consider the following sections:
+##### Guidelines
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.1/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.1/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.3.1/reference/htmlsingle/index.html#web)
+There are a few simple guidelines to follow:
 
-### Guides
+1. The event class should extend ApplicationEvent if we’re using versions before Spring Framework 4.2. As of the 4.2
+   version, the event classes no longer need to extend the ApplicationEvent class
 
-The following guides illustrate how to use some features concretely:
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+2. The publisher should inject <b>org.springframework.context.ApplicationEventPublisher</b> or <b>implement
+   org.springframework.context.ApplicationEventPublisherAware</b>
 
-### Additional Links
+* inject org.springframework.context.ApplicationEventPublisher
 
-These additional references should also help you:
+```java
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+@Component
+@RequiredArgsConstructor
+public class SimpleSpringEventPublisher {
 
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public void publishEvent(Object event, String id) {
+        applicationEventPublisher.publishEvent(new SimpleApplicationEvent(this, event, id));
+    }
+}
+
+```
+
+* implement org.springframework.context.ApplicationEventPublisherAware
+
+```java
+
+@Component
+public class CustomSpringEventPublisher implements ApplicationEventPublisherAware {
+
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+    public void publishEvent(final String message) {
+        applicationEventPublisher.publishEvent(customSpringEvent);
+    }
+}
+```
+
+3. The listener should implement the ApplicationListener<...event> interface or add annotation @EventListener
+
+* implement the ApplicationListener<...event>
+
+```java
+
+@Slf4j
+@Component
+public class SimpleSpringEventListener implements ApplicationListener<SimpleApplicationEvent> {
+
+    @Override
+    public void onApplicationEvent(SimpleApplicationEvent event) {
+        log.info("<<<< Handle simple event - {}, id -{}", event.getEvent(), event.getId());
+    }
+}
+```
+
+* @EventListener annotation
+
+```java
+
+@Slf4j
+@Component
+public class CustomSpringEventListener {
+
+    @EventListener
+    public void handleCustomSpringEvent(CustomSpringEvent event) {
+        log.info("<<<< Handle custom event - {}", event.getMessage());
+    }
+}
+```
