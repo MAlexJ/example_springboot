@@ -6,8 +6,10 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("custom")
 @Slf4j
 @Component
 public class CustomSpringEventPublisher implements ApplicationEventPublisherAware {

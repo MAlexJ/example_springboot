@@ -2,8 +2,6 @@ package com.malexj;
 
 import static com.malexj.utils.ProfileHelper.buildActiveProfile;
 
-import java.util.concurrent.TimeUnit;
-import lombok.SneakyThrows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -24,14 +22,5 @@ public class DefaultApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(DefaultApplication.class, buildActiveProfile(ACTIVE_PROFILE));
-  }
-
-  public static void run(Class<?> primarySource, String... args) {
-    SpringApplication.run(primarySource, args);
-  }
-
-  @SneakyThrows
-  public static void sleepOneSecond() {
-    TimeUnit.SECONDS.sleep(60);
   }
 }
