@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: web_flux_handler_function
+  threads:
+    virtual:
+      enabled: true
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port: ${APP_SERVICE_PORT:8182}
+
+logging:
+  level:
+    root: ${APP_SERVICE_ROOT_LOG_LEVEL:INFO}
+    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}

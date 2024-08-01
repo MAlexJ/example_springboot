@@ -1,4 +1,11 @@
-## Difference between @Controller and RouterFunction in Spring 5 WebFlux
+### Functional Endpoints
+
+Spring WebFlux includes WebFlux.fn, a lightweight functional programming model in which functions are used to route and
+handle requests and contracts are designed for immutability.
+
+link: https://docs.spring.io/spring-framework/reference/web/webflux-functional.html
+
+### Difference between @Controller and RouterFunction in Spring 5 WebFlux
 
 link: https://stackoverflow.com/questions/47092029/difference-between-controller-and-routerfunction-in-spring-5-webflux
 
