@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class CrudRepository {
+public class UserCrudRepository {
 
   private static final AtomicInteger COUNTER = new AtomicInteger(1);
 
@@ -62,31 +62,34 @@ public class CrudRepository {
    */
   public Mono<UserResponse> save(UserEntity user) {
     var key = COUNTER.getAndIncrement();
-    var name =
-        inMemoryDatabase
-            .compute(
+    return Optional.ofNullable(
+            inMemoryDatabase.compute(
                 key,
                 (k, v) -> {
                   if (Objects.nonNull(v)) {
                     throw new DuplicateKeyException("Duplicate key");
                   }
                   return user;
-                })
-            .name();
-    return Mono.just(new UserResponse(key, name));
+                }))
+        .map(UserEntity::name)
+        .map(name -> new UserResponse(key, name))
+        .map(Mono::just)
+        .orElse(Mono.empty());
   }
 
   /*
    * Update user
    *
-   * return updated user or throw not found key exception
+   * return updated user or throw not found exception
    */
   public Mono<UserResponse> update(UpdateUserRequest userRequest) {
     var key = userRequest.id();
     var name = userRequest.name();
-    Optional.ofNullable(inMemoryDatabase.computeIfPresent(key, (k, v) -> new UserEntity(name)))
+    return Optional.ofNullable(
+            inMemoryDatabase.computeIfPresent(key, (k, v) -> new UserEntity(name)))
+        .map(user -> new UserResponse(key, user.name()))
+        .map(Mono::just)
         .orElseThrow(() -> new NotFoundException("User not found by id: " + key));
-    return Mono.just(new UserResponse(key, name));
   }
 
   /*

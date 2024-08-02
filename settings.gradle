@@ -27,4 +27,5 @@ include 'scheduled_async',
         'events:asynchronous-events',
         'events:rabbit_amqp',
         'web',
+        'web:function_endpoints',
         'web:web_flux_handler_function'

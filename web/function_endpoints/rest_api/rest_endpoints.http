@@ -1,0 +1,40 @@
+###
+GET http://localhost:8182/users
+
+###
+POST http://localhost:8182/users
+Content-Type: application/json
+
+{
+  "name": "Anna"
+}
+
+###
+POST http://localhost:8182/users
+Content-Type: application/json
+
+{
+  "name": "Max"
+}
+
+###
+POST http://localhost:8182/users
+Content-Type: application/json
+
+{
+  "name": "Alex"
+}
+
+###
+GET http://localhost:8182/users/1
+
+###
+DELETE http://localhost:8182/users/1
+
+###
+PUT http://localhost:8182/users/1
+Content-Type: application/json
+
+{
+  "name": "New name"
+}

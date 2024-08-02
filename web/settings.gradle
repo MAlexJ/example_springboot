@@ -1,3 +1,4 @@
 rootProject.name = 'web'
 
-include 'web_flux_handler_function'
+include 'web_flux_handler_function',
+        'function_endpoints'

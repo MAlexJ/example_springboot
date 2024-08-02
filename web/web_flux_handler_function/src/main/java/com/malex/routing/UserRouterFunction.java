@@ -6,17 +6,17 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-import com.malex.handler.RestHandler;
+import com.malex.handler.UserRestHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Component
-public class RestRouterFunction {
+public class UserRouterFunction {
 
   @Bean
-  public RouterFunction<ServerResponse> routes(RestHandler handler) {
+  public RouterFunction<ServerResponse> routes(UserRestHandler handler) {
     return route(GET("/users"), handler::all)
         .andRoute(POST("/users"), handler::create)
         .andRoute(GET("/users/{id}"), handler::get)

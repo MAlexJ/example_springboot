@@ -3,7 +3,7 @@ package com.malex.handler;
 import com.malex.model.dto.UpdateUserRequest;
 import com.malex.model.dto.UserResponse;
 import com.malex.model.entity.UserEntity;
-import com.malex.repository.CrudRepository;
+import com.malex.repository.UserCrudRepository;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,9 +18,9 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @RequiredArgsConstructor
-public class RestHandler {
+public class UserRestHandler {
 
-  private final CrudRepository repository;
+  private final UserCrudRepository repository;
 
   public Mono<ServerResponse> all(ServerRequest request) {
     return ServerResponse.ok().body(this.repository.findAll(), UserResponse.class);

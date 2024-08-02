@@ -3,8 +3,8 @@ package com.malex.handler;
 import static org.mockito.Mockito.when;
 
 import com.malex.model.dto.UserResponse;
-import com.malex.repository.CrudRepository;
-import com.malex.routing.RestRouterFunction;
+import com.malex.repository.UserCrudRepository;
+import com.malex.routing.UserRouterFunction;
 import java.net.URI;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,14 +24,14 @@ import reactor.core.publisher.Mono;
  * link to test: https://blog.knoldus.com/spring-webflux-testing-your-router-functions-with-webtestclient/
  *
  */
-@ContextConfiguration(classes = {RestRouterFunction.class, RestHandler.class})
+@ContextConfiguration(classes = {UserRouterFunction.class, UserRestHandler.class})
 @WebFluxTest
 class RestHandlerTest {
 
   @Autowired private ApplicationContext context;
 
   @MockBean(name = "userService")
-  private CrudRepository repository;
+  private UserCrudRepository repository;
 
   private WebTestClient testClient;
 
