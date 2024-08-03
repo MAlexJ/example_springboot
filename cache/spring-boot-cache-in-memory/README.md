@@ -1,4 +1,4 @@
-# Simple cache service
+# In memory spring cache
 
 Video tutorials:
 

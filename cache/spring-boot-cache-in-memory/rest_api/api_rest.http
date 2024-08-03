@@ -1,5 +1,5 @@
 ### create uset id=1
-POST http://localhost:8080/v1/users
+POST http://localhost:8184/v1/users
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### create uset id=2
-POST http://localhost:8080/v1/users
+POST http://localhost:8184/v1/users
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### create uset id=3
-POST http://localhost:8080/v1/users
+POST http://localhost:8184/v1/users
 Content-Type: application/json
 
 {
@@ -26,22 +26,22 @@ Content-Type: application/json
 }
 
 ### all users
-GET http://localhost:8080/v1/users
+GET http://localhost:8184/v1/users
 
 ### user id=1
-GET http://localhost:8080/v1/users/1
+GET http://localhost:8184/v1/users/1
 
 ### user id=2
-GET http://localhost:8080/v1/users/2
+GET http://localhost:8184/v1/users/2
 
 ### user id=3
-GET http://localhost:8080/v1/users/3
+GET http://localhost:8184/v1/users/3
 
 ### delete id=3
-DELETE http://localhost:8080/v1/users/3
+DELETE http://localhost:8184/v1/users/3
 
 ### update user id=1, name=ANNA
-PUT http://localhost:8080/v1/users
+PUT http://localhost:8184/v1/users
 Content-Type: application/json
 
 {

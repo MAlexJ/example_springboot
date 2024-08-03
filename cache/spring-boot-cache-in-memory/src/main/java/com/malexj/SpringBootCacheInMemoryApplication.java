@@ -11,9 +11,9 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @EnableCaching
 @SpringBootApplication
-public class CacheApplication {
+public class SpringBootCacheInMemoryApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(CacheApplication.class, args);
+    SpringApplication.run(SpringBootCacheInMemoryApplication.class, args);
   }
 }

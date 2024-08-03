@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-boot-cache-in-memory
+
+  threads:
+    virtual:
+      enabled: true
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port: ${APP_SERVICE_PORT:8184}
+  error.include-message: always
+
+logging:
+  level:
+    root: ${APP_SERVICE_ROOT_LOG_LEVEL:INFO}
+    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}
