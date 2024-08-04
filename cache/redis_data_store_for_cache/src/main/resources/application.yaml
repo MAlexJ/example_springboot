@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: redis_data_store_for_cache
+  threads:
+    virtual:
+      enabled: true
+  config:
+    import: optional:file:.env[.properties]
+
+  cache:
+    type: redis
+
+  # Check the springboot version. If it is version 3.x.x > in spring.data.redis
+  #  link: https://stackoverflow.com/questions/77683394/getting-connection-refused-from-redis-cloud-spring-boot-integration
+  data:
+    redis:
+      host: ${DATA_REDIS_HOST:localhost}
+      port: ${DATA_REDIS_PORT:14218}
+      username: ${DATA_REDIS_USERNAME:u1}
+      password: ${DATA_REDIS_PASSWORD:p1}
+
+cache:
+  redis:
+    name: user_cache
+    ttl:
+      seconds: 360
+
+
+server:
+  port: ${APP_SERVICE_PORT:8185}
+  error.include-message: always
+
+#logging:
+#  level:
+#    root: ${APP_SERVICE_ROOT_LOG_LEVEL:DEBUG}
+#    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:DEBUG}
+

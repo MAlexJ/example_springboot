@@ -1,4 +1,5 @@
 rootProject.name = 'web'
 
 include 'web_flux_handler_function',
-        'function_endpoints'
+        'function_endpoints',
+        'rest_api'

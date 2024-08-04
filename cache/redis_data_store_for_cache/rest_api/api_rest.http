@@ -1,0 +1,50 @@
+### create uset id=1
+POST http://localhost:8185/v1/users
+Content-Type: application/json
+
+{
+  "id": 1,
+  "username": "Alex"
+}
+
+### create uset id=2
+POST http://localhost:8185/v1/users
+Content-Type: application/json
+
+{
+  "id": 2,
+  "username": "Max"
+}
+
+### create uset id=3
+POST http://localhost:8185/v1/users
+Content-Type: application/json
+
+{
+  "id": 3,
+  "username": "Stefan"
+}
+
+### all users
+GET http://localhost:8185/v1/users
+
+### user id=1
+GET http://localhost:8185/v1/users/1
+
+### user id=2
+GET http://localhost:8185/v1/users/2
+
+### user id=3
+GET http://localhost:8185/v1/users/3
+
+### delete id=3
+DELETE http://localhost:8185/v1/users/1
+
+### update user id=1, name=ANNA
+PUT http://localhost:8185/v1/users
+Content-Type: application/json
+
+{
+  "id": 1,
+  "username": "ANNA"
+}

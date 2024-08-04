@@ -1,2 +1,3 @@
 rootProject.name = 'cache'
-include 'spring-boot-cache-in-memory'
+include 'spring-boot-cache-in-memory',
+        'redis_data_store_for_cache'
