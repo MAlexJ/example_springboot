@@ -1,5 +1,5 @@
 buildscript {
-    new BufferedReader(new FileReader(file('../gradle.properties')))
+    new BufferedReader(new FileReader(file('../../gradle.properties')))
             .withCloseable { reader ->
                 String line
                 while ((line = reader.readLine()) != null) {
@@ -18,16 +18,12 @@ plugins {
     id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
-group = 'com.example'
+group = 'com.malex'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = "${javaVersion}"
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -41,6 +37,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

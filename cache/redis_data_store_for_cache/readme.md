@@ -13,6 +13,8 @@ link: https://www.baeldung.com/spring-boot-redis-cache
 
 #### Configuration
 
+spring documentation: https://docs.spring.io/spring-data/redis/reference/redis/redis-cache.html
+
 #### Time To Live(TTL):
 
 Time To Live(TTL):

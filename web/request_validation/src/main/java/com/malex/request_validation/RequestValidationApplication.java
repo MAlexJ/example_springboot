@@ -1,12 +1,8 @@
-package com.example;
+package com.malex.request_validation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Tutorial: <a href="https://www.youtube.com/watch?v=gPnd-hzM_6A">REST API Request Validation &
- * Exception Handling</a>
- */
 @SpringBootApplication
 public class RequestValidationApplication {
 

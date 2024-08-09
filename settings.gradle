@@ -7,7 +7,6 @@ rootProject.name = 'example-springboot'
 include 'scheduled_async',
         'aop-web-service',
         'dmdev-base-springboot-course',
-        'request_validation',
         'web-security',
         'common-mistakes-or-best-rules',
         'common-mistakes-or-best-rules:run_method_or_code_at_application_start',
@@ -31,4 +30,6 @@ include 'scheduled_async',
         'web',
         'web:rest_api',
         'web:function_endpoints',
-        'web:web_flux_handler_function'
+        'web:web_flux_handler_function',
+        'web:request_validation',
+        'developer_tools'
