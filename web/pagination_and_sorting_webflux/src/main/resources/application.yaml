@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: pagination_and_sorting_webflux
+
+  threads:
+    virtual:
+      enabled: true
+
+  config:
+    import: optional:file:.env[.properties]
+
+  r2dbc:
+    url: r2dbc:h2:mem:///~/db/test_db
+    username: sa
+
+server:
+  port: ${APP_SERVICE_PORT:8080}
+  error.include-message: always
+
+logging:
+  level:
+    root: ${APP_SERVICE_ROOT_LOG_LEVEL:INFO}
+    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}

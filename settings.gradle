@@ -32,4 +32,5 @@ include 'scheduled_async',
         'web:function_endpoints',
         'web:web_flux_handler_function',
         'web:request_validation',
+        'web:pagination_and_sorting_webflux',
         'developer_tools'

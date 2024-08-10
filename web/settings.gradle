@@ -2,4 +2,6 @@ rootProject.name = 'web'
 
 include 'web_flux_handler_function',
         'function_endpoints',
-        'rest_api'
+        'rest_api',
+        'request_validation',
+        'pagination_and_sorting_webflux'
