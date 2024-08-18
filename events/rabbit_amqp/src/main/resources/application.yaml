@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: rabbit_amqp
+  config:
+    import: optional:file:.env[.properties]
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+
+  threads:
+    virtual:
+      enabled: true
+
+rabbitmq:
+  queue:
+    name: javaguides
+  exchange:
+    name: javaguides_exchange
+  routing:
+    key: javaguides_routing_key

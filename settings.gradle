@@ -33,4 +33,5 @@ include 'scheduled_async',
         'web:web_flux_handler_function',
         'web:request_validation',
         'web:pagination_and_sorting_webflux',
-        'developer_tools'
+        'developer_tools',
+        'message_broker'
