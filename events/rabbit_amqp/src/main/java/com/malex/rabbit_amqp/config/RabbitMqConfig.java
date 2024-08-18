@@ -40,8 +40,31 @@ public class RabbitMqConfig {
   }
 
   // 4. ConnectionFactory configuration - automatically by Spring
+  //  @Bean
+  //  public ConnectionFactory connectionFactory() {
+  //    CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+  //    connectionFactory.setVirtualHost(virtualHost);
+  //    connectionFactory.setHost(host);
+  //    connectionFactory.setUsername(username);
+  //    connectionFactory.setPassword(password);
+  //    return connectionFactory;
+  //  }
 
   // 5. RabbitTemplate configuration - automatically by Spring
+  //  @Bean
+  //  public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+  //    var rabbitTemplate = new RabbitTemplate(connectionFactory);
+  //    rabbitTemplate.setDefaultReceiveQueue(queueName);
+  //    rabbitTemplate.setMessageConverter(jsonMessageConverter());
+  //    rabbitTemplate.setReplyAddress(queue().getName());
+  //    rabbitTemplate.setReplyTimeout(replyTimeout);
+  //    rabbitTemplate.setUseDirectReplyToContainer(false);
+  //    return rabbitTemplate;
+  //  }
 
   // 6. RabbitAdmin configuration - automatically by Spring
+  //  @Bean
+  //  public AmqpAdmin amqpAdmin() {
+  //    return new RabbitAdmin(connectionFactory());
+  //  }
 }

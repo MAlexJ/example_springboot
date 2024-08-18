@@ -1,12 +1,26 @@
-### RabbitMq
+### RabbitMQ
 
+RabbitMQ is a reliable and mature messaging and streaming broker,
 tutorial: https://www.youtube.com/watch?v=0--Ll3WHMTQ
 
-#### Switching to CloudAMQP gives com.rabbitmq.client.ShutdownSignalException
+#### CloudAMQP RabbitMQ provider
+
+link: https://api.cloudamqp.com
+
+plan: 'Little Lemur'
+
+* Open Connections: 0 of 20
+* Max Idle Queue Time: 28 days
+* Queues: 2 of 150
+* Messages: 7 of 1 000 000
+* Queue Length: 1 of 10 000
+
+#### Switching to CloudAMQP
+
+I had the same error when I switched to Cloud AMQP.
 
 link: https://stackoverflow.com/questions/72248024/switching-to-cloudamqp-gives-com-rabbitmq-client-shutdownsignalexception
 
-I had the same error when I switched to Cloud AMQP.
 As you mentioned, the virtual host was missing from the properties:
 
 ```
@@ -18,14 +32,19 @@ spring.rabbitmq.password=........
 spring.rabbitmq.port=5672
 ```
 
-### Reference Documentation
+### Configurations RabbitMQ with Spring Boot
 
-* [Spring for RabbitMQ](https://docs.spring.io/spring-boot/docs/3.3.1/reference/htmlsingle/index.html#messaging.amqp)
+RabbitMQ is an open-source message broker that allows applications to communicate with each other.
+It’s a very popular AMQP(Advance Message Queuing Protocol) supported by most programming languages.RabbitMQ is an
+open-source message broker that allows applications to communicate with each other. It’s a very popular AMQP(Advance
+Message Queuing Protocol) supported by most programming languages.
 
-### Guides
+link: https://medium.com/@ravinduperera1229/rabbitmq-with-spring-boot-1935ed42da6a
 
-The following guides illustrate how to use some features concretely:
-
-* [Messaging with RabbitMQ](https://spring.io/guides/gs/messaging-rabbitmq/)
+RabbitMQ Components:
 
 
+
+### Configurations RabbitMQ Spring tutorial
+
+link: https://habr.com/ru/articles/262069/
