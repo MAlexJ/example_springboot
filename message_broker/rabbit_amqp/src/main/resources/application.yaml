@@ -15,19 +15,26 @@ spring:
     virtual:
       enabled: true
 
+  main:
+    allow-bean-definition-overriding: true
+
 rabbitmq:
-  queue: dl_queue
-  exchange: javaguides_exchange
-  routingkey: javaguides_routing_key
+  dl:
+    queue: dl_queue
+    exchange: dl_exchange
+    routing:
+      key: dl_routing_key
+  queue: message_event_queue
+  exchange: message_event_exchange
+  routing:
+    key: message_event_routing_key
   username: ${RABBITMQ_USERNAME}
   password: ${RABBITMQ_PASSWORD}
   host: ${RABBITMQ_HOST:localhost}
   virtualhost: ${RABBITMQ_VIRTUAL_HOST}
   reply:
-    timeout: 200
+    timeout: 2000
   concurrent:
-    consumers: 1
-  max:
-    concurrent:
-      consumers: 5
-
+    consumers:
+      min: 1
+      max: 5

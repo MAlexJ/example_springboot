@@ -33,13 +33,22 @@ import org.springframework.util.ErrorHandler;
 public class RabbitMqConfiguration {
 
   @Value("${rabbitmq.queue}")
-  private String queueName;
+  private String queue;
 
   @Value("${rabbitmq.exchange}")
   private String exchange;
 
-  @Value("${rabbitmq.routingkey}")
-  private String routingkey;
+  @Value("${rabbitmq.routing.key}")
+  private String routingKey;
+
+  @Value("${rabbitmq.dl.queue}")
+  private String deadLetterQueue;
+
+  @Value("${rabbitmq.dl.exchange}")
+  private String deadLetterExchange;
+
+  @Value("${rabbitmq.dl.routing.key}")
+  private String deadLetterRoutingKey;
 
   @Value("${rabbitmq.username}")
   private String username;
@@ -53,60 +62,72 @@ public class RabbitMqConfiguration {
   @Value("${rabbitmq.virtualhost}")
   private String virtualHost;
 
-  @Value("${rabbitmq.reply.timeout:1}")
+  /*
+   * Specify the timeout in milliseconds to be used when waiting for a reply Message when using one
+   * of the sendAndReceive methods.
+   * The default value is defined as DEFAULT_REPLY_TIMEOUT.
+   */
+  @Value("${rabbitmq.reply.timeout}")
   private Integer replyTimeout;
 
-  @Value("${rabbitmq.concurrent.consumers:1}")
-  private Integer concurrentConsumers;
+  /*
+   * the minimum number of consumers to create.
+   */
+  @Value("${rabbitmq.concurrent.consumers.min}")
+  private Integer minConcurrentConsumers;
 
-  @Value("${rabbitmq.max.concurrent.consumers:1}")
+  @Value("${rabbitmq.concurrent.consumers.max}")
   private Integer maxConcurrentConsumers;
 
-  //  Dead Letter Queue configuration
+  /*
+   * Dead Letter queue configuration
+   */
   @Bean
-  //  @Qualifier("rabbitmq.demoQueue")
   @Qualifier("rabbitmq.deadLetterQueue")
-  public Queue queue() {
+  public Queue deadLetterQueue() {
     var deadLetter = new HashMap<String, Object>();
     deadLetter.put("x-dead-letter-exchange", "rabbitmq.deadLetterExchange");
     deadLetter.put("x-max-length", 1000);
-    return new Queue(queueName, true, false, false, deadLetter);
+    return new Queue(deadLetterQueue, true, false, false, deadLetter);
+  }
+
+  /*
+   * Dead Letter exchange configuration
+   */
+  @Bean
+  @Qualifier("rabbitmq.deadLetterExchange")
+  public DirectExchange deadLetterExchange() {
+    return new DirectExchange(deadLetterExchange);
+  }
+
+  /*
+   * Dead Letter binding configuration
+   */
+  @Bean
+  public Binding deadLetterBinding(
+      @Qualifier("rabbitmq.deadLetterQueue") Queue queue,
+      @Qualifier("rabbitmq.deadLetterExchange") DirectExchange exchange) {
+    return BindingBuilder.bind(queue).to(exchange).with(deadLetterRoutingKey);
+  }
+
+  // Queue configuration
+  @Bean
+  @Qualifier("rabbitmq.queue")
+  public Queue queue() {
+    return new Queue(queue, true);
   }
 
   @Bean
-  //  @Qualifier("rabbitmq.demoExchange")
-  @Qualifier("rabbitmq.deadLetterExchange")
+  @Qualifier("rabbitmq.exchange")
   public DirectExchange exchange() {
     return new DirectExchange(exchange);
   }
 
   @Bean
   public Binding binding(
-      @Qualifier("rabbitmq.deadLetterQueue") Queue queue,
-      @Qualifier("rabbitmq.deadLetterExchange") DirectExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(routingkey);
-  }
-
-  // Queue configuration
-  @Bean
-  //  @Qualifier("rabbitmq.demoDLQueue")
-  @Qualifier("rabbitmq.dLQueue")
-  public Queue dlQueue() {
-    return new Queue("rabbitmq.demoDLQueue", false);
-  }
-
-  @Bean
-  //  @Qualifier("rabbitmq.demoDLExchange")
-  @Qualifier("rabbitmq.dLExchange")
-  public DirectExchange dlExchange() {
-    return new DirectExchange("rabbitmq.dLExchange");
-  }
-
-  @Bean
-  public Binding dlBinding(
-      @Qualifier("rabbitmq.dLQueue") Queue queue,
-      @Qualifier("rabbitmq.dLExchange") DirectExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with("rabbitmq.routingkey");
+      @Qualifier("rabbitmq.queue") Queue queue,
+      @Qualifier("rabbitmq.exchange") DirectExchange exchange) {
+    return BindingBuilder.bind(queue).to(exchange).with(routingKey);
   }
 
   @Bean
@@ -122,14 +143,13 @@ public class RabbitMqConfiguration {
     connectionFactory.setHost(host);
     connectionFactory.setUsername(username);
     connectionFactory.setPassword(password);
-
     return connectionFactory;
   }
 
   @Bean
   public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
     final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-    rabbitTemplate.setDefaultReceiveQueue(queueName);
+    rabbitTemplate.setDefaultReceiveQueue(deadLetterQueue);
     rabbitTemplate.setMessageConverter(jsonMessageConverter());
     rabbitTemplate.setReplyAddress(queue().getName());
     rabbitTemplate.setReplyTimeout(replyTimeout);
@@ -147,7 +167,7 @@ public class RabbitMqConfiguration {
     final SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory());
     factory.setMessageConverter(jsonMessageConverter());
-    factory.setConcurrentConsumers(concurrentConsumers);
+    factory.setConcurrentConsumers(minConcurrentConsumers);
     factory.setMaxConcurrentConsumers(maxConcurrentConsumers);
     factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
     factory.setAdviceChain(setRetries());
@@ -163,13 +183,11 @@ public class RabbitMqConfiguration {
       extends ConditionalRejectingErrorHandler.DefaultExceptionStrategy {
     @Override
     public boolean isFatal(Throwable t) {
-      if (t instanceof ListenerExecutionFailedException) {
-        ListenerExecutionFailedException lefe = (ListenerExecutionFailedException) t;
+      if (t instanceof ListenerExecutionFailedException ex) {
         log.error(
-            "Failed to process inbound message from queue "
-                + lefe.getFailedMessage().getMessageProperties().getConsumerQueue()
-                + "; failed message: "
-                + lefe.getFailedMessage(),
+            "Failed to process inbound message from queue {}; failed message: {}",
+            ex.getFailedMessage().getMessageProperties().getConsumerQueue(),
+            ex.getFailedMessage(),
             t);
       }
       return super.isFatal(t);

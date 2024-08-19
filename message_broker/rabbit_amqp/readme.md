@@ -3,7 +3,7 @@
 RabbitMQ is a reliable and mature messaging and streaming broker,
 tutorial: https://www.youtube.com/watch?v=0--Ll3WHMTQ
 
-RabbitMQ is an extremely popular open-source Message Broker used for building message-based systems. 
+RabbitMQ is an extremely popular open-source Message Broker used for building message-based systems.
 Although RabbitMQ supports multiple protocols, the most commonly used is AMQP.
 
 AMQP 0–9–1 (Advanced Message Queuing Protocol) is a messaging protocol that enables conforming client applications to
@@ -55,3 +55,10 @@ RabbitMQ Components:
 ### Configurations RabbitMQ Spring tutorial
 
 link: https://habr.com/ru/articles/262069/
+
+### BeanDefinitionOverrideException in Spring Boot
+
+The Spring Boot 2.1 upgrade surprised people with unexpected occurrences of the BeanDefinitionOverrideException. It can
+confuse developers and make them wonder what happened to the bean overriding behavior in Spring.
+
+link: https://www.baeldung.com/spring-boot-bean-definition-override-exception
