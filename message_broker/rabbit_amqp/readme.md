@@ -62,3 +62,55 @@ The Spring Boot 2.1 upgrade surprised people with unexpected occurrences of the 
 confuse developers and make them wonder what happened to the bean overriding behavior in Spring.
 
 link: https://www.baeldung.com/spring-boot-bean-definition-override-exception
+
+### Time-to-Live and Expiration
+
+link: https://www.rabbitmq.com/docs/ttl
+
+With RabbitMQ, you can set a TTL (time-to-live) argument or policy for messages and queues.
+As the name suggests, TTL specifies the time period that the messages and queues "live for".
+
+Message TTL determines how long messages can be retained in a queue.
+If the retention period of a message in a queue exceeds the message TTL of the queue, the message expires and is
+discarded.
+
+#### Springboot TTL sample
+
+There are different ways where RabbitMQ deletes the messages. Some of them are:
+
+After Ack from consumer
+Time-to-live(TTL) for that Queue reached.
+Time-to-live(TTL) for messages on that Queue reached.
+
+```
+rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE,
+                    RabbitMqConfig.RK,
+                    String.valueOf(body),
+                    message -> {
+              message.getMessageProperties().setExpiration(String.valueOf(1000));
+                        return message;
+                    });
+```
+
+or
+
+```
+@Autowired
+   private RabbitTemplate   rabbit;
+
+   @Autowired
+   private MessageConverter jsonMessageConverter;
+
+   public void produce() {
+
+      rabbit.setExchange("My.Exchange");
+      rabbit.setRoutingKey("R.K");
+      rabbit.setMessageConverter(jsonMessageConverter);
+      MessageProperties props = new MessageProperties();
+      props.setExpiration(Long.toString(expiration));
+      Message toSend = new Message(message.toString().getBytes(), props);
+      rabbit.send(toSend);
+   }
+```
+
+link: https://stackoverflow.com/questions/45986687/how-to-set-per-message-ttl-with-rabbittemplate

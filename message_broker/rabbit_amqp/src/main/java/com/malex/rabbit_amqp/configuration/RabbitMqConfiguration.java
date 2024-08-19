@@ -169,6 +169,13 @@ public class RabbitMqConfiguration {
     factory.setMessageConverter(jsonMessageConverter());
     factory.setConcurrentConsumers(minConcurrentConsumers);
     factory.setMaxConcurrentConsumers(maxConcurrentConsumers);
+    /*
+     * The acknowledge mode to set.
+     * Defaults to AcknowledgeMode. AUTO
+     *
+     *
+     *
+     */
     factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
     factory.setAdviceChain(setRetries());
     return factory;
