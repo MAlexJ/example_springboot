@@ -10,6 +10,8 @@ AMQP 0–9–1 (Advanced Message Queuing Protocol) is a messaging protocol that 
 communicate with conforming messaging middleware brokers. It’s an application layer protocol that transmits data in
 binary format. In this application, data is sent as frames.
 
+link: https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
+
 #### CloudAMQP RabbitMQ provider
 
 link: https://api.cloudamqp.com

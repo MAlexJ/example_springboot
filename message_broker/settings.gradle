@@ -1,1 +1,3 @@
 rootProject.name = 'message_broker'
+
+include 'rabbit_amqp'

@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: rabbit_amqp
+  config:
+    import: optional:file:.env[.properties]
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+
+  threads:
+    virtual:
+      enabled: true
+
+rabbitmq:
+  queue: dl_queue
+  exchange: javaguides_exchange
+  routingkey: javaguides_routing_key
+  username: ${RABBITMQ_USERNAME}
+  password: ${RABBITMQ_PASSWORD}
+  host: ${RABBITMQ_HOST:localhost}
+  virtualhost: ${RABBITMQ_VIRTUAL_HOST}
+  reply:
+    timeout: 200
+  concurrent:
+    consumers: 1
+  max:
+    concurrent:
+      consumers: 5
+
