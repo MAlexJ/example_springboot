@@ -121,6 +121,7 @@ public class RabbitMqConfiguration {
      *        or throws an exception
      */
     factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
+    // need verify it!
     factory.setErrorHandler(errorHandler());
     factory.setAdviceChain(setRetries());
     return factory;
@@ -145,6 +146,7 @@ public class RabbitMqConfiguration {
             ex.getFailedMessage(),
             t);
       }
+      log.error("Failed to process inbound message from queue {}", t);
       return super.isFatal(t);
     }
   }
@@ -157,12 +159,4 @@ public class RabbitMqConfiguration {
         .backOffOptions(1000, 2, 10000)
         .build();
   }
-
-  //  @Bean
-  //  public RabbitRetryTemplateCustomizer customizeRetryPolicy(
-  //      @Value("${spring.rabbitmq.listener.simple.retry.max-attempts:4}") int maxAttempts) {
-  //    SimpleRetryPolicy policy =
-  //        new SimpleRetryPolicy(maxAttempts, Map.of(RuntimeException.class, false), true, true);
-  //    return (target, retryTemplate) -> retryTemplate.setRetryPolicy(policy);
-  //  }
 }

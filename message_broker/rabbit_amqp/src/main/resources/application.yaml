@@ -10,13 +10,6 @@ spring:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
     virtual-host: ${RABBITMQ_VIRTUAL_HOST}
-#
-#
-#    listener:
-#      simple:
-#        default-requeue-rejected: false
-#      direct:
-#        default-requeue-rejected: false
 
   threads:
     virtual:
