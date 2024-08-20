@@ -1,13 +1,8 @@
 package com.malex.rabbit_amqp.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.RetryInterceptorBuilder;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -20,7 +15,6 @@ import org.springframework.amqp.rabbit.retry.RejectAndDontRequeueRecoverer;
 import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,20 +29,8 @@ public class RabbitMqConfiguration {
   @Value("${rabbitmq.queue}")
   private String queue;
 
-  @Value("${rabbitmq.exchange}")
-  private String exchange;
-
-  @Value("${rabbitmq.routing.key}")
-  private String routingKey;
-
   @Value("${rabbitmq.dl.queue}")
   private String deadLetterQueue;
-
-  @Value("${rabbitmq.dl.exchange}")
-  private String deadLetterExchange;
-
-  @Value("${rabbitmq.dl.routing.key}")
-  private String deadLetterRoutingKey;
 
   @Value("${rabbitmq.username}")
   private String username;
@@ -79,64 +61,6 @@ public class RabbitMqConfiguration {
   @Value("${rabbitmq.concurrent.consumers.max}")
   private Integer maxConcurrentConsumers;
 
-  /*
-   * Dead Letter queue configuration
-   */
-  @Bean
-  @Qualifier("rabbitmq.deadLetterQueue")
-  public Queue deadLetterQueue() {
-    var props = new HashMap<String, Object>();
-//    props.put("x-dead-letter-exchange", deadLetterExchange);
-    //    props.put("x-max-length", 1000);
-    return new Queue(deadLetterQueue, true, false, false, props);
-  }
-
-  /*
-   * Dead Letter exchange configuration
-   */
-  @Bean
-  @Qualifier("rabbitmq.deadLetterExchange")
-  public DirectExchange deadLetterExchange() {
-    return new DirectExchange(deadLetterExchange);
-  }
-
-  /*
-   * Dead Letter binding configuration
-   */
-  @Bean
-  public Binding deadLetterBinding(
-      @Qualifier("rabbitmq.deadLetterQueue") Queue queue,
-      @Qualifier("rabbitmq.deadLetterExchange") DirectExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(deadLetterRoutingKey);
-  }
-
-  // Queue configuration
-  @Bean
-  @Qualifier("rabbitmq.queue")
-  public Queue queue() {
-
-
-    return QueueBuilder.durable(queue)
-            .withArgument("x-dead-letter-exchange", deadLetterExchange)
-            .withArgument("x-dead-letter-routing-key", deadLetterQueue)
-            .ttl(2000)
-            .build();
-    //     new Queue(queue, true);
-  }
-
-  @Bean
-  @Qualifier("rabbitmq.exchange")
-  public DirectExchange exchange() {
-    return new DirectExchange(exchange);
-  }
-
-  @Bean
-  public Binding binding(
-      @Qualifier("rabbitmq.queue") Queue queue,
-      @Qualifier("rabbitmq.exchange") DirectExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(routingKey);
-  }
-
   @Bean
   public MessageConverter jsonMessageConverter() {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -161,7 +85,7 @@ public class RabbitMqConfiguration {
     /*
      * The name of the default queue to receive messages from when none is specified explicitly.
      */
-    rabbitTemplate.setDefaultReceiveQueue(queue);
+    rabbitTemplate.setDefaultReceiveQueue(deadLetterQueue);
 
     /*
      * An address for replies; if not provided, a temporary exclusive,
@@ -187,7 +111,7 @@ public class RabbitMqConfiguration {
     factory.setMessageConverter(jsonMessageConverter());
     factory.setConcurrentConsumers(minConcurrentConsumers);
     factory.setMaxConcurrentConsumers(maxConcurrentConsumers);
-    factory.setDefaultRequeueRejected(false);
+    //    factory.setDefaultRequeueRejected(false);
     /*
      * The acknowledge mode to set.
      * Defaults to AcknowledgeMode. AUTO
@@ -197,6 +121,7 @@ public class RabbitMqConfiguration {
      *        or throws an exception
      */
     factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
+    factory.setErrorHandler(errorHandler());
     factory.setAdviceChain(setRetries());
     return factory;
   }
@@ -210,6 +135,9 @@ public class RabbitMqConfiguration {
       extends ConditionalRejectingErrorHandler.DefaultExceptionStrategy {
     @Override
     public boolean isFatal(Throwable t) {
+      if (t instanceof RuntimeException ex) {
+        log.error(">>>>> Failed to process inbound message from queue {}", ex.getMessage(), t);
+      }
       if (t instanceof ListenerExecutionFailedException ex) {
         log.error(
             "Failed to process inbound message from queue {}; failed message: {}",
@@ -224,9 +152,17 @@ public class RabbitMqConfiguration {
   @Bean("operationsInterceptor")
   public RetryOperationsInterceptor setRetries() {
     return RetryInterceptorBuilder.stateless()
+        .recoverer(new RejectAndDontRequeueRecoverer())
         .maxAttempts(4)
         .backOffOptions(1000, 2, 10000)
-        .recoverer(new RejectAndDontRequeueRecoverer())
         .build();
   }
+
+  //  @Bean
+  //  public RabbitRetryTemplateCustomizer customizeRetryPolicy(
+  //      @Value("${spring.rabbitmq.listener.simple.retry.max-attempts:4}") int maxAttempts) {
+  //    SimpleRetryPolicy policy =
+  //        new SimpleRetryPolicy(maxAttempts, Map.of(RuntimeException.class, false), true, true);
+  //    return (target, retryTemplate) -> retryTemplate.setRetryPolicy(policy);
+  //  }
 }
