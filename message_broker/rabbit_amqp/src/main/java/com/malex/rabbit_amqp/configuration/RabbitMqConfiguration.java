@@ -85,10 +85,10 @@ public class RabbitMqConfiguration {
   @Bean
   @Qualifier("rabbitmq.deadLetterQueue")
   public Queue deadLetterQueue() {
-    var deadLetter = new HashMap<String, Object>();
-    deadLetter.put("x-dead-letter-exchange", "rabbitmq.deadLetterExchange");
-    deadLetter.put("x-max-length", 1000);
-    return new Queue(deadLetterQueue, true, false, false, deadLetter);
+    var props = new HashMap<String, Object>();
+//    props.put("x-dead-letter-exchange", deadLetterExchange);
+    //    props.put("x-max-length", 1000);
+    return new Queue(deadLetterQueue, true, false, false, props);
   }
 
   /*
@@ -114,7 +114,14 @@ public class RabbitMqConfiguration {
   @Bean
   @Qualifier("rabbitmq.queue")
   public Queue queue() {
-    return new Queue(queue, true);
+
+
+    return QueueBuilder.durable(queue)
+            .withArgument("x-dead-letter-exchange", deadLetterExchange)
+            .withArgument("x-dead-letter-routing-key", deadLetterQueue)
+            .ttl(2000)
+            .build();
+    //     new Queue(queue, true);
   }
 
   @Bean
@@ -149,9 +156,20 @@ public class RabbitMqConfiguration {
   @Bean
   public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
     final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-    rabbitTemplate.setDefaultReceiveQueue(deadLetterQueue);
     rabbitTemplate.setMessageConverter(jsonMessageConverter());
-    rabbitTemplate.setReplyAddress(queue().getName());
+
+    /*
+     * The name of the default queue to receive messages from when none is specified explicitly.
+     */
+    rabbitTemplate.setDefaultReceiveQueue(queue);
+
+    /*
+     * An address for replies; if not provided, a temporary exclusive,
+     * auto-delete queue will be used for each reply,
+     * unless RabbitMQ supports 'amq. rabbitmq. reply-to'
+     */
+    rabbitTemplate.setReplyAddress(queue);
+
     rabbitTemplate.setReplyTimeout(replyTimeout);
     rabbitTemplate.setUseDirectReplyToContainer(false);
     return rabbitTemplate;
@@ -169,12 +187,14 @@ public class RabbitMqConfiguration {
     factory.setMessageConverter(jsonMessageConverter());
     factory.setConcurrentConsumers(minConcurrentConsumers);
     factory.setMaxConcurrentConsumers(maxConcurrentConsumers);
+    factory.setDefaultRequeueRejected(false);
     /*
      * The acknowledge mode to set.
      * Defaults to AcknowledgeMode. AUTO
-     *
-     *
-     *
+     * NONE - No acks - autoAck=true in Channel. basicConsume().
+     * MANUAL - Manual acks - user must ack/ nack via a channel aware listener.
+     * AUTO - Auto - the container will issue the ack/ nack based on whether the listener returns normally,
+     *        or throws an exception
      */
     factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
     factory.setAdviceChain(setRetries());

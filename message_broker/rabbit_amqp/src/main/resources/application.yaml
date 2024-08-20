@@ -10,6 +10,13 @@ spring:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
     virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+#
+#
+#    listener:
+#      simple:
+#        default-requeue-rejected: false
+#      direct:
+#        default-requeue-rejected: false
 
   threads:
     virtual:
@@ -20,7 +27,7 @@ spring:
 
 rabbitmq:
   dl:
-    queue: dl_queue
+    queue: dl_queue.dlq
     exchange: dl_exchange
     routing:
       key: dl_routing_key
@@ -33,7 +40,7 @@ rabbitmq:
   host: ${RABBITMQ_HOST:localhost}
   virtualhost: ${RABBITMQ_VIRTUAL_HOST}
   reply:
-    timeout: 2000
+    timeout: 5000
   concurrent:
     consumers:
       min: 1
