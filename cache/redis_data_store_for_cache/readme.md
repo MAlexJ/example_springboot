@@ -7,6 +7,22 @@ latency.
 Due to its speed, Redis is the ideal choice for caching API calls, session states, complex computations,
 and database queries.
 
+### Project configuration
+
+###### Add properties to `.env` file:
+
+```
+DATA_REDIS_HOST=........redns.redis-cloud.com
+DATA_REDIS_PORT=11705
+DATA_REDIS_USERNAME=.....
+DATA_REDIS_PASSWORD=......
+```
+
+###### Provider:
+
+* https://redis.io (documentation)
+* https://app.redislabs.com/ (cloud service)
+
 #### Spring Boot Cache with Redis
 
 link: https://www.baeldung.com/spring-boot-redis-cache

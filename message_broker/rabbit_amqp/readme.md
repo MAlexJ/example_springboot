@@ -1,3 +1,11 @@
+### Spring AMQP
+
+The Spring AMQP project applies core Spring concepts to the development of AMQP-based messaging solutions. It provides
+a "template" as a high-level abstraction for sending and receiving messages.
+It also provides support for Message-driven POJOs with a "listener container".
+
+link: https://spring.io/projects/spring-amqp#overview
+
 ### RabbitMQ
 
 RabbitMQ is a reliable and mature messaging and streaming broker,
@@ -11,6 +19,22 @@ communicate with conforming messaging middleware brokers. It’s an application 
 binary format. In this application, data is sent as frames.
 
 link: https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
+
+### Project configuration
+
+###### Add properties to `.env` file:
+
+```
+RABBITMQ_HOST=cow.rmq2.cloudamqp.com
+RABBITMQ_PORT=5672
+RABBITMQ_USERNAME=......
+RABBITMQ_PASSWORD=........
+RABBITMQ_VIRTUAL_HOST=......
+```
+
+###### Provider
+
+* https://www.cloudamqp.com (Message Queues in the Cloud)
 
 #### CloudAMQP RabbitMQ provider
 

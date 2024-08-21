@@ -1,3 +1,4 @@
 rootProject.name = 'message_broker'
 
-include 'rabbit_amqp'
+include 'rabbit_amqp',
+        'apache_kafka'

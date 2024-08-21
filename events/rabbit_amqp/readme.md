@@ -3,12 +3,28 @@
 RabbitMQ is a reliable and mature messaging and streaming broker,
 tutorial: https://www.youtube.com/watch?v=0--Ll3WHMTQ
 
-RabbitMQ is an extremely popular open-source Message Broker used for building message-based systems. 
+RabbitMQ is an extremely popular open-source Message Broker used for building message-based systems.
 Although RabbitMQ supports multiple protocols, the most commonly used is AMQP.
 
 AMQP 0–9–1 (Advanced Message Queuing Protocol) is a messaging protocol that enables conforming client applications to
 communicate with conforming messaging middleware brokers. It’s an application layer protocol that transmits data in
 binary format. In this application, data is sent as frames.
+
+### Project configuration
+
+###### Add properties to `.env` file:
+
+```
+RABBITMQ_HOST=cow.rmq2.cloudamqp.com
+RABBITMQ_PORT=5672
+RABBITMQ_USERNAME=......
+RABBITMQ_PASSWORD=........
+RABBITMQ_VIRTUAL_HOST=......
+```
+
+###### Provider
+
+* https://www.cloudamqp.com (Message Queues in the Cloud)
 
 #### CloudAMQP RabbitMQ provider
 
