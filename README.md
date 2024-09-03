@@ -1,7 +1,7 @@
 ### Project setup
 
 * Java 21
-* Springboot 3.3.2
+* Springboot 3.3.3
 * Gradle 8.10
 
 ### Project configuration
@@ -67,17 +67,6 @@ DATA_REDIS_USERNAME=....
 DATA_REDIS_PASSWORD=......
 ```
 
-### Gradle Versions Plugin
-
-Displays a report of the project dependencies that are up-to-date, exceed the latest version found, have upgrades, or
-failed to be resolved, info: https://github.com/ben-manes/gradle-versions-plugin
-
-command:
-
-```
-gradle dependencyUpdates
-```
-
 ### Java code style
 
 Java code style refers to the conventions and guidelines that developers follow when writing Java code to ensure
@@ -106,7 +95,20 @@ git commit -m "Changing permission of gradlew"
 git push
 ```
 
-### Gradle wrapper
+### Gradle
+
+#### Gradle Versions Plugin
+
+Displays a report of the project dependencies that are up-to-date, exceed the latest version found, have upgrades, or
+failed to be resolved, info: https://github.com/ben-manes/gradle-versions-plugin
+
+command:
+
+```
+gradle dependencyUpdates
+```
+
+#### Gradle wrapper
 
 Gradle Wrapper Reference:
 https://docs.gradle.org/current/userguide/gradle_wrapper.html
