@@ -1,7 +1,7 @@
-package com.malex.pagination_and_sorting_webflux.controller;
+package com.malex.pagination_and_sorting.controller;
 
-import com.malex.pagination_and_sorting_webflux.entity.Film;
-import com.malex.pagination_and_sorting_webflux.repository.FilmRepository;
+import com.malex.pagination_and_sorting.entity.Film;
+import com.malex.pagination_and_sorting.repository.FilmRepository;
 import java.util.List;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;

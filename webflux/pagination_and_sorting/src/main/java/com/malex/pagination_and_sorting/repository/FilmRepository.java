@@ -1,6 +1,6 @@
-package com.malex.pagination_and_sorting_webflux.repository;
+package com.malex.pagination_and_sorting.repository;
 
-import com.malex.pagination_and_sorting_webflux.entity.Film;
+import com.malex.pagination_and_sorting.entity.Film;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;

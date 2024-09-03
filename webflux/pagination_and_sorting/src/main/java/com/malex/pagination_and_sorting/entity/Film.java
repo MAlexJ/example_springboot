@@ -1,4 +1,4 @@
-package com.malex.pagination_and_sorting_webflux.entity;
+package com.malex.pagination_and_sorting.entity;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

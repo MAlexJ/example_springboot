@@ -1,11 +1,10 @@
-package com.malex.pagination_and_sorting_webflux.controller;
+package com.malex.pagination_and_sorting.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.malex.pagination_and_sorting_webflux.entity.Film;
-import com.malex.pagination_and_sorting_webflux.repository.FilmRepository;
+import com.malex.pagination_and_sorting.entity.Film;
+import com.malex.pagination_and_sorting.repository.FilmRepository;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

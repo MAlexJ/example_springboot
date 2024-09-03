@@ -1,4 +1,4 @@
-package com.malex.pagination_and_sorting_webflux;
+package com.malex.pagination_and_sorting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
