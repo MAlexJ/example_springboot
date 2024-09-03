@@ -4,4 +4,5 @@ include 'web_flux_handler_function',
         'function_endpoints',
         'rest_api',
         'request_validation',
+        'response_server_error',
         'pagination_and_sorting_webflux'
