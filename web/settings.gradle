@@ -3,4 +3,5 @@ rootProject.name = 'web'
 include 'rest_api',
         'request_validation',
         'response_server_error',
-        'rest_date_parameters'
+        'date_time_parameters',
+        'date_time_parameters:request_level_configuration'
