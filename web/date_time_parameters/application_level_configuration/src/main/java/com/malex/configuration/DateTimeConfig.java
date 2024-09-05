@@ -25,13 +25,21 @@ public class DateTimeConfig extends WebMvcConfigurationSupport {
     // Ensure @NumberFormat is still supported
     conversionService.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
 
-    // Register JSR-310 date conversion with a specific global format
+    /*
+     * DateTimeFormatterRegistar, will be responsible for parsing the LocalDate and LocaDateTime objects.
+     *
+     * Register JSR-310 date conversion with a specific global format
+     */
     DateTimeFormatterRegistrar dateTimeRegistrar = new DateTimeFormatterRegistrar();
     dateTimeRegistrar.setDateFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     dateTimeRegistrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
     dateTimeRegistrar.registerFormatters(conversionService);
 
-    // Register date conversion with a specific global format
+    /*
+     * DateFormattingRegistrar, will handle the Date object.
+     *
+     * Register date conversion with a specific global format
+     */
     DateFormatterRegistrar dateRegistrar = new DateFormatterRegistrar();
     dateRegistrar.setFormatter(new DateFormatter("yyyy-MM-dd"));
     dateRegistrar.registerFormatters(conversionService);

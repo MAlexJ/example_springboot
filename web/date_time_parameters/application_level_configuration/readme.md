@@ -13,35 +13,41 @@ Instead, register formatters manually with the help of:
 
 * org.springframework.format.datetime.standard.DateTimeFormatterRegistrar
 * org.springframework.format.datetime.DateFormatterRegistrar
-  
-For example, the following Java configuration registers a global yyyyMMdd format:
+
+
+###### Convert Date Parameters at the Application Level
+
+Another way to handle date and time object conversion in Spring is to provide a global configuration. 
+By following the official documentation, we should extend the WebMvcConfigurationSupport configuration 
+and its mvcConversionService method:
 
 ```
 @Configuration
-public class AppConfig {
+public class DateTimeConfig extends WebMvcConfigurationSupport {
 
-	@Bean
-	public FormattingConversionService conversionService() {
+    @Bean
+    @Override
+    public FormattingConversionService mvcConversionService() {
+        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
 
-		// Use the DefaultFormattingConversionService but do not register defaults
-		DefaultFormattingConversionService conversionService =
-			new DefaultFormattingConversionService(false);
+        DateTimeFormatterRegistrar dateTimeRegistrar = new DateTimeFormatterRegistrar();
+        dateTimeRegistrar.setDateFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        dateTimeRegistrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+        dateTimeRegistrar.registerFormatters(conversionService);
 
-		// Ensure @NumberFormat is still supported
-		conversionService.addFormatterForFieldAnnotation(
-			new NumberFormatAnnotationFormatterFactory());
+        DateFormatterRegistrar dateRegistrar = new DateFormatterRegistrar();
+        dateRegistrar.setFormatter(new DateFormatter("dd.MM.yyyy"));
+        dateRegistrar.registerFormatters(conversionService);
 
-		// Register JSR-310 date conversion with a specific global format
-		DateTimeFormatterRegistrar dateTimeRegistrar = new DateTimeFormatterRegistrar();
-		dateTimeRegistrar.setDateFormatter(DateTimeFormatter.ofPattern("yyyyMMdd"));
-		dateTimeRegistrar.registerFormatters(conversionService);
-
-		// Register date conversion with a specific global format
-		DateFormatterRegistrar dateRegistrar = new DateFormatterRegistrar();
-		dateRegistrar.setFormatter(new DateFormatter("yyyyMMdd"));
-		dateRegistrar.registerFormatters(conversionService);
-
-		return conversionService;
-	}
+        return conversionService;
+    }
 }
 ```
+
+First, we create DefaultFormattingConversionService with a false parameter, 
+which means Spring won’t register any formatters by default.
+
+Then we need to register our custom formats for date and date-time parameters.
+We do this by registering two custom formatting registrars. 
+The first one, DateTimeFormatterRegistar, will be responsible for parsing the LocalDate and LocaDateTime objects. 
+The second one, DateFormattingRegistrar, will handle the Date object.

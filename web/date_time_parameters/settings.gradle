@@ -1,4 +1,5 @@
 rootProject.name = 'date_time_parameters'
 
 include 'request_level_configuration',
-        'application_level_configuration'
+        'application_level_configuration',
+        'properties_file_configuration'

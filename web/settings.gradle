@@ -4,4 +4,5 @@ include 'rest_api',
         'request_validation',
         'response_server_error',
         'date_time_parameters',
-        'date_time_parameters:request_level_configuration'
+        'date_time_parameters:request_level_configuration',
+        'date_time_parameters:properties_file_configuration'

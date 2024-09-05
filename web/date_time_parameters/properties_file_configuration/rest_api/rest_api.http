@@ -1,0 +1,15 @@
+### yyyy-MM-dd
+POST http://localhost:8080/v1/events/date?
+    date=2024-09-03
+
+### Custom DateTime Format: dd.mm.yyyy
+POST http://localhost:8080/v1/events/custom?
+    date=03.09.2023
+
+###
+POST http://localhost:8080/v1/events/local-date?
+    localDate=2024-09-03
+
+### yyyy-MM-dd HH:mm:ss
+POST http://localhost:8080/v1/events/local-date-time?
+    localDateTime=2024-09-03T21:15:00
