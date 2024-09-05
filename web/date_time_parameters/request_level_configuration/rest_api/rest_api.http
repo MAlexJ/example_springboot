@@ -1,9 +1,11 @@
-###
-GET http://localhost:8080/v1/events
-
 ### yyyy-MM-dd
 POST http://localhost:8080/v1/events/date?
     date=2024-09-03
+
+
+### Custom DateTime Format: dd.mm.yyyy
+POST http://localhost:8080/v1/events/customDateTimeFormat?
+    date=03.09.2023
 
 ###
 POST http://localhost:8080/v1/events/local-date?
@@ -13,9 +15,23 @@ POST http://localhost:8080/v1/events/local-date?
 POST http://localhost:8080/v1/events/local-date-time?
     localDateTime=2024-09-03T21:15:00
 
-###
-DELETE  http://localhost:8080/v1/events/1
+### find all events
+GET http://localhost:8080/v1/events
 
+### create event
+POST http://localhost:8080/v1/events
+Content-Type: application/json
+
+{
+  "text": "Test event",
+  "start": "2024-09-03T21:15:00",
+  "end": "2024-09-03T21:15:00",
+  "backColor": "red",
+  "borderColor": "black"
+}
+
+### delete event by id
+DELETE  http://localhost:8080/v1/events/1
 
 ###
 PATCH http://localhost:8080/v1/events/3

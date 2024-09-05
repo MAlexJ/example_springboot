@@ -1,7 +1,6 @@
 spring:
   application:
-    name: request _level_configuration
-
+    name: application_level_configuration
 
 server:
   error:

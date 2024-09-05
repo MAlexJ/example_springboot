@@ -57,6 +57,13 @@ public class RestApiControllers {
     return ResponseEntity.ok(localDateTime);
   }
 
+  @PostMapping("/customDateTimeFormat")
+  public ResponseEntity<Date> customDateTimeFormat(
+      @RequestParam("date") @DateTimeFormat(pattern = "dd.MM.yyyy") Date date) {
+    log.info("Custom date: {}", date);
+    return ResponseEntity.ok(date);
+  }
+
   @CrossOrigin
   @PostMapping
   public ResponseEntity<Event> createEvent(@RequestBody Event event) {
