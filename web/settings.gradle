@@ -1,6 +1,6 @@
 rootProject.name = 'web'
 
-include 'rest_api',
+include 'error_handling_for_rest',
         'request_validation',
         'response_server_error',
         'date_time_parameters',
