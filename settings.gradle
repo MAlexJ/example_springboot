@@ -44,4 +44,5 @@ include 'scheduled_async',
         'webflux:pagination_and_sorting',
         'webflux:function_endpoints',
         'multithreading_usage_patterns',
-        'multithreading_usage_patterns:asynchronous_process_on_signal'
+        'multithreading_usage_patterns:asynchronous_process_on_signal',
+        'multithreading_usage_patterns:parallel_execution_of_tasks_without_waiting'

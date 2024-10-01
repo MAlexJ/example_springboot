@@ -1,3 +1,4 @@
 rootProject.name = 'multithreading_usage_patterns'
 
-include 'asynchronous_process_on_signal'
+include 'asynchronous_process_on_signal',
+        'parallel_execution_of_tasks_without_waiting'
