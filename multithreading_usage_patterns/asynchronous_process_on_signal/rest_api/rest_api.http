@@ -1,0 +1,8 @@
+### Using directly call: pool-1-thread-1
+GET http://localhost:8080/v1/tasks/call_directly
+
+### Using @Async: pool-1-thread-1
+GET http://localhost:8080/v1/tasks/async
+
+### Using CompletableFuture: pool-1-thread-1
+GET http://localhost:8080/v1/tasks/completable_future

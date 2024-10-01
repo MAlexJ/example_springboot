@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: asynchronous_process_on_signal
