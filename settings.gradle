@@ -45,4 +45,5 @@ include 'scheduled_async',
         'webflux:function_endpoints',
         'multithreading_usage_patterns',
         'multithreading_usage_patterns:asynchronous_process_on_signal',
-        'multithreading_usage_patterns:parallel_execution_of_tasks_without_waiting'
+        'multithreading_usage_patterns:parallel_execution_of_tasks_without_waiting',
+        'multithreading_usage_patterns:limit_number_of_threads_to_call_external_service'
