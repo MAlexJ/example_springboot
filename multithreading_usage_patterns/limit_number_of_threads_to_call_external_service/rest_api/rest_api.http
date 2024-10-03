@@ -1,0 +1,6 @@
+###
+GET http://localhost:8080/v1/rate-limit/semaphore/hello
+
+###
+GET http://localhost:8080/v1/rate-limit/completable-future/java
+

@@ -1,5 +1,6 @@
-package com.malex.limit_number_of_threads_to_call_external_service.semaphore_service;
+package com.malex.service.semaphore_service;
 
+import com.malex.exception.CustomAppException;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public class SemaphoreService {
    */
   private final Semaphore semaphore = new Semaphore(10);
 
-  public String parsePageWithSemaphoreRateLimiting() {
+  public String rateLimiting(String value) {
     boolean isAcquired;
     try {
       /*
@@ -24,7 +25,7 @@ public class SemaphoreService {
        * if one becomes available within the given waiting time
        * and the current thread has not been interrupted.
        */
-      isAcquired = semaphore.tryAcquire(2, TimeUnit.SECONDS);
+      isAcquired = semaphore.tryAcquire(100, TimeUnit.MILLISECONDS);
     } catch (InterruptedException e) {
       log.warn("Interrupted - {}", e.getMessage());
       /* SonarLint: "InterruptedException" and "ThreadDeath" should not be ignored
@@ -39,12 +40,13 @@ public class SemaphoreService {
     }
 
     if (!isAcquired) {
-      log.info("Не удалось захватить поток семафора");
+      log.info("Failed to capture semaphore thread");
       return "fallback result";
     }
 
     try {
-      return "Success";
+      log.info("Rate-limit request -{}", value);
+      return process(value);
     } catch (Exception e) {
       return "fallback result";
     } finally {
@@ -52,7 +54,7 @@ public class SemaphoreService {
     }
   }
 
-  public static class CustomAppException extends RuntimeException {
-    public CustomAppException(Exception e) {}
+  private String process(String value) {
+    return String.format("Success - %s", value);
   }
 }

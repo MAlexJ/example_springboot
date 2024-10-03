@@ -1,4 +1,4 @@
-package com.malex.limit_number_of_threads_to_call_external_service.configuration;
+package com.malex.configuration;
 
 import java.util.concurrent.*;
 import org.springframework.context.annotation.Bean;
