@@ -2,5 +2,6 @@ rootProject.name = 'multithreading_usage_patterns'
 
 include 'asynchronous_process_on_signal',
         'parallel_execution_of_tasks_without_waiting',
-        'limit_number_of_threads_to_call_external_service',
-        'rate_limiting_internal_controller'
+        'rate_limiting_external_service_java',
+        'rate_limiting_internal_controller',
+        'rate_limiting_external_service_resilience4j'

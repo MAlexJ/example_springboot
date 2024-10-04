@@ -1,5 +1,3 @@
-import org.codehaus.groovy.runtime.GStringImpl
-
 buildscript {
     var fileReader = new FileReader(file('../../gradle.properties'))
     new BufferedReader(fileReader)
@@ -21,9 +19,6 @@ plugins {
     id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
-ext {
-    springCloudVersion = "${springCloudCDependencyVersion}" as GStringImpl
-}
 
 group = 'com.malex'
 version = '0.0.1-SNAPSHOT'
@@ -44,17 +39,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
-    }
 }
 
 tasks.named('test') {

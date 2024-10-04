@@ -1,4 +1,4 @@
-package com.malex.service.semaphore_service;
+package com.malex.service_with_semaphore;
 
 import com.malex.exception.CustomAppException;
 import java.util.concurrent.Semaphore;

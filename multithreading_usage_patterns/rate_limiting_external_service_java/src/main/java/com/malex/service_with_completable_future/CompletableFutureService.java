@@ -1,4 +1,4 @@
-package com.malex.service.completable_future_service;
+package com.malex.service_with_completable_future;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

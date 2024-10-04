@@ -1,7 +1,7 @@
 package com.malex.controller;
 
 import com.malex.exception.CustomAppException;
-import com.malex.service.semaphore_service.SemaphoreService;
+import com.malex.service_with_semaphore.SemaphoreService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

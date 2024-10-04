@@ -1,0 +1,54 @@
+import org.codehaus.groovy.runtime.GStringImpl
+
+buildscript {
+    var fileReader = new FileReader(file('../../gradle.properties'))
+    new BufferedReader(fileReader)
+            .withCloseable { reader ->
+                String line
+                while ((line = reader.readLine()) != null) {
+                    println(line)
+                    var name = line.substring(0, line.indexOf('='))
+                    var value = line.substring(line.indexOf('=') + 1)
+                    project.ext.set(name, value)
+                }
+            }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+    id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
+}
+
+
+group = 'com.malex'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = "${javaVersion}"
+}
+
+repositories {
+    mavenCentral()
+}
+ext {
+    springCloudVersion = "${springCloudCDependencyVersion}" as GStringImpl
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

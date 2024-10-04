@@ -1,6 +1,6 @@
 package com.malex.controller;
 
-import com.malex.service.completable_future_service.CompletableFutureService;
+import com.malex.service_with_completable_future.CompletableFutureService;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
