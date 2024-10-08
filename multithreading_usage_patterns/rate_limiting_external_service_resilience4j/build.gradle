@@ -1,5 +1,3 @@
-import org.codehaus.groovy.runtime.GStringImpl
-
 buildscript {
     var fileReader = new FileReader(file('../../gradle.properties'))
     new BufferedReader(fileReader)
@@ -32,21 +30,16 @@ java {
 repositories {
     mavenCentral()
 }
-ext {
-    springCloudVersion = "${springCloudCDependencyVersion}" as GStringImpl
-}
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+    implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jSpringBoot3Version}"
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
 }
 
 tasks.named('test') {

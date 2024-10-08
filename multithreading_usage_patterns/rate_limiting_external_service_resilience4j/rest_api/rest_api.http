@@ -1,0 +1,8 @@
+###
+GET http://localhost:8080/v1/info/hello_java?delay=true
+
+###
+GET http://localhost:8080/v1/info/hello_java?delay=true
+
+###
+GET http://localhost:8080/v1/info/hello_java

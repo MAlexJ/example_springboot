@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: rate_limiting_external_service_resilience4j
+
+resilience4j.bulkhead:
+  instances:
+    exampleSemaphore:
+      maxWaitDuration: 1ms
+      maxConcurrentCalls: 1
