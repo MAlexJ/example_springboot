@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: aop_custom_annotation
+
+
+rate:
+  limit: 1
+  duration: 60000

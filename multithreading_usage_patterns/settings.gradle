@@ -4,7 +4,7 @@ include 'asynchronous_process_on_signal',
         'parallel_execution_of_tasks_without_waiting',
         'rate_limiting_external_service_java',
         'rate_limiting_internal_controller',
-        'rate_limiting_internal_controller:aop_custom_annotation',
+        'rate_limiting_internal_controller:single_instance_aop_with_custom_annotation',
         'rate_limiting_internal_controller:multiple_instances_leaky_bucket_rate_limit',
         'rate_limiting_external_service_resilience4j',
         'aop_custom_annotation'

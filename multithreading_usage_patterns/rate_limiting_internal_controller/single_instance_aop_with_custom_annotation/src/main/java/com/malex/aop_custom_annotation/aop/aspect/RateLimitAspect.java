@@ -21,10 +21,10 @@ public class RateLimitAspect {
 
   private final ConcurrentHashMap<String, List<Long>> requestCounts = new ConcurrentHashMap<>();
 
-  @Value("${APP_RATE_LIMIT:#{1}}")
+  @Value("${rate.limit:#{1}}")
   private int rateLimit;
 
-  @Value("${APP_RATE_DURATIONINMS:#{60000}}")
+  @Value("${rate.duration:#{60000}}")
   private long rateDuration;
 
   /**
@@ -48,17 +48,18 @@ public class RateLimitAspect {
     final ServletRequestAttributes requestAttributes =
         (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 
-    final String key = requestAttributes.getRequest().getRemoteAddr();
+    final var request = requestAttributes.getRequest();
+    final var key = request.getRemoteAddr();
 
-    final long currentTime = System.currentTimeMillis();
+    final var currentTime = System.currentTimeMillis();
     requestCounts.putIfAbsent(key, new ArrayList<>());
     requestCounts.get(key).add(currentTime);
     cleanUpRequestCounts(currentTime);
 
     if (requestCounts.get(key).size() > rateLimit) {
-      throw new RateLimitException(
-          String.format(
-              ERROR_MESSAGE, requestAttributes.getRequest().getRequestURI(), key, rateDuration));
+      var requestURI = request.getRequestURI();
+      var errorMsg = String.format(ERROR_MESSAGE, requestURI, key, rateDuration);
+      throw new RateLimitException(errorMsg);
     }
   }
 
