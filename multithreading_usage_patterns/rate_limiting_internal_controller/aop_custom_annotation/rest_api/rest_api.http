@@ -1,0 +1,16 @@
+###
+POST http://localhost:8080/v1/api
+Content-Type: application/json
+
+{
+  "val": "Hello java!"
+}
+
+###
+POST http://localhost:8080/v1/api
+Content-Type: application/json
+
+{
+  "val": "Hello java!"
+}
+

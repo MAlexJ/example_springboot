@@ -49,4 +49,5 @@ include 'scheduled_async',
         'multithreading_usage_patterns:rate_limiting_external_service_java',
         'multithreading_usage_patterns:rate_limiting_external_service_resilience4j',
         'multithreading_usage_patterns:rate_limiting_internal_controller',
+        'multithreading_usage_patterns:rate_limiting_internal_controller:aop_custom_annotation',
         'testing_in_spring_boot_applications'
