@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: leaky_bucket_with_bucket4j_and_redis

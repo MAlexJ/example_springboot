@@ -1,3 +1,4 @@
 rootProject.name = 'rate_limiting_internal_controller'
 
-include 'aop_custom_annotation'
+include 'aop_custom_annotation',
+        'multiple_instances_leaky_bucket_rate_limit'
