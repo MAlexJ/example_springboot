@@ -25,6 +25,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// https://mvnrepository.com/artifact/com.bucket4j/bucket4j-core
+
+	// bucket4jVersion=8.10.1
+	implementation "com.bucket4j:bucket4j-core:8.10.1"
+
+	// https://mvnrepository.com/artifact/com.bucket4j/bucket4j-redis
+	implementation "com.bucket4j:bucket4j-redis:8.10.1"
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

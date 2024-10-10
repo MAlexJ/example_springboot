@@ -1,16 +1,28 @@
+buildscript {
+    new BufferedReader(new FileReader(file('../../gradle.properties')))
+            .withCloseable { reader ->
+                String line
+                while ((line = reader.readLine()) != null) {
+                    println(line)
+                    String name = line.substring(0, line.indexOf('='))
+                    String value = line.substring(line.indexOf('=') + 1)
+                    project.ext.set(name, value)
+                }
+            }
+}
+
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.2'
-    id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+    id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
 group = 'com.malex'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+    sourceCompatibility = "${javaVersion}"
 }
 
 configurations {
