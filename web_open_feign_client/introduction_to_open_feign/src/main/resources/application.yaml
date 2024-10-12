@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: introduction_to_open_feign
