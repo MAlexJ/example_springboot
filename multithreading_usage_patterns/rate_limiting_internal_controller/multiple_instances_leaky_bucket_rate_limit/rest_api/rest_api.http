@@ -3,3 +3,18 @@ GET http://localhost:8080/v1/api/welcome
 
 ###
 GET http://localhost:8080/v1/api/java
+
+###
+GET http://localhost:8080/v1/api/world
+
+###
+GET http://localhost:8080/v1/api/test
+
+###
+GET http://localhost:8080/v1/api/java
+
+###
+GET http://localhost:8080/v1/api/world
+
+###
+GET http://localhost:8080/v1/api/test
