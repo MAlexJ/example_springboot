@@ -1,8 +1,8 @@
 ### Project setup
 
 * Java 21
-* Springboot 3.3.3
-* Gradle 8.10
+* Springboot 3.3.4
+* Gradle 8.10.2
 
 ### Project configuration
 
@@ -61,10 +61,10 @@ link:  https://redis.io (documentation)
 link:  https://app.redislabs.com/ (cloud service)
 
 ```
-DATA_REDIS_HOST=......redis-cloud.com
-DATA_REDIS_PORT=11705
-DATA_REDIS_USERNAME=....
-DATA_REDIS_PASSWORD=......
+REDIS_HOST=......redis-cloud.com
+REDIS_PORT=11705
+REDIS_USERNAME=....
+REDIS_PASSWORD=......
 ```
 
 ### Java code style

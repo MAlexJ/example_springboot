@@ -14,10 +14,10 @@ spring:
   #  link: https://stackoverflow.com/questions/77683394/getting-connection-refused-from-redis-cloud-spring-boot-integration
   data:
     redis:
-      host: ${DATA_REDIS_HOST:localhost}
-      port: ${DATA_REDIS_PORT:14218}
-      username: ${DATA_REDIS_USERNAME:u1}
-      password: ${DATA_REDIS_PASSWORD:p1}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:14218}
+      username: ${REDIS_USERNAME:u1}
+      password: ${REDIS_PASSWORD:p1}
 
 cache:
   redis:

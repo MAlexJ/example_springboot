@@ -12,10 +12,10 @@ and database queries.
 ###### Add properties to `.env` file:
 
 ```
-DATA_REDIS_HOST=........redns.redis-cloud.com
-DATA_REDIS_PORT=11705
-DATA_REDIS_USERNAME=.....
-DATA_REDIS_PASSWORD=......
+REDIS_HOST=........redns.redis-cloud.com
+REDIS_PORT=11705
+REDIS_USERNAME=.....
+REDIS_PASSWORD=......
 ```
 
 ###### Provider:
