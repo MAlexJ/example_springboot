@@ -1,0 +1,3 @@
+rootProject.name = 'open_feign_client'
+
+include 'introduction_to_open_feign'
