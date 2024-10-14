@@ -1,3 +1,4 @@
 rootProject.name = 'open_feign_client'
 
-include 'introduction_to_open_feign'
+include 'introduction_to_open_feign',
+        'custom_beans_configuration'

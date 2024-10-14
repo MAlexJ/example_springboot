@@ -1,6 +1,6 @@
 spring:
   application:
-    name: introduction_to_open_feign
+    name: custom_beans_configuration
 
   threads:
     virtual:

@@ -59,4 +59,5 @@ include 'scheduled_async',
         'rest_clients:rest_template',
         'rest_clients:http_interface',
         'rest_clients:open_feign_client',
-        'rest_clients:open_feign_client:introduction_to_open_feign'
+        'rest_clients:open_feign_client:introduction_to_open_feign',
+        'rest_clients:open_feign_client:custom_beans_configuration'

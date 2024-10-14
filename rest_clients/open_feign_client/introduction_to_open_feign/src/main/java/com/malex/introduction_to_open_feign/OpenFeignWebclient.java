@@ -1,6 +1,7 @@
-package com.malex.introduction_to_open_feign.webservice;
+package com.malex.introduction_to_open_feign;
 
-import com.malex.introduction_to_open_feign.model.Post;
+import static com.malex.introduction_to_open_feign.OpenFeignIntroductionApplication.*;
+
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "jplaceholder", url = "https://jsonplaceholder.typicode.com/")
-public interface JSONPlaceHolderClient {
+@FeignClient(value = "openFeignWebclient", url = "https://jsonplaceholder.typicode.com/")
+public interface OpenFeignWebclient {
 
   // @RequestMapping with method or @GetMapping
   @RequestMapping(method = RequestMethod.GET, value = "/posts")

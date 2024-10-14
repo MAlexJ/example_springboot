@@ -5,4 +5,5 @@ include 'rest_client',
         'rest_template',
         'http_interface',
         'open_feign_client',
-        'open_feign_client:introduction_to_open_feign'
+        'open_feign_client:introduction_to_open_feign',
+        'open_feign_client:custom_beans_configuration'
