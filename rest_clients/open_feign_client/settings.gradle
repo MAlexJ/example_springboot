@@ -1,4 +1,9 @@
 rootProject.name = 'open_feign_client'
 
 include 'introduction_to_open_feign',
-        'custom_beans_configuration'
+        'custom_beans_configuration',
+        'configuration_using_properties',
+        'interceptors',
+        'fallback_pattern_with_hystrix_support',
+        'logging',
+        'error_handling'
