@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: enable_logging_level
+
+  threads:
+    virtual:
+      enabled: true
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          openFeignWebclient:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
+
+logging:
+  level:
+    com.malex.enable_logging_level.OpenFeignWebclient: DEBUG

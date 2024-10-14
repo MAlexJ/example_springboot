@@ -11,4 +11,6 @@ include 'rest_client',
         'open_feign_client:interceptors',
         'open_feign_client:fallback_pattern_with_hystrix_support',
         'open_feign_client:logging',
+        'open_feign_client:logging:normalized_logger',
+        'open_feign_client:logging:enable_logging_level',
         'open_feign_client:error_handling'

@@ -6,4 +6,6 @@ include 'introduction_to_open_feign',
         'interceptors',
         'fallback_pattern_with_hystrix_support',
         'logging',
+        'logging:normalized_logger',
+        'logging:enable_logging_level',
         'error_handling'
