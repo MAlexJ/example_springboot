@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: basic_auth_request_interceptor
+
+  threads:
+    virtual:
+      enabled: true
+
+  config:
+    import: optional:file:.env[.properties]
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          authOpenFeignWebclient:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
+
+logging:
+  level:
+    com.malex.basic_auth_request_interceptor.BasicAuthOpenFeignClient: DEBUG
+
+service:
+  client:
+    user: ${HTTP_BIN_BASIC_AUTH_USER:user}
+    password: ${HTTP_BIN_BASIC_AUTH_PASSWORD:passwd}
+    url: ${HTTP_BIN_URL:http://httpbin.org}
+    path:
+      auth: ${HTTP_BIN_BASIC_AUTH_PATH_AUTH:basic-auth}

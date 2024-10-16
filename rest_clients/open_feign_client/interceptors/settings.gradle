@@ -1,3 +1,4 @@
 rootProject.name = 'interceptors'
 
-include 'introduction'
+include 'introduction_req_resp_interceptors',
+        'basic_auth_request_interceptor'
