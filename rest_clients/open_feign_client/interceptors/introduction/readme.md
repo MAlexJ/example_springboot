@@ -1,7 +1,7 @@
 ### Introduction to Interceptors OpenFeign
 
 1. For request: implements feign.RequestInterceptor
-2. For response:
+2. For response: implements feign.ResponseInterceptor
 
 #### Application configuration
 
