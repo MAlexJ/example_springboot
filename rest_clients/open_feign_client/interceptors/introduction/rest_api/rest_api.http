@@ -1,0 +1,5 @@
+### find user info
+GET http://localhost:8080/v1/api/info
+
+### find bearer info
+GET http://localhost:8080/v1/api/bearer
