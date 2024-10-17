@@ -1,0 +1,8 @@
+### UNAUTHORIZED exception
+GET http://localhost:8080/v1/api/info
+
+### BAD_REQUEST exception
+GET http://localhost:8080/v1/api/status/400
+
+### NOT_FOUND exception
+GET http://localhost:8080/v1/api/status/404
