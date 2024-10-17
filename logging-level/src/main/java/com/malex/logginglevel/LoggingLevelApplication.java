@@ -4,6 +4,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +16,10 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @SpringBootApplication
+@RequiredArgsConstructor
 public class LoggingLevelApplication implements CommandLineRunner {
+
+  private final MyServiceImpl myService;
 
   @Override
   public void run(String... args) {
@@ -24,6 +28,7 @@ public class LoggingLevelApplication implements CommandLineRunner {
     log.info("run INFO Message");
     log.warn("run WARN Message");
     log.error("run ERROR Message");
+    myService.print();
   }
 
   public static void main(String[] args) {
@@ -43,6 +48,9 @@ public class LoggingLevelApplication implements CommandLineRunner {
                       log.info("An INFO Message");
                       log.warn("A WARN Message");
                       log.error("An ERROR Message");
+
+                      // TRACE level enabled for a class
+                      myService.print();
                     })
                 .doOnCancel(() -> log.info("Closing connection")));
   }

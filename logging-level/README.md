@@ -1,5 +1,18 @@
 ## Spring app login level
 
+Logger:
+An object that records log messages in the software application.
+Loggers are typically associated with specific classes or packages and are used to categorize and manage log messages.
+
+Log Level:
+Indicates the severity or importance of the log message. Common log levels include:
+
+DEBUG: Shows detailed information for debugging purposes.
+INFO: Shows informational messages highlighting the progress of the application.
+WARN: Shows warnings indicating potential issues or unexpected behavior.
+ERROR: Indicates error messages for failures or problems requiring attention.
+TRACE: Provides very detailed information, more granular than DEBUG, often used for tracing program execution.
+
 link: https://www.baeldung.com/spring-boot-logging
 
 That’s because every starter, like our spring-boot-starter-web, depends on spring-boot-starter-logging, which already
@@ -45,4 +58,18 @@ logback-spring.xml
 logback.xml
 logback-spring.groovy
 logback.groovy
+```
+
+#### Open the application file and write the below code in the project for server port and logging configuration
+
+```
+spring.application.name=spring-log-demo
+
+server.port=8080
+
+# Set logging level for the root logger
+logging.level.root=INFO
+
+# Set logging level for a specific package
+logging.level.org.example.springlogdemo.LogDemo.LogExample=DEBUG
 ```
