@@ -1,6 +1,11 @@
 rootProject.name = 'web'
 
 include 'error_handling',
+        'error_handling:controller_level_exception_handler_annotation',
+        'error_handling:controller_advice_annotation',
+        'error_handling:handler_exception_resolver_implementation',
+        'error_handling:response_status_exception_spring_5',
+        'error_handling:configuring_error_features_with_properties',
         'request_validation',
         'response_server_error',
         'date_time_parameters',

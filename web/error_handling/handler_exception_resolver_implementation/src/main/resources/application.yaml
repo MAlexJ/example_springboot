@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: handler_exception_resolver_implementation
+
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  error:
+    include-message: always
