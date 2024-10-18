@@ -6,6 +6,13 @@ spring:
     virtual:
       enabled: true
 
+  config:
+    import: optional:file:.env[.properties]
+
+webclient:
+  url: ${HTTP_DUMMY_JSON_URL:https://dummyjson.com}
+  path: ${HTTP_DUMMY_JSON_PRODUCTS_PATH:products}
+
 server:
   error:
     include-message: always

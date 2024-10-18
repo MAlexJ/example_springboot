@@ -1,5 +1,12 @@
 ### Spring Boot Exception Handling — HandlerExceptionResolver
 
+Add URL and PATH configuration `.env` file
+
+```
+HTTP_DUMMY_JSON_URL=https://dummyjson.com
+HTTP_DUMMY_JSON_PRODUCTS_PATH=products
+```
+
 Error and Exception handling is essential for a web application and proper responses with reasonable details
 are required for better debugging and user experience.
 Spring Boot provides a `/error` mapping that handles all errors in a sensible way,
@@ -20,7 +27,7 @@ As usual, Spring Boot allows configuring these features with properties:
   with an always value - includes the stacktrace in both the HTML and the JSON default response
 
 * **server.error.include-message**
-  since version 2.3, Spring Boot hides the message field in the response to avoid leaking sensitive information, 
+  since version 2.3, Spring Boot hides the message field in the response to avoid leaking sensitive information,
   we can use this property with an always value to enable it
 
 yaml file:
