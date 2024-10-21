@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: uri_component_builder_in_spring
+
+  threads:
+    virtual:
+     enabled: true
