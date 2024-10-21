@@ -7,13 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UriBuilderBase {
 
+  protected static final String URL_TEMPLATE = "https://example.com/hotels/{hotel}";
+
+
   protected void verifyURI(URI actualUri, String expected) {
     var validUri =
         Optional.of(actualUri)
-            .map(URI::toString)
+            .map(URI::toASCIIString)
             .filter(url -> url.equals(expected))
             .orElseThrow(
-                () -> new IllegalArgumentException("Invalid URI , excepted - " + actualUri));
+                () -> new IllegalArgumentException("Invalid URI , actual - " + actualUri));
     print(validUri);
   }
 
@@ -22,7 +25,7 @@ public class UriBuilderBase {
         Optional.of(actualUri)
             .filter(url -> url.equals(expected))
             .orElseThrow(
-                () -> new IllegalArgumentException("Invalid URI , excepted - " + actualUri));
+                () -> new IllegalArgumentException("Invalid URI , actual - " + actualUri));
     print(validUri);
   }
 

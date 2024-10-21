@@ -1,4 +1,4 @@
-package com.malex.uri_component_builder_in_spring;
+package com.malex.uri_component_builder_in_spring.services;
 
 import com.malex.uri_component_builder_in_spring.base.UriBuilderBase;
 import java.net.URI;
@@ -9,19 +9,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Service
-public class UriBuilderExamples extends UriBuilderBase {
+public class ConstructingUriWithQueryParameters extends UriBuilderBase {
 
-  private static final String URL_TEMPLATE = "https://example.com/hotels/{hotel}";
-
-  public void run() {
+  public void runSamples() {
     immutableUriComponents();
     uriComponentsBuilder();
     expandFromUriString();
     buildAndExpandFromUriString();
     buildOneLineTemplate();
     toUriToUriStringToString();
-    withoutEncode();
-    encode();
   }
 
   /*
@@ -164,32 +160,5 @@ public class UriBuilderExamples extends UriBuilderBase {
 
     String toString = uriComponents.toString();
     verifyURI(toString, "https://example.com/hotels/Westin?q=123");
-  }
-
-  private void withoutEncode() {
-    var uriComponents =
-        UriComponentsBuilder.fromUriString(URL_TEMPLATE)
-            .queryParam("q", "{q}")
-            .buildAndExpand("_._;_:_help_", "a b");
-
-    // a b = a%20b
-    verifyURI(uriComponents.toUri(), "https://example.com/hotels/_._;_:_help_?q=a%20b");
-  }
-
-  private void encode() {
-
-    // ' ' = %20
-    var param = " ";
-    var uriComponents =
-        UriComponentsBuilder.fromUriString(URL_TEMPLATE).queryParam("q", param).encode().build();
-
-    String string = uriComponents.toString();
-    verifyURI(string, "https://example.com/hotels/{hotel}?q=%20");
-
-    // '%' = %25
-    param = "%";
-    uriComponents =
-        UriComponentsBuilder.fromUriString(URL_TEMPLATE).queryParam("new", param).encode().build();
-    verifyURI(uriComponents.toUriString(), "https://example.com/hotels/{hotel}?new=%25");
   }
 }

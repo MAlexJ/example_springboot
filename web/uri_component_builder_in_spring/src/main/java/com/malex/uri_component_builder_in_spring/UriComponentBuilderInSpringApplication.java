@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.malex.uri_component_builder_in_spring.services.ConstructingUriWithQueryParameters;
+import com.malex.uri_component_builder_in_spring.services.UriWithEncodedOrNot;
+
 @Slf4j
 @EnableScheduling
 @SpringBootApplication
 @RequiredArgsConstructor
 public class UriComponentBuilderInSpringApplication implements CommandLineRunner {
 
-  private final UriBuilderExamples service;
+  private final UriWithEncodedOrNot service;
+  private final ConstructingUriWithQueryParameters constructingUri;
 
   public static void main(String[] args) {
     SpringApplication.run(UriComponentBuilderInSpringApplication.class, args);
@@ -30,6 +34,7 @@ public class UriComponentBuilderInSpringApplication implements CommandLineRunner
   @Override
   public void run(String... args) {
     service.run();
+    constructingUri.runSamples();
   }
 
   @RestController
