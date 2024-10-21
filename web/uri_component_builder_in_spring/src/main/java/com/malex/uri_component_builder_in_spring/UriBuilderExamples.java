@@ -15,16 +15,19 @@ public class UriBuilderExamples extends UriBuilderBase {
 
   public void run() {
     immutableUriComponents();
+    uriComponentsBuilder();
     expandFromUriString();
     buildAndExpandFromUriString();
     buildOneLineTemplate();
-    toUri_toUriString_toString();
+    toUriToUriStringToString();
+    withoutEncode();
+    encode();
   }
 
   /*
    *  UriComponents class – an immutable container for URI components.
    */
-  public void immutableUriComponents() {
+  private void immutableUriComponents() {
 
     UriComponents uriComponents = UriComponentsBuilder.fromUriString(URL_TEMPLATE).build();
 
@@ -37,7 +40,21 @@ public class UriBuilderExamples extends UriBuilderBase {
     verifyURI(uriComponents.toUri(), rawUrl);
   }
 
-  public void expandFromUriString() {
+  private void uriComponentsBuilder() {
+    UriComponentsBuilder.fromUriString(URL_TEMPLATE);
+
+    UriComponentsBuilder.fromUri(URI.create(URL_TEMPLATE.replace("/{hotel}", "")));
+
+    UriComponentsBuilder.fromHttpUrl(URL_TEMPLATE);
+
+    UriComponentsBuilder.fromPath(URL_TEMPLATE);
+
+    UriComponentsBuilder.fromOriginHeader(URL_TEMPLATE);
+
+    UriComponentsBuilder.newInstance();
+  }
+
+  private void expandFromUriString() {
     UriComponents uriComponents =
         UriComponentsBuilder.fromUriString(URL_TEMPLATE)
             /*
@@ -88,7 +105,7 @@ public class UriBuilderExamples extends UriBuilderBase {
     verifyURI(uri, "https://example.com/hotels/Weston?q=123");
   }
 
-  public void buildAndExpandFromUriString() {
+  private void buildAndExpandFromUriString() {
 
     // UriComponentsBuilder
     UriComponentsBuilder firstUriComponentsBuilder =
@@ -99,22 +116,22 @@ public class UriBuilderExamples extends UriBuilderBase {
         firstUriComponentsBuilder.queryParam("q", "{q}");
 
     // UriComponents
-    UriComponents uriComponents = secondUriComponentsBuilder.buildAndExpand("Westin", "123");
+    UriComponents uriComponents = secondUriComponentsBuilder.buildAndExpand("Hosting", "2345");
 
     // URI
     URI uri = uriComponents.toUri();
 
-    verifyURI(uri, "https://example.com/hotels/Westin?q=123");
+    verifyURI(uri, "https://example.com/hotels/Hosting?q=2345");
   }
 
-  public void buildOneLineTemplate() {
+  private void buildOneLineTemplate() {
     URI uri =
-        UriComponentsBuilder.fromUriString("https://example.com/hotels/{hotel}?q={q}")
-            .build("Westin", "123");
-    verifyURI(uri, "https://example.com/hotels/Westin?q=123");
+        UriComponentsBuilder.fromUriString("https://example.com/hotels/{hotel}?filter={q}")
+            .build("_one_", "_two_");
+    verifyURI(uri, "https://example.com/hotels/_one_?filter=_two_");
   }
 
-  public void toUri_toUriString_toString() {
+  private void toUriToUriStringToString() {
 
     // UriComponentsBuilder
     var uriComponents =
@@ -147,5 +164,32 @@ public class UriBuilderExamples extends UriBuilderBase {
 
     String toString = uriComponents.toString();
     verifyURI(toString, "https://example.com/hotels/Westin?q=123");
+  }
+
+  private void withoutEncode() {
+    var uriComponents =
+        UriComponentsBuilder.fromUriString(URL_TEMPLATE)
+            .queryParam("q", "{q}")
+            .buildAndExpand("_._;_:_help_", "a b");
+
+    // a b = a%20b
+    verifyURI(uriComponents.toUri(), "https://example.com/hotels/_._;_:_help_?q=a%20b");
+  }
+
+  private void encode() {
+
+    // ' ' = %20
+    var param = " ";
+    var uriComponents =
+        UriComponentsBuilder.fromUriString(URL_TEMPLATE).queryParam("q", param).encode().build();
+
+    String string = uriComponents.toString();
+    verifyURI(string, "https://example.com/hotels/{hotel}?q=%20");
+
+    // '%' = %25
+    param = "%";
+    uriComponents =
+        UriComponentsBuilder.fromUriString(URL_TEMPLATE).queryParam("new", param).encode().build();
+    verifyURI(uriComponents.toUriString(), "https://example.com/hotels/{hotel}?new=%25");
   }
 }
