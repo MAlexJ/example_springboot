@@ -6,6 +6,8 @@ plugins {
 rootProject.name = 'example-springboot'
 
 include 'scheduled_async',
+        'actuator',
+        'actuator:shutdown',
         'aop_web_service',
         'dmdev-base-springboot-course',
         'web_security',
