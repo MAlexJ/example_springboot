@@ -8,6 +8,7 @@ rootProject.name = 'example-springboot'
 include 'scheduled_async',
         'actuator',
         'actuator:shutdown',
+        'actuator:shutdown_graceful',
         'aop_web_service',
         'dmdev-base-springboot-course',
         'web_security',

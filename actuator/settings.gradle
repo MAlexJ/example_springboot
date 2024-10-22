@@ -1,3 +1,4 @@
 rootProject.name = 'actuator'
 
-include 'shutdown'
+include 'shutdown',
+        'shutdown_graceful'
