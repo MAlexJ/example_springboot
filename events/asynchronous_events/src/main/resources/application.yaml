@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: asynchronous_events
+
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    root: TRACE
