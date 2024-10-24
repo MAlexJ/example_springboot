@@ -1,6 +1,6 @@
-package com.malex.simpleapplicationevent.publisher;
+package com.malex.synchronous.publisher;
 
-import com.malex.simpleapplicationevent.event.SimpleApplicationEvent;
+import com.malex.synchronous.event.IApplicationEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SimpleSpringEventPublisher {
+public class InterfaceImplEventPublisher {
 
   private final ApplicationEventPublisher applicationEventPublisher;
 
   public void publishEvent(Object event, String id) {
     log.info(
-        ">>>> Publishing simple event, object - '{}', thread - '{}'",
+        ">>>> Publishing interface impl event, object - '{}', thread - '{}'",
         event,
         Thread.currentThread().getName());
-    applicationEventPublisher.publishEvent(new SimpleApplicationEvent(this, event, id));
+    applicationEventPublisher.publishEvent(new IApplicationEvent(this, event, id));
   }
 }

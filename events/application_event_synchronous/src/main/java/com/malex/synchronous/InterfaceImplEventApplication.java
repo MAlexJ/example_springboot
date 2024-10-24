@@ -1,7 +1,7 @@
-package com.malex.simpleapplicationevent;
+package com.malex.synchronous;
 
-import com.malex.simpleapplicationevent.base.AbstractSpringBootRunnerUtils;
-import com.malex.simpleapplicationevent.publisher.SimpleSpringEventPublisher;
+import com.malex.synchronous.base.AbstractSpringBootRunnerUtils;
+import com.malex.synchronous.publisher.InterfaceImplEventPublisher;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,22 +15,24 @@ import org.springframework.context.annotation.Profile;
 @Slf4j
 @RequiredArgsConstructor
 @SpringBootApplication
-public class SimpleApplicationEventApplication extends AbstractSpringBootRunnerUtils
+public class InterfaceImplEventApplication extends AbstractSpringBootRunnerUtils
     implements CommandLineRunner {
 
   private static final String ACTIVE_PROFILE = "simple";
 
-  @Autowired private SimpleSpringEventPublisher simpleSpringEventPublisher;
+  @Autowired private InterfaceImplEventPublisher publisher;
 
   @Override
   public void run(String... args) {
-    /* 1. publish simple event */
-    simpleSpringEventPublisher.publishEvent("{json}", UUID.randomUUID().toString());
+    /*
+     * publish simple event
+     */
+    publisher.publishEvent("{json_body}", UUID.randomUUID().toString());
   }
 
   @Override
   public Class<?> initPrimarySourceClass() {
-    return SimpleApplicationEventApplication.class;
+    return InterfaceImplEventApplication.class;
   }
 
   @Override

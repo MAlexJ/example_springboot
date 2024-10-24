@@ -1,4 +1,4 @@
 rootProject.name = 'events'
-include 'application_event',
-        'asynchronous_events',
+include 'application_event_synchronous',
+        'application_event_asynchronous',
         'rabbit_amqp'

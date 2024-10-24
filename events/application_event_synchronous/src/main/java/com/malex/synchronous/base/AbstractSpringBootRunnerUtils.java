@@ -1,4 +1,4 @@
-package com.malex.simpleapplicationevent.base;
+package com.malex.synchronous.base;
 
 import java.util.concurrent.TimeUnit;
 import lombok.SneakyThrows;

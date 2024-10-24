@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: application_event_synchronous
+
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    root: info

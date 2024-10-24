@@ -1,4 +1,4 @@
-package com.malex.simpleapplicationevent.base;
+package com.malex.synchronous.base;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -10,8 +10,7 @@ There are a few simple guidelines to follow:
    version, the event classes no longer need to extend the ApplicationEvent class
 
 
-2. The publisher should inject <b>org.springframework.context.ApplicationEventPublisher</b> or <b>implement
-   org.springframework.context.ApplicationEventPublisherAware</b>
+2. The publisher should inject `ApplicationEventPublisher` or implement `ApplicationEventPublisherAware`
 
 * inject org.springframework.context.ApplicationEventPublisher
 
@@ -50,7 +49,7 @@ public class CustomSpringEventPublisher implements ApplicationEventPublisherAwar
 }
 ```
 
-3. The listener should implement the ApplicationListener<...event> interface or add annotation @EventListener
+3. The listener should implement the `ApplicationListener<...event>` interface or add `@EventListener` annotation
 
 * implement the ApplicationListener<...event>
 

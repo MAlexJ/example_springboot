@@ -1,6 +1,6 @@
 spring:
   application:
-    name: asynchronous_events
+    name: application_event_asynchronous
 
   threads:
     virtual:
@@ -8,4 +8,4 @@ spring:
 
 logging:
   level:
-    root: TRACE
+    root: info
