@@ -6,16 +6,15 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("simple")
+@Profile("interface")
 @Slf4j
 @Component
 public class InterfaceImplEventListener implements ApplicationListener<IApplicationEvent> {
 
   @Override
   public void onApplicationEvent(IApplicationEvent event) {
-    log.info(
-        "<<<< Handle interface impl event - {}, id - {}, thread - {}",
-        event.getEvent(),
+    log.warn(
+        "<<<< Handle interface impl: id - {}, thread - {}",
         event.getId(),
         Thread.currentThread().getName());
   }

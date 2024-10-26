@@ -1,4 +1,4 @@
-package com.malex.uri_component_builder_in_spring.shutdown.scheduler;
+package com.malex.asynchronousevents.sceduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +20,9 @@ public class ShutdownScheduler {
    *
    * link: https://www.baeldung.com/spring-boot-shutdown#exit
    */
-  @Scheduled(fixedRate = 10000, initialDelay = 10000)
+  @Scheduled(fixedRate = 5000, initialDelay = 5000)
   public void shutdownApp() {
-    log.info("Shutting down application");
+    log.warn("Shutting down application");
     SpringApplication.exit(context);
   }
 }

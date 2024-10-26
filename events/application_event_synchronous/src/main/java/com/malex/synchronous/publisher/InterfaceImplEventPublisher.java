@@ -7,19 +7,19 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("simple")
+@Profile("interface")
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class InterfaceImplEventPublisher {
 
-  private final ApplicationEventPublisher applicationEventPublisher;
+  private final ApplicationEventPublisher eventPublisher;
 
-  public void publishEvent(Object event, String id) {
-    log.info(
+  public void publishEvent(String id) {
+    log.warn(
         ">>>> Publishing interface impl event, object - '{}', thread - '{}'",
-        event,
+        id,
         Thread.currentThread().getName());
-    applicationEventPublisher.publishEvent(new IApplicationEvent(this, event, id));
+    eventPublisher.publishEvent(new IApplicationEvent(this, id));
   }
 }

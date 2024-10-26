@@ -13,7 +13,7 @@ public class AnnotationImplEventListener {
 
   @EventListener
   public void handleCustomSpringEvent(AnnotationApplicationEvent event) {
-    log.info(
+    log.warn(
         "<<<< Handle annotation impl event - {}, thread - {}",
         event.getMessage(),
         Thread.currentThread().getName());

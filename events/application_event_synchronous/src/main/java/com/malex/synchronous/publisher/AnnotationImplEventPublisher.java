@@ -14,14 +14,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AnnotationImplEventPublisher {
 
-  private final ApplicationEventPublisher applicationEventPublisher;
+  private final ApplicationEventPublisher eventPublisher;
 
   public void publishEvent(final String message) {
-    log.info(
-        ">>>> Publishing annotation iml event, message - '{}', thread - '{}'",
+    log.warn(
+        ">>>> Publishing annotation iml event: message - '{}', thread - '{}'",
         message,
         Thread.currentThread().getName());
     var customSpringEvent = new AnnotationApplicationEvent(this, Clock.systemUTC(), message);
-    applicationEventPublisher.publishEvent(customSpringEvent);
+    eventPublisher.publishEvent(customSpringEvent);
   }
 }
