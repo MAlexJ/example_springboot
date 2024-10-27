@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: circuitbreaker_fallback_pattern
+
+  threads:
+    virtual:
+      enabled: true
+
+  config:
+    import: optional:file:.env[.properties]
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
+      circuitbreaker:
+        enabled: true
+        alphanumeric-ids:
+          enabled: true
+
+logging:
+  level:
+    com.malex.webservice.OpenFeignClientImpl: DEBUG
+
+
+service:
+  client:
+    url: ${HTTP_BIN_URL:http://httpbin.org}
+    path:
+      status: ${HTTP_BIN_BASIC_AUTH_PATH_STATUS:status/{status}}
