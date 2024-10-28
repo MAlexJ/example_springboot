@@ -1,0 +1,7 @@
+## The feign-hc5 client contains enabled retry for SERVICE_UNAVAILABLE (503) and TOO_MANY_REQUESTS (429) by default.
+
+###CX BV TOO_MANY_REQUESTS exception
+GET http://localhost:8080/v1/info/429
+
+### SERVICE_UNAVAILABLE exception
+GET http://localhost:8080/v1/info/503

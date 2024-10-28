@@ -9,4 +9,6 @@ include 'introduction_to_open_feign',
         'circuitbreaker_fallback_pattern',
         'logging',
         'logging:enable_logging_level',
-        'error_handling'
+        'error_handling',
+        'retrying_feign_calls',
+        'retrying_feign_calls:annotation_configuration'

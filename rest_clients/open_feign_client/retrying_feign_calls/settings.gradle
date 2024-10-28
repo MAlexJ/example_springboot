@@ -1,0 +1,3 @@
+rootProject.name = 'retrying_feign_calls'
+
+include 'annotation_configuration'

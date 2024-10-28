@@ -22,7 +22,6 @@ logging:
   level:
     com.malex.error_handling.webservice.OpenFeignClientImpl: DEBUG
 
-
 service:
   client:
     user: ${HTTP_BIN_BASIC_AUTH_USER:user}
