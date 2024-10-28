@@ -1,2 +1,0 @@
-### find all todos
-GET http://localhost:8080/v1/api/todos

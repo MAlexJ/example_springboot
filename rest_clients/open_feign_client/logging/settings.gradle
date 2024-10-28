@@ -1,4 +1,3 @@
 rootProject.name = 'logging'
 
-include 'normalized_logger',
-        'enable_logging_level'
+include 'enable_logging_level'

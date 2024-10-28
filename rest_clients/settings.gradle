@@ -13,6 +13,5 @@ include 'rest_client',
         'open_feign_client:interceptors:basic_auth_request_interceptor',
         'open_feign_client:circuitbreaker_fallback_pattern',
         'open_feign_client:logging',
-        'open_feign_client:logging:normalized_logger',
         'open_feign_client:logging:enable_logging_level',
         'open_feign_client:error_handling'

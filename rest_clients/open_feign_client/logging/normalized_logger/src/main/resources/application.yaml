@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: normalized_logger
-
-  threads:
-    virtual:
-      enabled: true

@@ -8,6 +8,5 @@ include 'introduction_to_open_feign',
         'interceptors:basic_auth_request_interceptor',
         'circuitbreaker_fallback_pattern',
         'logging',
-        'logging:normalized_logger',
         'logging:enable_logging_level',
         'error_handling'
