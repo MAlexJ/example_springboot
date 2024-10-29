@@ -1,0 +1,8 @@
+### Actuator shutdown endpoint
+POST http://localhost:8080/actuator/shutdown
+
+### Close Application Context
+GET http://localhost:8080/v1/api/close/application/context
+
+### Exit SpringApplication
+GET http://localhost:8080/v1/api/spring/application/exit
