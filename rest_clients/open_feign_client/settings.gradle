@@ -11,4 +11,4 @@ include 'introduction_to_open_feign',
         'logging:enable_logging_level',
         'error_handling',
         'retrying_feign_calls',
-        'retrying_feign_calls:annotation_configuration'
+        'retrying_feign_calls:retryer_default_configuration'

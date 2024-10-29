@@ -1,0 +1,4 @@
+rootProject.name = 'common'
+
+include 'run_method_or_code_at_application_start',
+        'shutdown_spring_boot_application'

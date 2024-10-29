@@ -16,4 +16,4 @@ include 'rest_client',
         'open_feign_client:logging:enable_logging_level',
         'open_feign_client:error_handling',
         'open_feign_client:retrying_feign_calls',
-        'open_feign_client:retrying_feign_calls:annotation_configuration'
+        'open_feign_client:retrying_feign_calls:retryer_default_configuration'

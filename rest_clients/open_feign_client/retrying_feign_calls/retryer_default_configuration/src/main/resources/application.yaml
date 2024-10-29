@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: retryer_default_configuration
+
+  threads:
+    virtual:
+      enabled: true
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          openFeignClient:
+            connectTimeout: 2000
+            readTimeout: 2000
+            loggerLevel: full
+
+logging:
+  level:
+    com.malex.webservice: DEBUG
+
+service:
+  client:
+    url: ${HTTP_BIN_URL:http://httpbin.org}
+    path:
+      status: ${HTTP_BIN_BASIC_AUTH_PATH_STATUS:status/{status}}
