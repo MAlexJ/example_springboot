@@ -1,3 +1,13 @@
 spring:
   application:
     name: http_exchanges
+
+  threads:
+    virtual:
+      enabled: true
+
+webservice:
+  client:
+    url: ${HTTP_JSON_PLACEHOLDER_URL:https://jsonplaceholder.typicode.com}
+    path:
+      posts: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS:posts}

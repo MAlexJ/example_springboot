@@ -67,6 +67,38 @@ REDIS_USERNAME=....
 REDIS_PASSWORD=......
 ```
 
+test rest api
+
+link: http://httpbin.org
+
+```
+HTTP_BIN_URL=http://httpbin.org
+HTTP_BIN_BASIC_AUTH_PATH_AUTH=basic-auth
+HTTP_BIN_BASIC_AUTH_PATH_BEARER=bearer
+HTTP_BIN_BASIC_AUTH_USER=user
+HTTP_BIN_BASIC_AUTH_PASSWORD=passwd
+```
+
+Free Fake REST API for Placeholder JSON Data:
+
+link: https://dummyjson.com
+
+```
+HTTP_DUMMY_JSON_URL=https://dummyjson.com
+HTTP_DUMMY_JSON_PRODUCTS_PATH=products
+```
+
+Free fake and reliable API for testing and prototyping:
+
+link: https://jsonplaceholder.typicode.com
+
+```
+HTTP_JSON_PLACEHOLDER_URL=https://jsonplaceholder.typicode.com
+HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS=posts
+HTTP_JSON_PLACEHOLDER_URL_PATH_COMMENTS=comments
+HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS=/posts/{id}/comments
+```
+
 ### Java code style
 
 Java code style refers to the conventions and guidelines that developers follow when writing Java code to ensure
