@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: controller_level_exception_handler_annotation
+
+  threads:
+    virtual:
+      enabled: true

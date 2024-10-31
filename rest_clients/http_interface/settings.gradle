@@ -2,5 +2,4 @@ rootProject.name = 'http_interface'
 
 include 'http_exchanges',
         'exception_handling',
-        'client_proxy',
         'testing_http_client'

@@ -1,3 +1,15 @@
 spring:
   application:
     name: exception_handling
+
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  error:
+    include-message: always
+
+webservice:
+  client:
+    url: ${HTTP_BIN_URL:http://httpbin.org}

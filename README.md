@@ -75,6 +75,7 @@ link: http://httpbin.org
 HTTP_BIN_URL=http://httpbin.org
 HTTP_BIN_BASIC_AUTH_PATH_AUTH=basic-auth
 HTTP_BIN_BASIC_AUTH_PATH_BEARER=bearer
+HTTP_BIN_BASIC_AUTH_PATH_STATUS=status/{status}
 HTTP_BIN_BASIC_AUTH_USER=user
 HTTP_BIN_BASIC_AUTH_PASSWORD=passwd
 ```
