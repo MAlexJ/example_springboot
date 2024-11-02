@@ -4,4 +4,4 @@ include 'controller_level_exception_handler_annotation',
         'handler_exception_resolver_implementation',
         'controller_advice_annotation',
         'response_status_exception_spring_5',
-        'configuring_error_features_with_properties'
+        'application_property_error_configuration'

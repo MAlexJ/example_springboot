@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: application_property_error_configuration
+
+  threads:
+    virtual:
+      enabled: true
