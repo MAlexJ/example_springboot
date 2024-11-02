@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConfiguringErrorFeaturesWithPropertiesApplication {
+public class ConfiguringPropertiesErrorApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(ConfiguringErrorFeaturesWithPropertiesApplication.class, args);
+    SpringApplication.run(ConfiguringPropertiesErrorApplication.class, args);
   }
 }
