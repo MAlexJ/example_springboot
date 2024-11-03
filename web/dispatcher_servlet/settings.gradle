@@ -1,1 +1,3 @@
 rootProject.name = 'dispatcher_servlet'
+
+include 'customizing_dispatcher_servlet'

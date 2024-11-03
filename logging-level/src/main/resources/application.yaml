@@ -9,3 +9,9 @@ logging:
     root: ${APP_SERVICE_ROOT_LOG_LEVEL:DEBUG}
     org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}
     com.malex.logginglevel.MyServiceImpl: TRACE
+
+#logging:
+#  level:
+#    web: debug
+#    sql: debug
+#    root: debug

@@ -7,11 +7,11 @@ Loggers are typically associated with specific classes or packages and are used 
 Log Level:
 Indicates the severity or importance of the log message. Common log levels include:
 
-DEBUG: Shows detailed information for debugging purposes.
-INFO: Shows informational messages highlighting the progress of the application.
-WARN: Shows warnings indicating potential issues or unexpected behavior.
-ERROR: Indicates error messages for failures or problems requiring attention.
-TRACE: Provides very detailed information, more granular than DEBUG, often used for tracing program execution.
+* DEBUG: Shows detailed information for debugging purposes.
+* INFO: Shows informational messages highlighting the progress of the application.
+* WARN: Shows warnings indicating potential issues or unexpected behavior.
+* ERROR: Indicates error messages for failures or problems requiring attention.
+* TRACE: Provides very detailed information, more granular than DEBUG, often used for tracing program execution.
 
 link: https://www.baeldung.com/spring-boot-logging
 
@@ -46,6 +46,21 @@ If we want to change the verbosity permanently, we can do so in the application.
 ```
 logging.level.root=WARN
 logging.level.com.baeldung=TRACE
+```
+
+or
+
+```
+logging:
+  level:
+    web: debug
+    sql: debug
+    root: debug
+    
+    # or class / package
+   
+    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:INFO}
+    com.malex.logginglevel.MyServiceImpl: TRACE  
 ```
 
 ### Logback Configuration Logging
