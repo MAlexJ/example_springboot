@@ -1,4 +1,4 @@
-package com.malex.response_status_exception_spring_5;
+package com.malex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

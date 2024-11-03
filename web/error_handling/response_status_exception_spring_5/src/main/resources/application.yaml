@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: response_status_exception_spring_5
+
+  threads:
+    virtual:
+      enabled: true

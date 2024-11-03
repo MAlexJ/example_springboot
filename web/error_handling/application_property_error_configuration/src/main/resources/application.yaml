@@ -5,3 +5,14 @@ spring:
   threads:
     virtual:
       enabled: true
+
+logging:
+  level:
+    org.springframework.web.servlet.DispatcherServlet: TRACE
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: always
+    whitelabel:
+      enabled: true

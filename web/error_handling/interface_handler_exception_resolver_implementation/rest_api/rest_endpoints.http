@@ -1,2 +1,5 @@
 ### 404 Not Foun, when id = 55555
 GET http://localhost:8080/api/v1/products/55555
+
+### 200  OK, when id = 5
+GET http://localhost:8080/api/v1/products/2

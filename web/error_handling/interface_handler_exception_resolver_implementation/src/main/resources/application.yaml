@@ -1,6 +1,6 @@
 spring:
   application:
-    name: handler_exception_resolver_implementation
+    name: interface_handler_exception_resolver_implementation
 
   threads:
     virtual:
@@ -12,6 +12,10 @@ spring:
 webclient:
   url: ${HTTP_DUMMY_JSON_URL:https://dummyjson.com}
   path: ${HTTP_DUMMY_JSON_PRODUCTS_PATH:products}
+
+logging:
+  level:
+    org.springframework.web.servlet: ${APP_SERVICE_SPRING_LOG_LEVEL:DEBUG}
 
 server:
   error:

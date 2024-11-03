@@ -1,4 +1,4 @@
-### Spring Boot Exception Handling — HandlerExceptionResolver
+### Spring Boot Exception Handling — interface HandlerExceptionResolver implementation
 
 Add URL and PATH configuration `.env` file
 
