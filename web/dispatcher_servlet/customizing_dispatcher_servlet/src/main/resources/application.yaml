@@ -2,9 +2,9 @@ spring:
   application:
     name: customizing_dispatcher_servlet
 
-  threads:
-    virtual:
-      enabled: true
+#  threads:
+#    virtual:
+#      enabled: true
 
 logging:
   level:

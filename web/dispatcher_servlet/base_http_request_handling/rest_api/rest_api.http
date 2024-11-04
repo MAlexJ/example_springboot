@@ -1,0 +1,14 @@
+### Create cat
+POST http://localhost:8080/cats
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Stefan"
+}
+
+### Find all cats
+GET http://localhost:8080/cats
+
+### Find cat by id
+GET http://localhost:8080/cats/1

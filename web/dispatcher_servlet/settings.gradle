@@ -1,3 +1,4 @@
 rootProject.name = 'dispatcher_servlet'
 
-include 'customizing_dispatcher_servlet'
+include 'customizing_dispatcher_servlet',
+        'base_http_request_handling'
