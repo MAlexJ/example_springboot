@@ -1,4 +1,53 @@
-### DispatcherServlet
+### DispatcherServlet (only for web mvc)
+
+Simply put, in the Front Controller design pattern, a single controller is responsible for directing incoming
+HttpRequests to all of an application’s other controllers and handlers.
+
+Spring’s DispatcherServlet implements this pattern and is, therefore, responsible for correctly coordinating the
+HttpRequests to their right handlers.
+
+#### DispatcherServlet Request Processing
+
+DispatcherServlet handles an incoming HttpRequest, delegates the request, and processes that request according to the
+configured HandlerAdapter interfaces
+
+DispatcherServlet.properties:
+
+```
+# Default implementation classes for DispatcherServlet's strategy interfaces.
+# Used as fallback when no matching beans are found in the DispatcherServlet context.
+# Not meant to be customized by application developers.
+
+org.springframework.web.servlet.LocaleResolver=org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver
+
+org.springframework.web.servlet.ThemeResolver=org.springframework.web.servlet.theme.FixedThemeResolver
+
+org.springframework.web.servlet.HandlerMapping=org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping,\
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping,\
+	org.springframework.web.servlet.function.support.RouterFunctionMapping
+
+org.springframework.web.servlet.HandlerAdapter=org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter,\
+	org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter,\
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter,\
+	org.springframework.web.servlet.function.support.HandlerFunctionAdapter
+
+
+org.springframework.web.servlet.HandlerExceptionResolver=org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver,\
+	org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver,\
+	org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver
+
+org.springframework.web.servlet.RequestToViewNameTranslator=org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator
+
+org.springframework.web.servlet.ViewResolver=org.springframework.web.servlet.view.InternalResourceViewResolver
+
+org.springframework.web.servlet.FlashMapManager=org.springframework.web.servlet.support.SessionFlashMapManager
+```
+
+### spring-boot-starter-web
+
+https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/spring-boot-starter-web/build.gradle
+
+### Info
 
 An Intro to the Spring DispatcherServlet
 https://www.baeldung.com/spring-dispatcherservlet
