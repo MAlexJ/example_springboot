@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: handler_mapping_interfaces
