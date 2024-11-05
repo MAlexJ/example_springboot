@@ -12,3 +12,7 @@ GET http://localhost:8080/cats
 
 ### Find cat by id
 GET http://localhost:8080/cats/1
+
+
+### Error: 999
+GET http://localhost:8080/error

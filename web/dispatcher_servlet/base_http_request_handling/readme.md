@@ -1,5 +1,30 @@
 ### Understanding HTTP Request Handling in Spring Boot
 
+#### General info
+
+DispatcherServlet processes:
+
+1. `WebApplicationContext` associated to a `DispatcherServlet` under the 
+    key `DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE` is searched for 
+    and made available to all of elements of the process
+
+2. `HandlerAdapter interface`
+   The `DispatcherServlet` finds all implementations of the `HandlerAdapter interface` configured for your 
+   dispatcher using `getHandler()` – each found and configured implementation handles the request 
+   via handle() through the remainder of the process
+
+3. `LocaleResolver` is optionally bound to the request to enable elements in the process to resolve the locale
+
+4. `ThemeResolver` is optionally bound to the request to let elements, such as views, determine which theme to use
+
+5. if a `MultipartResolver` is specified, the request is inspected for MultipartFiles – any found 
+   are wrapped in a MultipartHttpServletRequest for further processing
+
+6. `HandlerExceptionResolver` implementations declared in the WebApplicationContext picks up exceptions 
+    that are thrown during processing of the request
+
+#### Request Handling in Spring Boot
+
 Apache Tomcat, an open-source Java servlet container, implements key Java enterprise (now Jakarta EE) standards,
 including Jakarta Servlet, Jakarta Server Pages, and Jakarta WebSocket.
 
@@ -45,6 +70,12 @@ server.tomcat.max-threads=200
 # Minimum amount of worker threads.
 server.tomcat.min-spare-threads=10 
 ```
+
+#### First stage is init DispatcherServlet
+
+The first start and registration of API components is performed upon the first request to the controller.
+
+![DispatcherServlet Request Mapping.png](DispatcherServlet%20Request%20Mapping.png)
 
 #### Request Mapping
 
@@ -104,12 +135,12 @@ requestMappingHandlerMapping -> {RequestMappingHandlerMapping@8167}
                    -> REST Conrtoller (as AbstractHandlerMethodMapping)
 ```
 
-Whenever we define a new @Controller class with method-level @RequestMapping annotations, 
-Spring automatically generates a RequestMappingInfo class. 
-This generated information is then seamlessly incorporated into the handlerMappings attribute. 
+Whenever we define a new @Controller class with method-level @RequestMapping annotations,
+Spring automatically generates a RequestMappingInfo class.
+This generated information is then seamlessly incorporated into the handlerMappings attribute.
 Subsequently, our DispatcherServlet leverages this data for precise request routing.
 
-The remaining logic is quite straightforward. 
+The remaining logic is quite straightforward.
 Utilizing the getHandler method, the DispatcherServlet iterates through all mappings in a loop:
 
 ```
@@ -137,3 +168,16 @@ public class DispatcherServlet extends FrameworkServlet {
 ```
 
 The DispatcherServlet remains to pass the request to the found handler. And that’s how it works.
+
+#### DispatcherServlet
+
+Simply put, in the Front Controller design pattern, a single controller is responsible
+for directing incoming HttpRequests to all of an application’s other controllers and handlers.
+
+Spring’s DispatcherServlet implements this pattern and is, therefore,
+responsible for correctly coordinating the HttpRequests to their right handlers.
+
+`Book: Catalog of Patterns of Enterprise Application Architecture, Martin Fowler`
+
+Chapter 14: Web Presentation Patterns: `Front Controller`,
+link: https://martinfowler.com/eaaCatalog/frontController.html
