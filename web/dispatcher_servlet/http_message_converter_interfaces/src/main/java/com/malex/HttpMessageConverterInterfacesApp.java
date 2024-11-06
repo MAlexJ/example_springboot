@@ -24,13 +24,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  *
  * <p>{@link WebMvcConfigurationSupport} - class
  *
- * <p>{@link WebMvcConfigurationSupport#getMessageConverters()} - initialization default MessageConverters
+ * <p>{@link WebMvcConfigurationSupport#getMessageConverters()} - initialization default
+ * MessageConverters
  *
- * <p>{@link WebMvcConfigurationSupport#jackson2Present} - variable that is responsible for jackson json type
+ * <p>{@link WebMvcConfigurationSupport#jackson2Present} - variable that is responsible for jackson
+ * json type
  *
  * <p>{@link WebMvcConfigurationSupport#addDefaultHttpMessageConverters(List)} - add default (JSON)
- *
-
  */
 @SpringBootApplication
 public class HttpMessageConverterInterfacesApp {
