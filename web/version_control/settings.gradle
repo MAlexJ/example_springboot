@@ -1,0 +1,3 @@
+rootProject.name = 'version_control'
+
+include 'mime_type_versioning'

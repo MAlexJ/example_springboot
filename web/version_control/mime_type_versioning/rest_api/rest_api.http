@@ -1,0 +1,11 @@
+
+### Get students v1
+GET http://localhost:8080/students
+
+### Get students v1
+GET http://localhost:8080/students
+Accept: application/vnd.amitph.students.v1+json
+
+### Get students v2
+GET http://localhost:8080/students
+Accept: application/vnd.amitph.students.v2+json

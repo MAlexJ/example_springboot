@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: mime_type_versioning
+
+  threads:
+    virtual:
+      enabled: true

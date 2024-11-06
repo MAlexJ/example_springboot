@@ -16,4 +16,6 @@ include 'dispatcher_servlet',
         'date_time_parameters',
         'date_time_parameters:request_level_configuration',
         'date_time_parameters:properties_file_configuration',
-        'uri_component_builder_in_spring'
+        'uri_component_builder_in_spring',
+        'version_control',
+        'version_control:mime_type_versioning'
