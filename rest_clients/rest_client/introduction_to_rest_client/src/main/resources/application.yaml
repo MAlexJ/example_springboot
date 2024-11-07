@@ -19,4 +19,4 @@ webservice:
 
 logging:
   level:
-    com.malex.IntroductionToRestClientApp: TRACE
+    org.springframework.web.client: DEBUG

@@ -6,6 +6,13 @@ meaning it waits for each request to complete before proceeding to the next one.
 
 link: https://www.baeldung.com/spring-boot-restclient
 
+#### New in Spring 6.1: RestClient
+
+Spring Framework 6.1 M2 introduces the RestClient, a new synchronous HTTP client.
+As the name suggests, RestClient offers the fluent API of WebClient with the infrastructure of RestTemplate
+
+link: https://spring.io/blog/2023/07/13/new-in-spring-6-1-restclient
+
 #### Simple Fetching With HTTP Request Methods
 
 milar to RestTemplate, or any other rest client, RestClient allows us to make HTTP calls with request methods. Let’s
