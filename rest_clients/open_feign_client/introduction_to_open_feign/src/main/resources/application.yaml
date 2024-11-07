@@ -5,3 +5,26 @@ spring:
   threads:
     virtual:
       enabled: true
+
+  config:
+    import: optional:file:.env[.properties]
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          openFeignWebclient:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
+logging:
+  level:
+    com.malex.OpenFeignWebclient: DEBUG
+
+webservice:
+  client:
+    url: ${HTTP_JSON_PLACEHOLDER_URL:https://jsonplaceholder.typicode.com}
+    path:
+      posts:
+        findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS:posts}
+        byId: ${HTTP_JSON_PLACEHOLDER_URL_PATH_FIND_POST_BY_ID:posts/{postId}}

@@ -1,3 +1,7 @@
 spring:
   application:
     name: handler_mapping_interfaces
+
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE

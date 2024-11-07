@@ -1,1 +1,3 @@
 rootProject.name = 'rest_client'
+
+include 'introduction_to_rest_client'

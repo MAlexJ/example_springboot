@@ -97,7 +97,8 @@ link: https://jsonplaceholder.typicode.com
 HTTP_JSON_PLACEHOLDER_URL=https://jsonplaceholder.typicode.com
 HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS=posts
 HTTP_JSON_PLACEHOLDER_URL_PATH_COMMENTS=comments
-HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS=/posts/{id}/comments
+HTTP_JSON_PLACEHOLDER_URL_PATH_FIND_POST_BY_ID=posts/{postId}
+HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS_COMMENTS=posts/{id}/comments
 ```
 
 ### Java code style

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
  * {@link DispatcherServlet#initHandlerMappings(ApplicationContext)} - init DispatcherServlet
@@ -19,6 +19,8 @@ import org.springframework.web.servlet.HandlerMapping;
  * <p>{@link DispatcherServlet#getHandler(HttpServletRequest)} - request handler
  *
  * <p>{@link HandlerMapping} - HandlerMapping interface
+ *
+ * <p>{@link RequestMappingHandlerMapping} - base HandlerMapping impl for rest api
  */
 @SpringBootApplication
 public class HandlerMappingInterfacesApp {

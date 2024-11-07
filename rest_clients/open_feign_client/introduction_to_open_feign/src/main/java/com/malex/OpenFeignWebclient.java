@@ -1,6 +1,6 @@
-package com.malex.introduction_to_open_feign;
+package com.malex;
 
-import static com.malex.introduction_to_open_feign.OpenFeignIntroductionApplication.*;
+import static com.malex.OpenFeignIntroductionApp.*;
 
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,11 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "openFeignWebclient", url = "https://jsonplaceholder.typicode.com/")
+/*
+ * url = "https://jsonplaceholder.typicode.com/"
+ */
+@FeignClient(value = "openFeignWebclient", url = "${webservice.client.url}")
 public interface OpenFeignWebclient {
 
-  // @RequestMapping with method or @GetMapping
-  @RequestMapping(method = RequestMethod.GET, value = "/posts")
+  /*
+   * @RequestMapping with method or @GetMapping
+   *
+   * value = "/posts"
+   */
+  @RequestMapping(method = RequestMethod.GET, value = "${webservice.client.path.posts.findAll}")
   List<Post> getPosts();
 
   /*
@@ -36,10 +43,10 @@ public interface OpenFeignWebclient {
    *
    * headers
    *
-   * consumes
+   * consumes -
    *
-   * produces
+   * produces -
    */
-  @GetMapping(value = "/posts/{postId}", produces = "application/json")
+  @GetMapping(value = "${webservice.client.path.posts.byId}", produces = "application/json")
   Post getPostById(@PathVariable("postId") Long postId);
 }

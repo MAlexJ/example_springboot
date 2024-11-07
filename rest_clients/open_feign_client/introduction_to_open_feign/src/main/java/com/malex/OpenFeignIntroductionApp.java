@@ -1,4 +1,4 @@
-package com.malex.introduction_to_open_feign;
+package com.malex;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @EnableFeignClients
 @SpringBootApplication
-public class OpenFeignIntroductionApplication {
+public class OpenFeignIntroductionApp {
 
   public static void main(String[] args) {
-    SpringApplication.run(OpenFeignIntroductionApplication.class, args);
+    SpringApplication.run(OpenFeignIntroductionApp.class, args);
   }
 
   /*

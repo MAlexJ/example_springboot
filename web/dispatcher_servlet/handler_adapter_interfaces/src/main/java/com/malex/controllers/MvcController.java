@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @Controller
 public class MvcController {
@@ -17,6 +18,8 @@ public class MvcController {
    * <p>{@link DispatcherServlet#getHandler(HttpServletRequest)} - request handler
    *
    * <p>{@link HandlerAdapter} - HandlerAdapter interface
+   *
+   * <p>{@link RequestMappingHandlerAdapter} - base HandlerAdapter for rest api
    */
   @GetMapping("/greeting")
   public ModelAndView sayHello() {

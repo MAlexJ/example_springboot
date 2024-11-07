@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @RestController
 @RequestMapping("/v1")
@@ -18,7 +19,9 @@ public class RestApiController {
    *
    * <p>{@link DispatcherServlet#getHandler(HttpServletRequest)} - request handler
    *
-   * <p>{@link HandlerAdapter} - HandlerAdapter interface
+   * <p>{@link HandlerAdapter} - HandlerAdapter interface *
+   *
+   * <p>{@link RequestMappingHandlerAdapter} - base HandlerAdapter for rest api
    */
   @GetMapping("/hello")
   public ResponseEntity<String> hello() {

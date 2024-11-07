@@ -1,6 +1,7 @@
 rootProject.name = 'rest_clients'
 
 include 'rest_client',
+        'rest_client:introduction_to_rest_client',
         'web_client',
         'rest_template',
         'http_interface',
