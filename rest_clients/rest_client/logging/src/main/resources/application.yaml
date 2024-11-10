@@ -1,6 +1,6 @@
 spring:
   application:
-    name: introduction_to_rest_client
+    name: logging
 
   threads:
     virtual:
@@ -9,14 +9,14 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
+
 webservice:
   client:
     url: https://jsonplaceholder.typicode.com
     path:
+      comments:
+        findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_COMMENTS:comments}
       posts:
         findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS:posts}
-        byId: ${HTTP_JSON_PLACEHOLDER_URL_PATH_FIND_POST_BY_ID:posts/{postId}}
-
-logging:
-  level:
-    org.springframework.web.client: DEBUG
+        comments:
+          findAllByPostId: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS_COMMENTS:posts/{id}/comments}
