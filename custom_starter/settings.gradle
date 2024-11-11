@@ -1,0 +1,5 @@
+rootProject.name = 'custom_starter'
+
+include 'copyright_starter',
+        'signature_starter',
+        'run_app'

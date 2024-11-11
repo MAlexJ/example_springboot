@@ -1,4 +1,0 @@
-rootProject.name = 'custom-starter'
-include 'copyright-starter',
-        'signature-starter',
-        'run-app'

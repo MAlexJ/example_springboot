@@ -18,17 +18,11 @@ plugins {
     id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
-group = "${buildGroup}"
-version = "${buildVersion}"
+group = 'com.malexj'
+version = '0.0.1-SNAPSHOT'
 
 java {
     sourceCompatibility = "${javaVersion}"
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
 }
 
 repositories {
@@ -36,9 +30,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':custom-starter:copyright-starter')
-    implementation project(':custom-starter:signature-starter')
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -36,6 +36,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':custom_starter:copyright_starter')
+    implementation project(':custom_starter:signature_starter')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
