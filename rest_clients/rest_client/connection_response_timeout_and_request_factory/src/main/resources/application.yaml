@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: connection_response_timeout_and_request_factory
+
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    web: debug
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+
+server:
+  port: 8888

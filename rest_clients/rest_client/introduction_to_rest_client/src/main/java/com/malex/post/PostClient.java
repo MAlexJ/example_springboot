@@ -24,12 +24,35 @@ public class PostClient {
   @Value("${webservice.client.path.posts.byId}")
   private String findPostByIdUri;
 
+  /**
+   * RestClient.Builder prototype bean in RestClientAutoConfiguration class
+   *
+   * <p>file: spring-autoconfigure-metadata.properties
+   *
+   * <pre>
+   * org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration.ConditionalOnClass=org.elasticsearch.client.RestClientBuilder
+   * </pre>
+   *
+   * <p>RestClientAutoConfiguration {@link
+   * org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration}
+   */
+  /*
+
+   org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration
+
+   @Bean
+   @Scope("prototype")
+   @ConditionalOnMissingBean
+   RestClient.Builder restClientBuilder(RestClientBuilderConfigurer restClientBuilderConfigurer) {
+      RestClient.Builder builder =
+              RestClient.builder().requestFactory(ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS));
+   return restClientBuilderConfigurer.configure(builder);
+  }
+  */
   public PostClient(@Value("${webservice.client.url}") String url, RestClient.Builder builder) {
-    // todo: WTF
     if (Objects.isNull(baseUrl)) {
       LOG.warning("baseUrl is null");
     }
-
     this.restClient = builder.baseUrl(url).build();
   }
 

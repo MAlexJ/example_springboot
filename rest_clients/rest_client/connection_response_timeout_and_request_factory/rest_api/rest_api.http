@@ -1,0 +1,5 @@
+### info API
+GET http://localhost:8888/v1/api/info
+
+### internal API
+GET http://localhost:8888/v1/api/internal
