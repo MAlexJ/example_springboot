@@ -8,9 +8,12 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
+server:
+  port: 8080
+
 webservice:
-  #  connectTimeout: 1
-  #  readTimeout: 2
+  connectTimeout: 1
+  readTimeout: 2
 
   client:
     url: ${HTTP_JSON_PLACEHOLDER_URL:https://jsonplaceholder.typicode.com}

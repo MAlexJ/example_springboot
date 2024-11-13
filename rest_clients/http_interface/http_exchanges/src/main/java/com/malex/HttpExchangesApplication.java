@@ -32,7 +32,6 @@ public class HttpExchangesApplication {
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> findAll() {
       return ResponseEntity.ok(webExchangeInterface.findAll());
-//      return ResponseEntity.ok(Collections.EMPTY_LIST);
     }
   }
 

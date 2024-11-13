@@ -47,4 +47,30 @@ this.restClient = RestClient.builder()
                                             |               External Service               |
                                             +----------------------------------------------+
 
+##### 3. Simple Retry Interceptor
 
+code:
+
+```
+public class RetryClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(RetryClientHttpRequestInterceptor.class);
+
+    private int attempts = 3;
+    private Set<HttpStatus> retryableStatus = Set.of(HttpStatus.TOO_MANY_REQUESTS);
+
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        for (int i = 0; i < this.attempts; i++) {
+            ClientHttpResponse response = execution.execute(request, body);
+            if (!retryableStatus.contains(response.getStatusCode())) {
+                log.info("Successful at the %d attempts".formatted(i+1));
+                return response;
+            }
+
+            log.info("%d attempts: %s".formatted(i+1, Instant.now()));
+        }
+        log.error("Retry exhausted!");
+        throw new IllegalStateException("Exceed number of retries");
+    }
+}
+```

@@ -1,6 +1,8 @@
 package com.malex.interceptor.comment;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,10 @@ import com.malex.interceptor.comment.v2.CommentV2;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
+
+  private static final Logger LOG = Logger.getLogger(CommentController.class.getName());
+
+  private final AtomicInteger  counter = new AtomicInteger(0);
 
   private final CommentClient webclient;
 
@@ -29,6 +35,7 @@ public class CommentController {
      */
   @GetMapping(produces = "application/vnd.comments.api-v1+json")
   public ResponseEntity<List<CommentV1>> findAllV1() {
+    LOG.info(" >>> Counter - %s".formatted(counter.incrementAndGet()));
     return ResponseEntity.ok(webclient.findAllV1());
 
 
