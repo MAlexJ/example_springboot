@@ -128,7 +128,6 @@ public class HiServiceClient {
 
 **2. Create a RestClient**
 
-
 **2.1. In Spring Framework, from static methods of RestClient: create, builder**
 
 ```
@@ -145,7 +144,7 @@ RestClient customClient = RestClient.builder()
         .build();
 ```
 
-**2.2. Spring Boot adds 1 additional way is from auto-configured RestClient.Builder 
+**2.2. Spring Boot adds 1 additional way is from auto-configured RestClient.Builder
 prototype bean in RestClientAutoConfiguration class**
 
 file: spring-autoconfigure-metadata.properties
@@ -178,4 +177,59 @@ public class RestClientAutoConfiguration {
     }
 ```
 
-3. Set Connection Timeout (connectTimeout), Response Timeout (readTimeout), and RequestFactory
+**3. Set Connection Timeout (connectTimeout), Response Timeout (readTimeout), and RequestFactory**
+
+* Response Timeout / ReadTimeout:
+  number of seconds that the client (gateway) could wait for the server to send response.
+  More specifically, start-of-response-time - end-of-request-time
+
+* Connection Timeout:
+  the max waiting time to establish the connection
+
+In order to set timeouts to our outgoing requests from a `RestClient`, we have to set them through
+the `ClientHttpRequestFactory` of this `RestClient`.
+
+Spring simplified the configuration of underlying components by `ClientHttpRequestFactorySettings` and
+`ClientHttpRequestFactories`:
+
+code:
+
+```
+ClientHttpRequestFactorySettings requestFactorySettings = ClientHttpRequestFactorySettings.DEFAULTS
+                .withConnectTimeout(Duration.ofSeconds(1L))
+                .withReadTimeout(Duration.ofSeconds(5L));
+
+JdkClientHttpRequestFactory requestFactory = ClientHttpRequestFactories.get(JdkClientHttpRequestFactory.class, requestFactorySettings);
+
+this.restClient = RestClient.builder()
+        .requestFactory(requestFactory)
+        .build();
+```
+
+**4. RestClient Interceptor**
+
+**4.1. Defined as a Lambda Expression**
+
+RequestInterceptor is a FunctionalInterface, so we can pass a lambda expression to it
+
+**Noted:** they work exactly same as Filters, we can modify the request before executing the chain,
+response after the chain returned and if we're not satisfied with response, we can execute the chain again
+
+code:
+
+```
+this.restClient = RestClient.builder()
+        .baseUrl("http://localhost:8080")
+        .requestFactory(requestFactory)
+        .requestInterceptor(
+                /////// <--
+                (request, body, execution) -> {
+                        log.info("Lambda Interceptor: modifying before sending request");
+                        ClientHttpResponse response = execution.execute(request, body);
+                        log.info("Lambda Interceptor: modifying after receiving response");
+                        return response;
+                }
+                ///////
+        )
+        .build();
+```
