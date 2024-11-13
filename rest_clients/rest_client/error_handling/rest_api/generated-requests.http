@@ -1,0 +1,8 @@
+### 200 Ok
+GET http://localhost:8080/api/status/200
+
+### 404 NOT FOUND
+GET http://localhost:8080/api/status/404
+
+### 501 NOT IMPLEMENTED
+GET http://localhost:8080/api/status/501

@@ -3,4 +3,5 @@ rootProject.name = 'rest_client'
 include 'introduction_to_rest_client',
         'logging',
         'connection_response_timeout_and_request_factory',
-        'interceptor'
+        'interceptor',
+        'error_handling'
