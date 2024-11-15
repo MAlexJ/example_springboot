@@ -1,6 +1,5 @@
 package com.malex.error_handling.status;
 
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -10,8 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class StatusWebClient {
-
-  private static final Logger LOG = Logger.getLogger(StatusWebClient.class.getName());
 
   @Value("${webclient.client.path.status}")
   private String statusPath;
