@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: base
+
+  threads:
+    virtual:
+      enabled: true
+
+  config:
+    import: optional:file:.env[.properties]
+
+  jpa:
+    # enable logging of SQL statements.
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    # Create the schema and destroy previous data.
+    hibernate:
+      ddl-auto: create
+    # disable anti pattern OSIV (Open Session in View)
+    open-in-view: false
+
+  datasource:
+    url: jdbc:mysql://${DB_MYSQL_HOSTNAME}:${DB_MYSQL_PORT}/${DB_MYSQL_DBNAME}
+    username: ${DB_MYSQL_USER}
+    password: ${DB_MYSQL_PASSWORD}
+    driver-class-name: ${DB_MYSQL_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+
+logging:
+  level:
+    #    web
+    org.springframework.web.servlet.DispatcherServlet: TRACE
+    #    jpa
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+    org.hibernate.orm.jdbc.bind: trace
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder=TRACE:
+        orm:
+          jdbc:
+            bind: trace
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: always
+    whitelabel:
+      enabled: true

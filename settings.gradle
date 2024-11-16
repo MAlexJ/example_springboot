@@ -97,4 +97,5 @@ include 'scheduled_async',
         'rest_clients:open_feign_client:error_handling',
         'rest_clients:open_feign_client:retrying_feign_calls',
         'rest_clients:open_feign_client:retrying_feign_calls:retryer_default_configuration',
-        'transactions'
+        'transactions',
+        'transactions:base'
