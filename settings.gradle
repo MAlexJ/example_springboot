@@ -98,4 +98,6 @@ include 'scheduled_async',
         'rest_clients:open_feign_client:retrying_feign_calls',
         'rest_clients:open_feign_client:retrying_feign_calls:retryer_default_configuration',
         'transactions',
-        'transactions:base'
+        'transactions:base',
+        'mapper',
+        'mapper:mapstruct_mapper'

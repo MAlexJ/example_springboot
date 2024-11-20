@@ -22,10 +22,17 @@ spring:
     open-in-view: false
 
   datasource:
-    url: jdbc:mysql://${DB_MYSQL_HOSTNAME}:${DB_MYSQL_PORT}/${DB_MYSQL_DBNAME}
+    url: jdbc:mysql://${DB_MYSQL_HOSTNAME}:${DB_MYSQL_PORT}/${DB_MYSQL_TRANSACTIONAL_DBNAME:transactional_db}
     username: ${DB_MYSQL_USER}
     password: ${DB_MYSQL_PASSWORD}
     driver-class-name: ${DB_MYSQL_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+
+  flyway:
+    locations: classpath:db/mysql.migration
+    url: jdbc:mysql://${DB_MYSQL_HOSTNAME}:${DB_MYSQL_PORT}/${DB_MYSQL_TRANSACTIONAL_DBNAME:transactional_db}
+    user: ${DB_MYSQL_USER}
+    password: ${DB_MYSQL_PASSWORD}
+    validate-on-migrate: true
 
 logging:
   level:

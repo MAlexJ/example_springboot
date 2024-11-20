@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS history
+(
+    id              BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    action      VARCHAR(200),
+    created     DATETIME
+) ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8MB4;
