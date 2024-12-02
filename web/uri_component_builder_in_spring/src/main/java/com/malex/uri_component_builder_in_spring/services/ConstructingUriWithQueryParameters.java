@@ -41,11 +41,19 @@ public class ConstructingUriWithQueryParameters extends UriBuilderBase {
 
     UriComponentsBuilder.fromUri(URI.create(URL_TEMPLATE.replace("/{hotel}", "")));
 
-    UriComponentsBuilder.fromHttpUrl(URL_TEMPLATE);
+    /*
+     * Create an instance by parsing the "Origin" header of an HTTP request.
+     * Deprecated in favor of fromUriString(String); to be removed in 7.0
+     */
+    //    UriComponentsBuilder.fromHttpUrl(URL_TEMPLATE);
 
     UriComponentsBuilder.fromPath(URL_TEMPLATE);
 
-    UriComponentsBuilder.fromOriginHeader(URL_TEMPLATE);
+    /*
+     * Create an instance by parsing the "Origin" header of an HTTP request.
+     * Deprecated in favor of fromUriString(String); to be removed in 7.0
+     */
+    //    UriComponentsBuilder.fromOriginHeader(URL_TEMPLATE);
 
     UriComponentsBuilder.newInstance();
   }

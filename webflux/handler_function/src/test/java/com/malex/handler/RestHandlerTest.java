@@ -11,9 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
@@ -30,7 +30,11 @@ class RestHandlerTest {
 
   @Autowired private ApplicationContext context;
 
-  @MockBean(name = "userService")
+  /*
+   * Deprecated @MockBeans in SpringBoot 3.4.0
+   * link: https://stackoverflow.com/questions/79243535/what-ist-the-replacement-for-deprecated-mockbeans-in-springboot-3-4-0
+   */
+  @MockitoBean(name = "userService")
   private UserCrudRepository repository;
 
   private WebTestClient testClient;
@@ -41,7 +45,7 @@ class RestHandlerTest {
   }
 
   @Test
-  public void findUserById() {
+  void findUserById() {
     // given
     var userId = 1;
     var userResponse = Mono.just(new UserResponse(userId, "Alex"));

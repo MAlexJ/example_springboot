@@ -1,9 +1,8 @@
 package com.malex.webservice;
 
 import java.time.Duration;
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
-import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
-import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
+import org.springframework.boot.http.client.ClientHttpRequestFactorySettings;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -25,13 +24,23 @@ public class WebService {
    * `ClientHttpRequestFactorySettings` and `ClientHttpRequestFactories`
    */
   public WebService(RestClient.Builder builder) {
-    var requestFactorySettings =
-        ClientHttpRequestFactorySettings.DEFAULTS
-            .withConnectTimeout(CONNECT_TIMEOUT)
-            .withReadTimeout(READ_TIMEOUT);
 
+    /*
+     * Settings that can be applied when creating a ClientHttpRequestFactory.
+     * Since: 3.4.0
+     */
+    var clientHttpRequestFactorySettings =
+        ClientHttpRequestFactorySettings.defaults()
+            .withReadTimeout(READ_TIMEOUT)
+            .withConnectTimeout(CONNECT_TIMEOUT);
+
+    /*
+     * Builders for Apache HTTP Components, Jetty, Reactor, JDK and simple client can be obtained using
+     * the factory methods on this interface.
+     * Since: 3.4.0
+     */
     var requestFactory =
-        ClientHttpRequestFactories.get(JdkClientHttpRequestFactory.class, requestFactorySettings);
+        ClientHttpRequestFactoryBuilder.jdk().build(clientHttpRequestFactorySettings);
 
     this.restClient = builder.baseUrl(BASE_URL).requestFactory(requestFactory).build();
   }

@@ -10,7 +10,6 @@ import com.malex.redis_data_store_for_cache.rest.response.FindUserByIdResponse;
 import com.malex.redis_data_store_for_cache.rest.response.FindUsersResponse;
 import com.malex.redis_data_store_for_cache.rest.response.UpdateUserResponse;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
@@ -32,8 +31,12 @@ public class UserService {
   }
 
   public FindUsersResponse findAll() {
-      var entities = cacheService.findAll().stream().map(this::mapToResponse).toList();
-      return new FindUsersResponse (entities, entities.size());
+    var userEntities = cacheService.findAll();
+    var entities =
+        userEntities.stream() //
+            .map(this::mapToResponse)
+            .toList();
+    return new FindUsersResponse(entities, entities.size());
   }
 
   public Optional<FindUserByIdResponse> findById(Long id) {
@@ -55,7 +58,9 @@ public class UserService {
   }
 
   public Optional<DeleteUserResponse> delete(Long id) {
-    return cacheService.delete(id).map(u -> new DeleteUserResponse(u.id(), u.username(), u.created()));
+    return cacheService
+        .delete(id)
+        .map(u -> new DeleteUserResponse(u.id(), u.username(), u.created()));
   }
 
   /*
@@ -74,7 +79,7 @@ public class UserService {
    */
   public UpdateUserResponse update(Long id, UpdateUserRequest user) {
     // case 1: create if not exist
-      Optional<UserEntity> entityById = cacheService.findById(id);
+    Optional<UserEntity> entityById = cacheService.findById(id);
 
     // case 2: only update user
     var entity = mapToEntity.apply(user);

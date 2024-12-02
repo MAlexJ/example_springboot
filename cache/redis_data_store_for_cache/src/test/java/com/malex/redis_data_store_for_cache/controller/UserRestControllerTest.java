@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 /*
@@ -45,7 +45,11 @@ class UserRestControllerTest {
 
   @Autowired private MockMvc mvc;
 
-  @MockBean private UserService userService;
+  /*
+   * Deprecated @MockBeans in SpringBoot 3.4.0
+   * link: https://stackoverflow.com/questions/79243535/what-ist-the-replacement-for-deprecated-mockbeans-in-springboot-3-4-0
+   */
+  @MockitoBean private UserService userService;
 
   @Test
   void findAllUsers() throws Exception {
@@ -108,7 +112,6 @@ class UserRestControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(id))
         .andExpect(jsonPath("$.username").value(username));
-    //        .andExpect(jsonPath("$.created").value(created.toString()))
   }
 
   @Test

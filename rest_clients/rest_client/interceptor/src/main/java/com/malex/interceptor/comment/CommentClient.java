@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
-import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
@@ -44,13 +43,21 @@ public class CommentClient {
 
   private SimpleClientHttpRequestFactory applyHttpRequestFactory(
       Long connectTimeout, Long readTimeout) {
-    var requestFactorySettings =
-        ClientHttpRequestFactorySettings.DEFAULTS
-            .withConnectTimeout(Duration.ofSeconds(connectTimeout))
-            .withReadTimeout(Duration.ofSeconds(readTimeout));
+    /*
+     * Settings that can be applied when creating a ClientHttpRequestFactory.
+     * Since: 3.4.0
+     */
+    var clientHttpRequestFactorySettings =
+        org.springframework.boot.http.client.ClientHttpRequestFactorySettings.defaults()
+            .withReadTimeout(Duration.ofMillis(readTimeout))
+            .withConnectTimeout(Duration.ofMillis(connectTimeout));
 
-    return ClientHttpRequestFactories.get(
-        SimpleClientHttpRequestFactory.class, requestFactorySettings);
+    /*
+     * Builders for Apache HTTP Components, Jetty, Reactor, JDK and simple client can be obtained using
+     * the factory methods on this interface.
+     * Since: 3.4.0
+     */
+    return ClientHttpRequestFactoryBuilder.simple().build(clientHttpRequestFactorySettings);
   }
 
   private ClientHttpRequestInterceptor applyCustomClientHttpRequestInterceptor() {

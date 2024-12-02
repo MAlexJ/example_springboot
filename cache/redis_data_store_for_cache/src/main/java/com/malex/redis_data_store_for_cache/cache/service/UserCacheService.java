@@ -27,6 +27,7 @@ public class UserCacheService {
     @Cacheable(cacheNames = "user_cache")
     public List<UserEntity> findAll() {
         logCacheManagerState("FIND_ALL");
+        Collection<String> cacheNames = cacheManager.getCacheNames();
         return repository.findAll();
     }
 

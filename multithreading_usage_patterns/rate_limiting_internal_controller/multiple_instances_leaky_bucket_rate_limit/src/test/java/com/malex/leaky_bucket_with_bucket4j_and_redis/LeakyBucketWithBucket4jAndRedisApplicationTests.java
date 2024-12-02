@@ -4,14 +4,17 @@ import com.malex.leaky_bucket_with_bucket4j_and_redis.configuration.BucketRateLi
 import com.malex.leaky_bucket_with_bucket4j_and_redis.filter.RateLimitFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 /*
  * Ignore filter and configuration classes
  */
-@MockBean(classes = {BucketRateLimitConfiguration.class, RateLimitFilter.class})
 @SpringBootTest
 class LeakyBucketWithBucket4jAndRedisApplicationTests {
+
+  @MockitoBean private BucketRateLimitConfiguration bucketRateLimitConfiguration;
+
+  @MockitoBean private RateLimitFilter rateLimitFilter;
 
   @Test
   void contextLoads() {}

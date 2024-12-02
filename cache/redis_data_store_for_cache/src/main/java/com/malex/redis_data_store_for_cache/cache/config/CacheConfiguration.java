@@ -4,13 +4,12 @@ import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
-import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /*
  * Spring Boot Cache with Redis
@@ -19,7 +18,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
  */
 @Configuration
 @RequiredArgsConstructor
-public class RedisCacheConfiguration {
+public class CacheConfiguration {
 
   private final RedisConnectionFactory redisConnectionFactory;
 
@@ -44,25 +43,19 @@ public class RedisCacheConfiguration {
   private String cacheName;
 
   @Bean
-  public CacheManager redisCacheManager() {
-    RedisSerializationContext.SerializationPair<Object> jsonSerializer =
-        RedisSerializationContext.SerializationPair.fromSerializer(
-            new GenericJackson2JsonRedisSerializer());
-    return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory)
-        .cacheDefaults(
-            org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofDays(1))
-                .serializeValuesWith(jsonSerializer))
-        .build();
-  }
-
-  @Bean
   public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
+
+    var stringSerializationPair =
+            RedisSerializationContext.SerializationPair.fromSerializer(
+                    new StringRedisSerializer());
+
     return (builder) ->
         builder.withCacheConfiguration(
             cacheName,
-            org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig()
+            RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(ttlInSeconds))
+                .serializeKeysWith(stringSerializationPair)
+                // .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .disableCachingNullValues());
   }
 }
