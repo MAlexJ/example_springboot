@@ -1,4 +1,4 @@
-package com.malex.redis_data_store_for_cache.model;
+package com.malex.redis_data_store_for_cache.database.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,15 +13,15 @@ import java.util.Objects;
  *
  * link: https://stackoverflow.com/questions/27952472/serialize-deserialize-java-8-java-time-with-jackson-json-mapper
  */
-public record User(
-    Integer id,
+public record UserEntity(
+        Long id,
     String username,
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
         @JsonSerialize(using = LocalDateTimeSerializer.class)
         LocalDateTime created)
     implements Serializable {
 
-  public User(Integer id, String username, LocalDateTime created) {
+  public UserEntity(Long id, String username, LocalDateTime created) {
     this.id = id;
     this.username = username;
     this.created = Objects.isNull(created) ? LocalDateTime.now() : created;

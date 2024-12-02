@@ -3,7 +3,6 @@ POST http://localhost:8185/v1/users
 Content-Type: application/json
 
 {
-  "id": 1,
   "username": "Alex"
 }
 
@@ -12,7 +11,6 @@ POST http://localhost:8185/v1/users
 Content-Type: application/json
 
 {
-  "id": 2,
   "username": "Max"
 }
 
@@ -21,7 +19,6 @@ POST http://localhost:8185/v1/users
 Content-Type: application/json
 
 {
-  "id": 3,
   "username": "Stefan"
 }
 
@@ -41,10 +38,25 @@ GET http://localhost:8185/v1/users/3
 DELETE http://localhost:8185/v1/users/1
 
 ### update user id=1, name=ANNA
-PUT http://localhost:8185/v1/users
+PUT http://localhost:8185/v1/users/1
 Content-Type: application/json
 
 {
   "id": 1,
-  "username": "ANNA"
+  "username": "ANNA",
+  "created": "2024-12-02T13:07:05.341946"
 }
+
+
+### Error post
+### create uset id=3
+POST http://localhost:8185/v1/users
+Content-Type: application/json
+
+
+### Error post
+### create uset id=3
+POST http://localhost:8185/v1/users
+Content-Type: application/json
+
+{}

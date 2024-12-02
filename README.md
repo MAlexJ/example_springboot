@@ -1,8 +1,8 @@
 ### Project setup
 
 * Java 21
-* Springboot 3.3.5
-* Gradle 8.10.2
+* Springboot 3.4.0
+* Gradle 8.11
 
 ### Project configuration
 

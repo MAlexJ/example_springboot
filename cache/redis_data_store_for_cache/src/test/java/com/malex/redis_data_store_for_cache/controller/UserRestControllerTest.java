@@ -1,13 +1,17 @@
 package com.malex.redis_data_store_for_cache.controller;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.malex.redis_data_store_for_cache.model.User;
-import com.malex.redis_data_store_for_cache.service.UserCacheService;
+import com.malex.redis_data_store_for_cache.database.service.UserService;
+import com.malex.redis_data_store_for_cache.rest.UserRestController;
+import com.malex.redis_data_store_for_cache.rest.response.DeleteUserResponse;
+import com.malex.redis_data_store_for_cache.rest.response.FindUserByIdResponse;
+import com.malex.redis_data_store_for_cache.rest.response.FindUsersResponse;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -41,21 +45,24 @@ class UserRestControllerTest {
 
   @Autowired private MockMvc mvc;
 
-  @MockBean private UserCacheService userService;
+  @MockBean private UserService userService;
 
   @Test
   void findAllUsers() throws Exception {
     var firstId = 1;
     var firstUsername = "test user 1";
     var firstCreated = LocalDateTime.now();
-    var firstUser = new User(firstId, firstUsername, firstCreated);
+    var firstUser =
+        new FindUserByIdResponse(Integer.toUnsignedLong(firstId), firstUsername, firstCreated);
 
-    var secondId = 1;
+    var secondId = 2;
     var secondUsername = "test user 2";
     var secondCreated = LocalDateTime.now().minusDays(1);
-    var secondUser = new User(secondId, secondUsername, secondCreated);
+    var secondUser =
+        new FindUserByIdResponse(Integer.toUnsignedLong(secondId), secondUsername, secondCreated);
 
-    Mockito.when(this.userService.findAll()).thenReturn(List.of(firstUser, secondUser));
+    Mockito.when(this.userService.findAll())
+        .thenReturn(new FindUsersResponse(List.of(firstUser, secondUser)));
 
     mvc.perform(get(USERS_PATH)) //
         .andExpect(status().isOk())
@@ -63,45 +70,50 @@ class UserRestControllerTest {
         /*
          * Spring MockMvc: match a collection of JSON objects in any order
          * link: https://stackoverflow.com/questions/55269036/spring-mockmvc-match-a-collection-of-json-objects-in-any-order
+         *
+         * Testing JSON in Spring Boot
+         * link: https://mkyong.com/spring-boot/testing-json-in-spring-boot/
          */
-        .andExpect(jsonPath("$[*].id", containsInAnyOrder(firstId, secondId)))
-        .andExpect(jsonPath("$[*].username", containsInAnyOrder(firstUsername, secondUsername)))
-//        .andExpect(
-//            jsonPath(
-//                "$[*].created",
-//                containsInAnyOrder(firstCreated.toString(), secondCreated.toString())))
-        .andExpect(jsonPath("$").isArray());
+        .andExpect(jsonPath("$.users.[*].id", containsInAnyOrder(firstId, secondId)))
+        .andExpect(
+            jsonPath("$.users.[*].username", containsInAnyOrder(firstUsername, secondUsername)))
+        //        .andExpect(
+        //            jsonPath(
+        //                "$[*].created",
+        //                containsInAnyOrder(firstCreated.toString(), secondCreated.toString())))
+        .andExpect(jsonPath("$.size", is(2)));
   }
 
   @DisplayName("verify status code and response of /v1/users endpoint when users are empty")
   @Test
   void findAllUsersEmptyCollection() throws Exception {
-    Mockito.when(this.userService.findAll()).thenReturn(Collections.emptyList());
+    Mockito.when(this.userService.findAll())
+        .thenReturn(new FindUsersResponse(Collections.emptyList()));
 
     mvc.perform(get(USERS_PATH)) //
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$").isArray());
+        .andExpect(jsonPath("$.size", is(0)));
   }
 
   @Test
   void findUserById() throws Exception {
-    var id = 1;
+    var id = 1L;
     var username = "testUser";
     var created = LocalDateTime.now();
 
     Mockito.when(this.userService.findById(id))
-        .thenReturn(Optional.of(new User(id, username, created)));
+        .thenReturn(Optional.of(new FindUserByIdResponse(id, username, created)));
 
     mvc.perform(get(FIND_USER_BY_ID_PATH, id)) //
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(id))
         .andExpect(jsonPath("$.username").value(username));
-//        .andExpect(jsonPath("$.created").value(created.toString()))
+    //        .andExpect(jsonPath("$.created").value(created.toString()))
   }
 
   @Test
   void findNotExistUserById() throws Exception {
-    var id = -1;
+    var id = -1L;
 
     Mockito.when(this.userService.findById(id)).thenReturn(Optional.empty());
 
@@ -114,18 +126,22 @@ class UserRestControllerTest {
   void deleteUserById() throws Exception {
     var id = 1;
 
-    Mockito.when(this.userService.delete(id)).thenReturn(true);
+    Mockito.when(this.userService.delete(Integer.toUnsignedLong(id)))
+        .thenReturn(
+            Optional.of(
+                new DeleteUserResponse(Integer.toUnsignedLong(id), "test", LocalDateTime.now())));
 
     mvc.perform(delete(FIND_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isAccepted())
-        .andExpect(content().string(Matchers.blankOrNullString()));
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is(id)))
+        .andExpect(jsonPath("$.username", is("test")));
   }
 
   @Test
   void deleteNotExistUserById() throws Exception {
-    var id = -1;
+    var id = -1L;
 
-    Mockito.when(this.userService.delete(id)).thenReturn(false);
+    Mockito.when(this.userService.delete(id)).thenReturn(Optional.empty());
 
     mvc.perform(delete(FIND_USER_BY_ID_PATH, id)) //
         .andExpect(status().isNotFound())

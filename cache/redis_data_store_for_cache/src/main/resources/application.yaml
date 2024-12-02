@@ -1,9 +1,11 @@
 spring:
   application:
     name: redis_data_store_for_cache
+
   threads:
     virtual:
       enabled: true
+
   config:
     import: optional:file:.env[.properties]
 
