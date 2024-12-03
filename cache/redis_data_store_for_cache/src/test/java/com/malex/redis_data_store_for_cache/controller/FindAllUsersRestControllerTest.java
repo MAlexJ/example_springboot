@@ -3,19 +3,16 @@ package com.malex.redis_data_store_for_cache.controller;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.malex.redis_data_store_for_cache.database.service.UserService;
 import com.malex.redis_data_store_for_cache.rest.UserRestController;
-import com.malex.redis_data_store_for_cache.rest.response.UsersResponse;
 import com.malex.redis_data_store_for_cache.rest.response.UserResponse;
+import com.malex.redis_data_store_for_cache.rest.response.UsersResponse;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -37,10 +34,9 @@ import org.springframework.test.web.servlet.MockMvc;
  *
  */
 @WebMvcTest(UserRestController.class)
-class UserRestControllerTest {
+class FindAllUsersRestControllerTest {
 
   private static final String USERS_PATH = "/v1/users";
-  private static final String FIND_USER_BY_ID_PATH = "/v1/users/{id}";
 
   @Autowired private MockMvc mvc;
 
@@ -89,62 +85,10 @@ class UserRestControllerTest {
   @DisplayName("verify status code and response of /v1/users endpoint when users are empty")
   @Test
   void findAllUsersEmptyCollection() throws Exception {
-    Mockito.when(this.userService.findAll())
-        .thenReturn(new UsersResponse(Collections.emptyList()));
+    Mockito.when(this.userService.findAll()).thenReturn(new UsersResponse(Collections.emptyList()));
 
     mvc.perform(get(USERS_PATH)) //
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.size", is(0)));
-  }
-
-  @Test
-  void findUserById() throws Exception {
-    var id = 1L;
-    var username = "testUser";
-    var created = LocalDateTime.now();
-
-    Mockito.when(this.userService.findById(id))
-        .thenReturn(Optional.of(new UserResponse(id, username, created)));
-
-    mvc.perform(get(FIND_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(id))
-        .andExpect(jsonPath("$.username").value(username));
-  }
-
-  @Test
-  void findNotExistUserById() throws Exception {
-    var id = -1L;
-
-    Mockito.when(this.userService.findById(id)).thenReturn(Optional.empty());
-
-    mvc.perform(get(FIND_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isNotFound())
-        .andExpect(content().string(Matchers.blankOrNullString()));
-  }
-
-  @Test
-  void deleteUserById() throws Exception {
-    var id = 1;
-
-    Mockito.when(this.userService.delete(Integer.toUnsignedLong(id)))
-        .thenReturn(
-            Optional.of(new UserResponse(Integer.toUnsignedLong(id), "test", LocalDateTime.now())));
-
-    mvc.perform(delete(FIND_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id", is(id)))
-        .andExpect(jsonPath("$.username", is("test")));
-  }
-
-  @Test
-  void deleteNotExistUserById() throws Exception {
-    var id = -1L;
-
-    Mockito.when(this.userService.delete(id)).thenReturn(Optional.empty());
-
-    mvc.perform(delete(FIND_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isNotFound())
-        .andExpect(content().string(Matchers.blankOrNullString()));
   }
 }
