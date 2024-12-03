@@ -2,107 +2,87 @@ package com.malex.redis_data_store_for_cache.database.service;
 
 import com.malex.redis_data_store_for_cache.cache.service.UserCacheService;
 import com.malex.redis_data_store_for_cache.database.entity.UserEntity;
+import com.malex.redis_data_store_for_cache.database.mapper.ObjectMapper;
 import com.malex.redis_data_store_for_cache.rest.request.CreateUserRequest;
-import com.malex.redis_data_store_for_cache.rest.request.UpdateUserRequest;
-import com.malex.redis_data_store_for_cache.rest.response.CreateUserResponse;
-import com.malex.redis_data_store_for_cache.rest.response.DeleteUserResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUserByIdResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUsersResponse;
-import com.malex.redis_data_store_for_cache.rest.response.UpdateUserResponse;
-import java.time.LocalDateTime;
+import com.malex.redis_data_store_for_cache.rest.request.UserRequest;
+import com.malex.redis_data_store_for_cache.rest.response.UserResponse;
+import com.malex.redis_data_store_for_cache.rest.response.UsersResponse;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
+  private final ObjectMapper mapper;
+
   private final AtomicLong generatePrimaryKey;
 
   private final UserCacheService cacheService;
 
   public UserService(
+      ObjectMapper mapper,
       @Qualifier("inMemoryPrimaryKeyGenerator") AtomicLong generatePrimaryKey,
       UserCacheService cacheService) {
+    this.mapper = mapper;
     this.generatePrimaryKey = generatePrimaryKey;
     this.cacheService = cacheService;
   }
 
-  public FindUsersResponse findAll() {
+  public UsersResponse findAll() {
     var userEntities = cacheService.findAll();
     var entities =
         userEntities.stream() //
-            .map(this::mapToResponse)
+            .map(mapper::entityToResponse)
             .toList();
-    return new FindUsersResponse(entities, entities.size());
+    return new UsersResponse(entities, entities.size());
   }
 
-  public Optional<FindUserByIdResponse> findById(Long id) {
-    return cacheService.findById(id).map(this::mapToResponse);
+  public Optional<UserResponse> findById(Long id) {
+    return cacheService.findById(id).map(mapper::entityToResponse);
   }
 
-  public CreateUserResponse save(CreateUserRequest userRequest) {
-    var entity = mapToEntity(generatePrimaryKey.incrementAndGet(), userRequest);
-    return Optional.ofNullable(cacheService.save(entity))
-        .map(
-            persistEntity -> {
-              var id = persistEntity.id();
-              var username = persistEntity.username();
-              var created = persistEntity.created();
-              return new CreateUserResponse(id, username, created);
-            })
-        .orElseThrow(
-            () -> new IllegalArgumentException("Cannot save user - %s".formatted(userRequest)));
-  }
-
-  public Optional<DeleteUserResponse> delete(Long id) {
-    return cacheService
-        .delete(id)
-        .map(u -> new DeleteUserResponse(u.id(), u.username(), u.created()));
-  }
-
-  /*
-   * Responses to PUT method are not cacheable.
-   * link:
-   */
-  public UpdateUserResponse update(UserEntity user) {
-    cacheService.update(user);
-
-    return null;
+  public Optional<UserResponse> save(CreateUserRequest userRequest) {
+    return Optional.of(generatePrimaryKey.incrementAndGet())
+        .map(newId -> mapper.requestToEntity(userRequest, newId))
+        .map(cacheService::save)
+        .map(mapper::entityToResponse);
   }
 
   /*
    * Use PUT APIs primarily to update an existing resource (if the resource does not exist,
    * then API may decide to create a new resource or not).
    */
-  public UpdateUserResponse update(Long id, UpdateUserRequest user) {
-    // case 1: create if not exist
-    Optional<UserEntity> entityById = cacheService.findById(id);
+  public Optional<UserResponse> update(Long id, UserRequest userRequest) {
 
-    // case 2: only update user
-    var entity = mapToEntity.apply(user);
-    return Optional.ofNullable(cacheService.update(entity))
-        .map(
-            persistEntity -> {
-              var userId = persistEntity.id();
-              var username = persistEntity.username();
-              var created = persistEntity.created();
-              return new UpdateUserResponse(userId, username, created);
-            })
-        .orElseThrow(() -> new IllegalArgumentException("Cannot save user - %s".formatted(user)));
+    // step 1: check if the user exists
+    Optional<UserEntity> existUser = cacheService.findById(id);
+
+    return Optional.ofNullable(
+        existUser
+//            // todo: verify it
+//            .or(
+//                () -> {
+//                  return Optional.of(mapper.requestToEntity(userRequest));
+//                })
+            .map(
+                user -> {
+                  // case 1: if user is existed then update user
+                  var entity = mapper.requestToEntity(userRequest);
+                  var persistEntity = cacheService.update(entity);
+                  return mapper.entityToResponse(persistEntity);
+                })
+            .orElseGet(
+                () -> {
+                  // case 2: create new user if not exist
+                  var entity = mapper.requestToEntity(userRequest);
+                  var persistEntity = cacheService.save(entity);
+                  return mapper.entityToResponse(persistEntity);
+                }));
   }
 
-  private final Function<UpdateUserRequest, UserEntity> mapToEntity =
-      userRequest ->
-          new UserEntity(userRequest.id(), userRequest.username(), userRequest.created());
-
-  private UserEntity mapToEntity(Long id, CreateUserRequest userRequest) {
-    return new UserEntity(id, userRequest.username(), LocalDateTime.now());
-  }
-
-  private FindUserByIdResponse mapToResponse(UserEntity entity) {
-    return new FindUserByIdResponse(entity.id(), entity.username(), entity.created());
+  public Optional<UserResponse> delete(Long id) {
+    return cacheService.delete(id).map(mapper::entityToResponse);
   }
 }

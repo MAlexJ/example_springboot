@@ -1,4 +1,4 @@
-#### Spring Boot Caching with Redis
+### Spring Boot Caching with Redis
 
 link: https://medium.com/simform-engineering/spring-boot-caching-with-redis-1a36f719309f
 
@@ -7,9 +7,18 @@ latency.
 Due to its speed, Redis is the ideal choice for caching API calls, session states, complex computations,
 and database queries.
 
-### Project configuration
+#### Spring Data Redis
 
-###### Add properties to `.env` file:
+Spring Data Redis, part of the larger Spring Data portfolio, provides easy configuration
+and access to Redis from Spring applications.
+It offers both low-level and high-level abstractions for interacting with the store,
+freeing users from infrastructural concerns.
+
+link: https://spring.io/projects/spring-data-redis
+
+#### Project configuration
+
+Add properties to `.env` file:
 
 ```
 REDIS_HOST=........redns.redis-cloud.com
@@ -18,7 +27,7 @@ REDIS_USERNAME=.....
 REDIS_PASSWORD=......
 ```
 
-###### Provider:
+#### Provider:
 
 * https://redis.io (documentation)
 * https://app.redislabs.com/ (cloud service)

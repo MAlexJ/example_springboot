@@ -20,7 +20,7 @@ class ApiServiceTest {
   @Test
   void testUser() {
     // given
-    UserDto userDto = new UserDto();
+    UserDto userDto = UserDto.builder().build();
 
     // and
     Integer age = 10;

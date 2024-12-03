@@ -32,8 +32,7 @@ server:
   port: ${APP_SERVICE_PORT:8185}
   error.include-message: always
 
-#logging:
-#  level:
-#    root: ${APP_SERVICE_ROOT_LOG_LEVEL:DEBUG}
-#    org.springframework: ${APP_SERVICE_SPRING_LOG_LEVEL:DEBUG}
+logging:
+  level:
+    com.malex.redis_data_store_for_cache.database.repository.UserInMemoryRepository: TRACE
 

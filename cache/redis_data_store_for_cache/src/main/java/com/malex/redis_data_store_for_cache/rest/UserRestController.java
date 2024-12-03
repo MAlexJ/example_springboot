@@ -2,14 +2,12 @@ package com.malex.redis_data_store_for_cache.rest;
 
 import com.malex.redis_data_store_for_cache.database.service.UserService;
 import com.malex.redis_data_store_for_cache.rest.request.CreateUserRequest;
-import com.malex.redis_data_store_for_cache.rest.request.UpdateUserRequest;
-import com.malex.redis_data_store_for_cache.rest.response.CreateUserResponse;
-import com.malex.redis_data_store_for_cache.rest.response.DeleteUserResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUserByIdResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUsersResponse;
-import com.malex.redis_data_store_for_cache.rest.response.UpdateUserResponse;
+import com.malex.redis_data_store_for_cache.rest.request.UserRequest;
+import com.malex.redis_data_store_for_cache.rest.response.UsersResponse;
+import com.malex.redis_data_store_for_cache.rest.response.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +35,7 @@ public class UserRestController {
    *
    */
   @GetMapping
-  public ResponseEntity<FindUsersResponse> findUsers() {
+  public ResponseEntity<UsersResponse> findUsers() {
     return ResponseEntity.ok(userService.findAll());
   }
 
@@ -60,7 +58,7 @@ public class UserRestController {
    *
    */
   @GetMapping("/{id}")
-  public ResponseEntity<FindUserByIdResponse> findUserById(@PathVariable Long id) {
+  public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
     // verify request
     Objects.requireNonNull(id, "id field must not be null");
 
@@ -87,26 +85,30 @@ public class UserRestController {
    * and refers to the new resource, and a Location header.
    *
    * Many times, the action performed by the POST method might not result in a resource that can be identified by a URI.
-   * In this case, either HTTP response code 200 (OK)
-   * or 204 (No Content) is the appropriate response status.
+   * In this case, either HTTP response code 200 (OK) or 204 (No Content) is the appropriate response status.
    */
   @PostMapping
-  public ResponseEntity<CreateUserResponse> createUser(
+  public ResponseEntity<UserResponse> createUser(
       @RequestBody CreateUserRequest userRequest, HttpServletRequest request) {
 
     // verify request
     Objects.requireNonNull(userRequest, "User must not be null");
+    Objects.requireNonNull(userRequest.username(), "username field cannot be null");
 
     // create user
-    var userResponse = userService.save(userRequest);
-    var uri = request.getRequestURI();
-    var userID = userResponse.id();
+    Optional<UserResponse> uResponse = userService.save(userRequest);
 
-    // In this case, either HTTP response code 200 (OK) or 204 (No Content) is the appropriate
-    // response status
-    return ResponseEntity.created(
-            UriComponentsBuilder.fromUriString(uri).path("/{id}").build(userID))
-        .body(userResponse);
+    // either HTTP response code 200 (OK) or 204 (No Content) is appropriate response status
+    return uResponse
+        .map(
+            response -> {
+              var userID = response.id();
+              var uri = request.getRequestURI();
+              return ResponseEntity.created(
+                      UriComponentsBuilder.fromUriString(uri).path("/{id}").build(userID))
+                  .body(response);
+            })
+        .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
   }
 
   /*
@@ -152,26 +154,29 @@ public class UserRestController {
    * 6. Generally, in practice, use PUT for UPDATE operations.
    */
   @PutMapping("/{id}")
-  public ResponseEntity<UpdateUserResponse> updateUser(
+  public ResponseEntity<UserResponse> updateUser(
       /*
        * Example URIs:  HTTP PUT http://www.appdomain.com/users/123
        */
-      @PathVariable Long id, @RequestBody UpdateUserRequest userRequest) {
+      @PathVariable Long id, @RequestBody UserRequest userRequest) {
 
     // verify request
     Objects.requireNonNull(id, "The id path variable must not be null.");
     Objects.requireNonNull(userRequest, "The user request body must not be null");
+    Objects.requireNonNull(userRequest.id(), "id field cannot be null");
+    Objects.requireNonNull(userRequest.username(), "username field cannot be null");
+    Objects.requireNonNull(userRequest.created(), "created field cannot be null");
 
     // verify user id's
     if (!Objects.equals(id, userRequest.id())) {
       throw new IllegalArgumentException("The id path variable must match the id of the user.");
     }
 
-    // update user
-    var userResponse = userService.update(id, userRequest);
-
     // If an existing resource is modified, either the 200 (OK) or 204 (No Content) response codes
-    return ResponseEntity.ok(userResponse);
+    return userService
+        .update(id, userRequest)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.status(HttpStatus.CREATED).build());
   }
 
   /*
@@ -213,8 +218,11 @@ public class UserRestController {
    *
    */
   @DeleteMapping("/{id}")
-  public ResponseEntity<DeleteUserResponse> deleteUserById(@PathVariable Long id) {
+  public ResponseEntity<UserResponse> deleteUserById(@PathVariable Long id) {
+
+    // verify request path variable
     Objects.requireNonNull(id, "The id path variable must not be null");
+
     return userService
         .delete(id)
         /* A successful response of DELETE requests SHOULD be an HTTP response code 200 (OK)

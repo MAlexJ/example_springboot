@@ -9,9 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.malex.redis_data_store_for_cache.database.service.UserService;
 import com.malex.redis_data_store_for_cache.rest.UserRestController;
-import com.malex.redis_data_store_for_cache.rest.response.DeleteUserResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUserByIdResponse;
-import com.malex.redis_data_store_for_cache.rest.response.FindUsersResponse;
+import com.malex.redis_data_store_for_cache.rest.response.UsersResponse;
+import com.malex.redis_data_store_for_cache.rest.response.UserResponse;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -56,17 +55,16 @@ class UserRestControllerTest {
     var firstId = 1;
     var firstUsername = "test user 1";
     var firstCreated = LocalDateTime.now();
-    var firstUser =
-        new FindUserByIdResponse(Integer.toUnsignedLong(firstId), firstUsername, firstCreated);
+    var firstUser = new UserResponse(Integer.toUnsignedLong(firstId), firstUsername, firstCreated);
 
     var secondId = 2;
     var secondUsername = "test user 2";
     var secondCreated = LocalDateTime.now().minusDays(1);
     var secondUser =
-        new FindUserByIdResponse(Integer.toUnsignedLong(secondId), secondUsername, secondCreated);
+        new UserResponse(Integer.toUnsignedLong(secondId), secondUsername, secondCreated);
 
     Mockito.when(this.userService.findAll())
-        .thenReturn(new FindUsersResponse(List.of(firstUser, secondUser)));
+        .thenReturn(new UsersResponse(List.of(firstUser, secondUser)));
 
     mvc.perform(get(USERS_PATH)) //
         .andExpect(status().isOk())
@@ -92,7 +90,7 @@ class UserRestControllerTest {
   @Test
   void findAllUsersEmptyCollection() throws Exception {
     Mockito.when(this.userService.findAll())
-        .thenReturn(new FindUsersResponse(Collections.emptyList()));
+        .thenReturn(new UsersResponse(Collections.emptyList()));
 
     mvc.perform(get(USERS_PATH)) //
         .andExpect(status().isOk())
@@ -106,7 +104,7 @@ class UserRestControllerTest {
     var created = LocalDateTime.now();
 
     Mockito.when(this.userService.findById(id))
-        .thenReturn(Optional.of(new FindUserByIdResponse(id, username, created)));
+        .thenReturn(Optional.of(new UserResponse(id, username, created)));
 
     mvc.perform(get(FIND_USER_BY_ID_PATH, id)) //
         .andExpect(status().isOk())
@@ -131,8 +129,7 @@ class UserRestControllerTest {
 
     Mockito.when(this.userService.delete(Integer.toUnsignedLong(id)))
         .thenReturn(
-            Optional.of(
-                new DeleteUserResponse(Integer.toUnsignedLong(id), "test", LocalDateTime.now())));
+            Optional.of(new UserResponse(Integer.toUnsignedLong(id), "test", LocalDateTime.now())));
 
     mvc.perform(delete(FIND_USER_BY_ID_PATH, id)) //
         .andExpect(status().isOk())
