@@ -35,4 +35,6 @@ server:
 logging:
   level:
     com.malex.redis_data_store_for_cache.database.repository.UserInMemoryRepository: TRACE
+    com.malex.redis_data_store_for_cache.cache.service.UserCacheService: TRACE
+    com.malex.redis_data_store_for_cache.database.service.UserService: TRACE
 

@@ -51,3 +51,66 @@ and stored in the cache the next time it’s requested. If no value is assigned 
 which means the data will stay in the cache indefinitely.
 We have set our time to live property to be 60000 ms in the example, which means that the data will be cleared from the
 cache after every minute.
+
+#### Spring Cache
+
+In Spring, the @CachePut annotation allows you to define a cache key using the key attribute,
+which supports SpEL (Spring Expression Language).
+This enables dynamic generation of cache keys based on method arguments or properties of objects.
+
+Example:
+To generate a key based on a field of an object passed as a parameter:
+
+```
+record UserEntity(Long id, Strin username){}
+
+@CachePut(cacheNames = "user_cache", key = "#user.id")
+public UserEntity update(UserEntity user) {.....}
+```
+
+Here:
+
+- #user refers to the method parameter user.
+- .id accesses the id field of the user object.
+
+Example with multiple parameters:
+You can concatenate multiple fields or parameters to create a composite key:
+
+```
+@CachePut(cacheNames = "user_cache", key = "#user.id + '_' + #action")
+public User updateUserWithAction(User user, String action) {
+    // Update logic
+    return user;
+}
+```
+
+In this case, the cache key is generated using the id field of the user object and the action parameter.
+
+Key Features:
+
+Accessing fields: Ensure the field used in the key is public or has a getter method.
+
+Custom key logic: If needed, you can delegate key generation to a custom method or component:
+
+```
+@CachePut(cacheNames = "user_cache", key = "@keyGenerator.generateKey(#user)")
+```
+
+Custom key generator:
+
+```
+@Component("keyGenerator")
+public class KeyGenerator {
+    public String generateKey(User user) {
+        return user.getId() + ":" + user.getName();
+    }
+}
+```
+
+Notes:
+
+For methods with multiple parameters, you can access specific parameters by name (e.g., #user)
+or by position (e.g., #args[0].id).
+
+Using SpEL for key generation ensures flexibility and allows you to compute keys dynamically.
+For further details, refer to the Spring Caching documentation and the Spring Expression Language guide.

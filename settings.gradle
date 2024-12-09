@@ -100,4 +100,6 @@ include 'scheduled_async',
         'transactions',
         'transactions:base',
         'mapper',
-        'mapper:mapstruct_mapper'
+        'mapper:mapstruct_mapper',
+        'api',
+        'api:rest'

@@ -1,7 +1,6 @@
 package com.malex.redis_data_store_for_cache.database.mapper;
 
 import com.malex.redis_data_store_for_cache.database.entity.UserEntity;
-import com.malex.redis_data_store_for_cache.rest.request.CreateUserRequest;
 import com.malex.redis_data_store_for_cache.rest.request.UserRequest;
 import com.malex.redis_data_store_for_cache.rest.response.UserResponse;
 import org.mapstruct.Mapper;
@@ -22,5 +21,5 @@ public interface ObjectMapper {
    */
   @Mapping(target = "id", source = "userId")
   @Mapping(target = "created", expression = "java(LocalDateTime.now())")
-  UserEntity requestToEntity(CreateUserRequest userRequest, Long userId);
+  UserEntity requestToEntity(Long userId, UserRequest userRequest);
 }

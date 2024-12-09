@@ -1,4 +1,4 @@
-### create uset id=1
+### Create user: Alex
 POST http://localhost:8185/v1/users
 Content-Type: application/json
 
@@ -6,7 +6,7 @@ Content-Type: application/json
   "username": "Alex"
 }
 
-### create uset id=2
+### Create user: Max
 POST http://localhost:8185/v1/users
 Content-Type: application/json
 
@@ -14,7 +14,7 @@ Content-Type: application/json
   "username": "Max"
 }
 
-### create uset id=3
+### create user: Stefan
 POST http://localhost:8185/v1/users
 Content-Type: application/json
 
@@ -22,28 +22,38 @@ Content-Type: application/json
   "username": "Stefan"
 }
 
-### all users
+### Find all users
 GET http://localhost:8185/v1/users
 
-### user id=1
+### Find user by id=1
 GET http://localhost:8185/v1/users/1
 
-### user id=2
+### Find user by id=2
 GET http://localhost:8185/v1/users/2
 
-### user id=3
+### Find user by id=3
 GET http://localhost:8185/v1/users/3
 
-### delete id=3
+### Delete by id=3
 DELETE http://localhost:8185/v1/users/3
 
-### update user id=1, name=ANNA
+### Update user by id=1, new name=ANNA
 PUT http://localhost:8185/v1/users/1
 Content-Type: application/json
 
 {
   "id": 1,
   "username": "ANNA",
+  "created": "2024-12-02T13:07:05.341946"
+}
+
+### Update/Create not exist user by id=5, name=Hot Dog
+PUT http://localhost:8185/v1/users/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "username": "Hot Dog",
   "created": "2024-12-02T13:07:05.341946"
 }
 

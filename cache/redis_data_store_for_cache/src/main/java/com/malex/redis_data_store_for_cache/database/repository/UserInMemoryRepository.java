@@ -19,7 +19,9 @@ public class UserInMemoryRepository {
   }
 
   public List<UserEntity> findAll() {
-    return database.values().stream().toList();
+    List<UserEntity> users = database.values().stream().toList();
+    log.trace("Find all users - {}", users);
+    return users;
   }
 
   public UserEntity save(UserEntity user) {
