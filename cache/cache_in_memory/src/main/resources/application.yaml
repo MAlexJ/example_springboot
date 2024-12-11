@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-boot-cache-in-memory
+    name: cache_in_memory
 
   threads:
     virtual:

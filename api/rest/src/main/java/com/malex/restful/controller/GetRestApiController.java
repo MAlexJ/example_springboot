@@ -1,20 +1,24 @@
 package com.malex.restful.controller;
 
 import com.malex.restful.model.User;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.malex.restful.model.UserPage;
+import com.malex.restful.repository.UserRepository;
+
+import java.util.Objects;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class GetRestApiController {
 
-  private final List<User> repository = new CopyOnWriteArrayList<>();
-
-  public record UserPage(List<User> users, int total, int size) {}
+  private final UserRepository repository;
 
   /*
   * HTTP GET:
@@ -34,7 +38,25 @@ public class GetRestApiController {
   */
   @GetMapping("/users")
   public ResponseEntity<UserPage> findAll() {
-    UserPage page = new UserPage(repository, repository.size(), repository.size());
+    var users = repository.findAll();
+    UserPage page = new UserPage(users, users.size());
     return ResponseEntity.ok(page);
   }
+
+  @GetMapping("/users/{id}")
+  public ResponseEntity<User> findById(@PathVariable Long id) {
+
+    // null verification
+    Objects.requireNonNull(id, "id field must not be null");
+
+    // verification of acceptable values
+    if(id < 0){
+      throw new IllegalArgumentException("id field must not be negative");
+    }
+
+    Optional<User> userOpt = repository.findById(id);
+    User user = userOpt.orElseThrow(() -> new IllegalArgumentException("User not found"));
+    return ResponseEntity.ok(user);
+  }
+
 }
