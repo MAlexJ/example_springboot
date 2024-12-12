@@ -75,18 +75,21 @@ public class GetRestApiController {
         .orElse(ResponseEntity.notFound().build());
   }
 
-  @GetMapping("/users")
-  public ResponseEntity<UserPage> findAllBySecurity(
+  @GetMapping("/auth-endpoint/users")
+  public ResponseEntity<UserPage> findAllWithBasicOauth(
       @RequestHeader(value = "Authorization") String auth) {
 
-    // example: Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l
-    if (!StringUtils.hasLength(auth) || auth.startsWith("Basic")) {
+    // example: Authorization: Basic token_base64
+    if (isNotAuthorized(auth)) {
       return ResponseEntity.status(UNAUTHORIZED).build();
     }
 
     var users = repository.findAll();
-
     var page = new UserPage(users, users.size());
     return ResponseEntity.ok(page);
+  }
+
+  boolean isNotAuthorized(String auth) {
+    return !StringUtils.hasLength(auth) || auth.startsWith("Basic");
   }
 }
