@@ -22,6 +22,10 @@ public class UserRepository {
     return repository;
   }
 
+  public List<User> findAll(String name) {
+    return repository.stream().filter(user -> user.name().equals(name)).toList();
+  }
+
   public User save(User user) {
     long newUserId = sequence.getAndIncrement();
     var persistUser = new User(newUserId, user);

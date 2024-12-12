@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
-*
+ *
  */
 @RestController
 @RequestMapping("/api/v1")
@@ -24,10 +24,8 @@ public class PostRestApiController {
   public ResponseEntity<User> createUser200Ok(@RequestBody User user) {
 
     // todo: Response status code for verification username field?
-    Objects.requireNonNull(user.username(), "Username field cannot be null");
+    Objects.requireNonNull(user.name(), "Username field cannot be null");
 
     return ResponseEntity.ok(repository.save(user));
   }
-
-
 }
