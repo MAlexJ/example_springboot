@@ -1,4 +1,4 @@
-package com.malex.restful.get;
+package com.malex.restful.http_get.status_codes;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

@@ -1,5 +1,6 @@
 package com.malex.restful.controller;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 import com.malex.restful.model.User;
@@ -9,8 +10,9 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
+// import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -45,13 +47,12 @@ public class GetRestApiController {
   @GetMapping("/users")
   public ResponseEntity<UserPage> findAll(@RequestParam(defaultValue = "") String name) {
     List<User> users;
-
-    if (StringUtils.hasLength(name)) {
-      // apply filtering
-      users = repository.findAll(name);
-    } else {
+    if (name.isBlank()) {
       // default
       users = repository.findAll();
+    } else {
+      // apply filtering
+      users = repository.findAll(name);
     }
     var page = new UserPage(users, users.size());
     return ResponseEntity.ok(page);
@@ -75,13 +76,20 @@ public class GetRestApiController {
         .orElse(ResponseEntity.notFound().build());
   }
 
-  @GetMapping("/auth-endpoint/users")
-  public ResponseEntity<UserPage> findAllWithBasicOauth(
-      @RequestHeader(value = "Authorization") String auth) {
+  @GetMapping("/auth-endpoint/clients")
+  public ResponseEntity<UserPage> authorizationFindAll(
+
+      // base annotation for rest api
+      @RequestHeader(value = HttpHeaders.AUTHORIZATION, defaultValue = "") String auth) {
 
     // example: Authorization: Basic token_base64
     if (isNotAuthorized(auth)) {
       return ResponseEntity.status(UNAUTHORIZED).build();
+    }
+
+    // only for admin
+    if (isNotAdmin(auth)) {
+      return ResponseEntity.status(FORBIDDEN).build();
     }
 
     var users = repository.findAll();
@@ -89,7 +97,14 @@ public class GetRestApiController {
     return ResponseEntity.ok(page);
   }
 
+  private boolean isNotAdmin(String auth) {
+    return !auth.replace("Basic ", "").equalsIgnoreCase("admin");
+  }
+
   boolean isNotAuthorized(String auth) {
-    return !StringUtils.hasLength(auth) || auth.startsWith("Basic");
+    if (auth.isBlank()) {
+      return true;
+    }
+    return !auth.startsWith("Basic");
   }
 }
