@@ -19,4 +19,5 @@ include 'dispatcher_servlet',
         'date_time_parameters:properties_file_configuration',
         'uri_component_builder_in_spring',
         'version_control',
-        'version_control:mime_type_versioning'
+        'version_control:mime_type_versioning',
+        'version_control:uri_versioning'

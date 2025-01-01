@@ -7,8 +7,7 @@ Now there can be different approaches to solve this API versioning problem like:
 
 * URI Versioning,
 * Parameter Versioning,
-* Header Versioning
-* or MIME versioning.
+* Header Versioning or MIME versioning.
 
 link: https://jsonapi.org
 

@@ -41,8 +41,12 @@ class HTTP_GET_403_Forbidden {
     // given
     var path = "/api/v1/auth-endpoint/clients";
 
+    // and
+    var notAdminCredential = "Basic NOT_ADMIN";
+
     // then
-    mvc.perform(get(path).header(HttpHeaders.AUTHORIZATION, "Basic NOT_ADMIN"))
+    mvc.perform(get(path).header(HttpHeaders.AUTHORIZATION, notAdminCredential))
+        // expected; 403 forbidden
         .andExpect(status().isForbidden());
   }
 }
