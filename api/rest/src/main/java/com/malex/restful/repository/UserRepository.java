@@ -38,4 +38,8 @@ public class UserRepository {
         .filter(user -> user.id().equals(id))
         .findFirst();
   }
+
+  public Optional<User> deleteById(Long id) {
+    return findById(id).map(user -> repository.remove(user) ? user : null);
+  }
 }

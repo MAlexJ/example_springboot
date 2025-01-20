@@ -8,11 +8,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1/users")
 @RequiredArgsConstructor
@@ -107,8 +109,8 @@ public class UserRestController {
   * In this case, either HTTP response code 200 (OK) or 204 (No Content) is the appropriate response status.
   *
   * Example URIs:
-  * ??????
-  *
+  * HTTP GET http://www.appdomain.com/users
+  * body: { 'name': 'Alex'}
   */
   @PostMapping
   public ResponseEntity<UserResponse> createUser(
@@ -131,6 +133,8 @@ public class UserRestController {
                       UriComponentsBuilder.fromUriString(uri).path("/{id}").build(userID))
                   .body(response);
             })
+
+        // WTF: !!!! 409 ?
         .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
   }
 
@@ -193,16 +197,22 @@ public class UserRestController {
        */
       @PathVariable Long id, @RequestBody UserRequest userRequest) {
 
-    // verify request
-    Objects.requireNonNull(id, "The id path variable must not be null.");
-    Objects.requireNonNull(userRequest, "The user request body must not be null");
-    Objects.requireNonNull(userRequest.id(), "id field cannot be null");
-    Objects.requireNonNull(userRequest.username(), "username field cannot be null");
-    Objects.requireNonNull(userRequest.created(), "created field cannot be null");
+    try {
+      // verify request
+      Objects.requireNonNull(id, "The id path variable must not be null.");
+      Objects.requireNonNull(userRequest, "The user request body must not be null");
+      Objects.requireNonNull(userRequest.id(), "id field cannot be null");
+      Objects.requireNonNull(userRequest.username(), "username field cannot be null");
+      Objects.requireNonNull(userRequest.created(), "created field cannot be null");
 
-    // verify user id's
-    if (!Objects.equals(id, userRequest.id())) {
-      throw new IllegalArgumentException("The id path variable must match the id of the user.");
+      // verify user id's
+      if (!Objects.equals(id, userRequest.id())) {
+        throw new IllegalArgumentException("The id path variable must match the id of the user.");
+      }
+    } catch (Exception e) {
+      log.warn("Validation error: %s".formatted(e.getMessage()));
+      // validation errors: 422 UNPROCESSABLE ENTITY
+      return ResponseEntity.unprocessableEntity().build();
     }
 
     // If an existing resource is modified, either the 200 (OK) or 204 (No Content) response codes
@@ -213,59 +223,59 @@ public class UserRestController {
   }
 
   /*
-  * HTTP DELETE:
-  *
-  * Method Definitions:
-   1. Request has body - May
-   2. Successful response has body - May
-   3. Safe - No
-   4. Idempotent - Yes
-   5. Cacheable - No
-   6. Allowed in HTML forms - No
-  * link: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE
-  *
-  * REST DELETE:
-  *
-  * As the name applies, DELETE APIs delete the resources (identified by the Request-URI).
-  *
-  * DELETE operations are idempotent. If you DELETE a resource, it’s removed from the collection of resources.
-  *
-  * Some may argue that it makes the DELETE method non-idempotent. It’s a matter of discussion and personal opinion.
-  * If the request passes through a cache and the Request-URI identifies one or more currently cached entities,
-  * those entries SHOULD be treated as stale.
-  * Responses to this method are not cacheable.
-  *
-  * link: https://restfulapi.net/rest-api-design-tutorial``-with-example/
-  *
-  * 1. async operation
-  *  A successful response SHOULD be 202 (Accepted) if the resource has been queued for deletion (async operation),
-  *
-  * 2. sync operation
-  *  or 200 (OK) / 204 (No Content) if the resource has been deleted permanently (sync operation).
-  *
-  * Response Codes:
-  *
-  * A successful response of DELETE requests SHOULD be an HTTP response code 200 (OK)
-  * if the response includes an entity describing the status.
-  *
-  * The status should be 202 (Accepted) if the action has been queued.
-  *
-  * The status should be 204 (No Content) if the action has been performed but the response does not include an entity.
-  *
-  * Repeatedly calling DELETE API on that resource will not change the outcome – however,
-  * calling DELETE on a resource a second time will return a 404 (NOT FOUND) since it was already removed.
-  *
-  * Example URIs
-  *
-  * HTTP DELETE http://www.appdomain.com/users/123
-  * HTTP DELETE http://www.appdomain.com/users/123/accounts/456
-  *
-  */
+   * HTTP DELETE
+   * Method Definitions:
+   *  1. Request has body - May
+   *  2. Successful response has body - May
+   *  3. Safe - No
+   *  4. Idempotent - Yes
+   *  5. Cacheable - No
+   *  6. Allowed in HTML forms - No
+   * link: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE
+   *
+   * REST DELETE
+   * As the name applies, DELETE APIs delete the resources (identified by the Request-URI).
+   * DELETE operations are idempotent. If you DELETE a resource, it’s removed from the collection of resources.
+   * Some may argue that it makes the DELETE method non-idempotent. It’s a matter of discussion and personal opinion.
+   * If the request passes through a cache and the Request-URI identifies one or more currently cached entities,
+   * those entries SHOULD be treated as stale.
+   * Responses to this method are not cacheable.
+   *
+   * link: https://restfulapi.net/rest-api-design-tutorial``-with-example/
+   *
+   * 1. Async operation
+   *  A successful response SHOULD be 202 (Accepted) if the resource has been queued for deletion (async operation),
+   *
+   * 2. Sync operation
+   *  200 (OK) or 204 (No Content) if the resource has been deleted permanently (sync operation).
+   *
+   * Response Codes:
+   *
+   * A successful response of DELETE requests SHOULD be an HTTP response code 200 (OK)
+   * if the response includes an entity describing the status (Sync operation)
+   *
+   * The status should be 202 (Accepted) if the action has been queued (Async operation)
+   *
+   * The status should be 204 (No Content) if the action has been performed but the response does not include an entity
+   * (Sync operation)
+   *
+   * Repeatedly calling DELETE API on that resource will not change the outcome – however,
+   * calling DELETE on a resource a second time will return a 404 (NOT FOUND) since it was already removed.
+   *
+   * Example URIs
+   *
+   * HTTP DELETE http://www.appdomain.com/users/123
+   * HTTP DELETE http://www.appdomain.com/users/123/accounts/456
+   */
   @DeleteMapping("/{id}")
   public ResponseEntity<UserResponse> deleteUserById(@PathVariable Long id) {
 
-    // verify request path variable
-    Objects.requireNonNull(id, "The id path variable must not be null");
+    // Input parameter validation
+    if (Objects.isNull(id) || id < 0) {
+      log.warn("The id field must not be negative or null");
+      // validation errors: 422 UNPROCESSABLE ENTITY
+      return ResponseEntity.unprocessableEntity().build();
+    }
 
     return userService
         .delete(id)
@@ -273,6 +283,6 @@ public class UserRestController {
          * if the response includes an entity describing the status.*/
         .map(ResponseEntity::ok)
         /* calling DELETE on a resource a second time will return a 404 (NOT FOUND) since it was already removed. */
-        .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        .orElse(ResponseEntity.notFound().build());
   }
 }

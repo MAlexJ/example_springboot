@@ -1,0 +1,14 @@
+### Case 1 Request param
+GET http://localhost:8080/api/v1/request-param?param=my_home
+
+### Case 2.1 Optonal param - empty
+GET http://localhost:8080/api/v1/request-param-not-required
+
+### Case 2.2 Optonal param - my_home
+GET http://localhost:8080/api/v1/request-param-not-required?param=my_home
+
+### Case 2.3 Optonal param - null
+GET http://localhost:8080/api/v1/request-param-not-required-optional
+
+### Case 2.3 Optonal param - my_home
+GET http://localhost:8080/api/v1/request-param-not-required-optional?param=my_home

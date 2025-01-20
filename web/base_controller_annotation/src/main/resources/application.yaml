@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: base_controller_annotation
+
+  threads:
+    virtual:
+      enabled: true

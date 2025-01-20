@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1") // URI Versioning
 @RequiredArgsConstructor
 public class PostRestApiController {
 
   private final UserRepository repository;
 
   @PostMapping("/users")
-  public ResponseEntity<User> createUser200Ok(@RequestBody User user) {
+  public ResponseEntity<User> createUser200Ok(@RequestBody User user ) {
 
     // todo: Response status code for verification username field?
     Objects.requireNonNull(user.name(), "Username field cannot be null");

@@ -65,7 +65,7 @@ class DeleteUserRestControllerTest {
     Mockito.when(this.userService.delete(id)).thenReturn(Optional.empty());
 
     mvc.perform(delete(DELETE_USER_BY_ID_PATH, id)) //
-        .andExpect(status().isNotFound())
+        .andExpect(status().isUnprocessableEntity())
         .andExpect(content().string(Matchers.blankOrNullString()));
   }
 }

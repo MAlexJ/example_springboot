@@ -20,4 +20,5 @@ include 'dispatcher_servlet',
         'uri_component_builder_in_spring',
         'version_control',
         'version_control:mime_type_versioning',
-        'version_control:uri_versioning'
+        'version_control:uri_versioning',
+        'base_controller_annotation'
