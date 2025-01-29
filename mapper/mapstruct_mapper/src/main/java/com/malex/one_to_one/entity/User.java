@@ -1,4 +1,4 @@
-package com.malex.model.base;
+package com.malex.one_to_one.entity;
 
 import lombok.Data;
 

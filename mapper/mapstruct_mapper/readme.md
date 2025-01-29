@@ -83,3 +83,25 @@ MyDTO toDto(MyEntity entity);
 ```
 
 link: https://stackoverflow.com/questions/59484557/how-to-specify-a-default-value-for-a-boolean-field-using-mapstruct
+
+
+### MapStruct Child Entity: Controlling nested bean mappings
+
+As explained above, MapStruct will generate a method based on the name of the source and target property. 
+Unfortunately, in many occasions these names do not match.
+
+link: https://mapstruct.org/documentation/stable/reference/html/#controlling-nested-bean-mappings
+
+```
+@Mapper
+public interface ResposeMap {
+
+    @Mapping(target = "total.amount", source = "totalAmount")
+    @Mapping(target = "total.currency", source = "currency")
+    @Mapping(target = "paid.amount", source = "paidAmount")
+    @Mapping(target = "paid.currency", source = "currency")
+    Loan toLoan(LoanDTO loanDTO);
+}
+```
+
+link: https://stackoverflow.com/questions/62435606/mapstruct-child-entity

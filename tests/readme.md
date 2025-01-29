@@ -14,3 +14,7 @@ In this article, we explore how this can be done in applications based on Spring
 5. Creating a custom test slice
 
 link: https://www.innoq.com/en/articles/2023/10/spring-boot-testing/
+
+
+TODO: ?????
+@SpringBootTest(classes = {DtoToChildParentObjectMapper.class, DtoToChildParentService.class})
