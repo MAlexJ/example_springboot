@@ -1,6 +1,6 @@
 plugins {
     // Apply the foojay-resolver plugin to allow automatic download of JDKs
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id 'org.gradle.toolchains.foojay-resolver-convention' version "${jarResolverConventionVersion}"
 }
 
 rootProject.name = 'example_springboot'
@@ -25,6 +25,7 @@ include 'scheduled_async',
         'logging-level',
         'properties',
         'properties:configuration_properties',
+        'properties:annotation_conditional_on_property',
         'docker_live_remote_debugging',
         'database',
         'database:multiple-databases-spring-data-jpa',
@@ -56,7 +57,8 @@ include 'scheduled_async',
         'web:date_time_parameters:application_level_configuration',
         'web:date_time_parameters:properties_file_configuration',
         'web:uri_component_builder_in_spring',
-        'developer_tools',
+        'developing_with_springboot:remote_debugging:jar_file',
+        'developing_with_springboot:remote_debugging:docker_file',
         'message_broker',
         'message_broker:rabbit_amqp',
         'message_broker:apache_kafka',

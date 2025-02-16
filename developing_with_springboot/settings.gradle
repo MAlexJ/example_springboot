@@ -1,0 +1,3 @@
+rootProject.name = 'developing_with_springboot'
+
+include 'remote_debugging:jar_file'

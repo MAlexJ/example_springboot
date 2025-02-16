@@ -6,7 +6,9 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /*
  * With CompletableFuture you can manage the result more flexibly, waiting for it when needed,
@@ -32,7 +34,7 @@ public class CompletableFutureService {
           /*
            * 2. Set 4 seconds timer to wait for a response
            */
-          .orTimeout(10, TimeUnit.SECONDS)
+          .orTimeout(4, TimeUnit.SECONDS)
 
           /*
            * 3. In the operator . exceptionally(...) we catch possible exceptions when calling a service
@@ -41,7 +43,8 @@ public class CompletableFutureService {
           .exceptionally(
               e -> {
                 log.warn("Error when calling external service", e);
-                throw new RejectedExecutionException();
+                // HttpStatus.TOO_MANY_REQUESTS = 429 status code
+                throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS);
               });
 
       /*

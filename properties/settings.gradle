@@ -1,3 +1,4 @@
 rootProject.name = 'properties'
 
-include 'configuration_properties'
+include 'configuration_properties',
+        'annotation_conditional_on_property'

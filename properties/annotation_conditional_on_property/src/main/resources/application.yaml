@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: annotation_conditional_on_property
+
+  threads:
+    virtual:
+      enabled: true

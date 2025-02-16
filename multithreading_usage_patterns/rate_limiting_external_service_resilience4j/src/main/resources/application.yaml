@@ -2,6 +2,10 @@ spring:
   application:
     name: rate_limiting_external_service_resilience4j
 
+  threads:
+    virtual:
+      enabled: true
+
 resilience4j.bulkhead:
   instances:
     exampleSemaphore:

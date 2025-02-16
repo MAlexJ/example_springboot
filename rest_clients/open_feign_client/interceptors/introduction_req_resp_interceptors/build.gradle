@@ -37,7 +37,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "${springCloudCDependencyVersion}")
+    set('springCloudVersion', "${springCloudDependencyVersion}")
 }
 
 dependencies {

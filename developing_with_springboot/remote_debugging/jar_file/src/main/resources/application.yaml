@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: jar_file
+
+  threads:
+    virtual:
+      enabled: true

@@ -153,3 +153,14 @@ https://dev.to/pfilaretov42/tiny-how-to-upgrade-gradle-wrapper-3obl
 ```
 ./gradlew wrapper --gradle-version latest
 ```
+
+#### Gradle ignore test
+
+To skip any task from the Gradle build, we can use the -x or –exclude-task option. In this case, we’ll use “-x test” to
+skip tests from the build.
+
+To see it in action, let’s run the build command with -x option:
+
+```
+gradle clean build -x test
+```
