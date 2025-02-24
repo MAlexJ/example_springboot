@@ -10,6 +10,10 @@ AMQP 0–9–1 (Advanced Message Queuing Protocol) is a messaging protocol that 
 communicate with conforming messaging middleware brokers. It’s an application layer protocol that transmits data in
 binary format. In this application, data is sent as frames.
 
+### RabbitMQ examples
+
+link: https://github.com/MAlexJ/rabbitmq-examples
+
 ### Project configuration
 
 ###### Add properties to `.env` file:

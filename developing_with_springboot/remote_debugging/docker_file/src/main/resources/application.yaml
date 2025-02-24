@@ -1,3 +1,7 @@
 spring:
   application:
     name: docker_file
+
+  threads:
+    virtual:
+      enabled: true
