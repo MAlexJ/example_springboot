@@ -1,6 +1,7 @@
-set a default category when the request does not provide one
+### Set a default category when the request does not provide one
 
-ou can achieve this by modifying your MapStruct mapper to set a default category when the request does not provide one. Use @Mapping with defaultValue or a custom mapping method.
+can achieve this by modifying your MapStruct mapper to set a default category 
+when the request does not provide one. Use @Mapping with defaultValue or a custom mapping method.
 
 Solution: Using defaultValue in MapStruct
 Modify your mapper:
