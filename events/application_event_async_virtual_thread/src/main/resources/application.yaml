@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: application_event_asyn_virtual_thread
+
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    root: warn
+

@@ -1,4 +1,5 @@
 rootProject.name = 'events'
 include 'application_event_synchronous',
         'application_event_asynchronous',
+        'application_event_async_virtual_thread',
         'rabbit_amqp'

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: virtual_threads
+
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    root: warn
