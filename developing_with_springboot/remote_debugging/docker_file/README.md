@@ -6,15 +6,25 @@
 
 ### IDE setup
 
-Edit configuration >  Run / Debug > Remote > Remote Debugging or Debugging
+1. Add configuration IDE
 
-run java app:
+Edit configurations >  Run / Debug > Remote > Remote Debugging or Debugging
+
+Debug mode: `Attach to remote JVM`
+
+HOST: `192.168.1.77`
+PORT: `5005`
+
+Command line arguments for remote JVM: `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005`
+User module classpath: `raspberry-air-quality.main`
+
+2. Run java app:
 
 ```
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar target/remote-debugging-spring-boot-application.jar
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar build/libs/spring-boot-application.jar
 ```
 
-docker:
+3. docker:
 
 ```
 FROM openjdk:11-jdk-slim
