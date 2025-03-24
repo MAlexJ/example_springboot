@@ -1,10 +1,11 @@
-x### RestClient
+### RestClient
 
 RestClient is a synchronous HTTP client introduced in Spring Framework 6.1 M2 that supersedes RestTemplate.
 A synchronous HTTP client sends and receives HTTP requests and responses in a blocking manner,
 meaning it waits for each request to complete before proceeding to the next one.
 
 link: https://www.baeldung.com/spring-boot-restclient
+video: https://www.youtube.com/watch?v=iNWVlF8o0A4&list=PLLMxXO6kMiNiu1wcZovMFWsMw0qGv0KZS
 
 #### New in Spring 6.1: RestClient
 
