@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: retry_simple_interceptor
+
+  threads:
+    virtual:
+      enabled: true
+
+webservice:
+  client:
+    url: ${HTTP_JSON_PLACEHOLDER_URL:https://jsonplaceholder.typicode.com}
+    path:
+      posts:
+        findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS:posts}
+
+  internal:
+    url: http://localhost:8080
+    path:
+      posts:
+        findAll: /api/posts/internal

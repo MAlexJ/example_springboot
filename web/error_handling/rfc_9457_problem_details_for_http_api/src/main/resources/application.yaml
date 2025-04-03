@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: rfc_9457_problem_details_for_http_api
+
+  threads:
+    virtual:
+      enabled: true

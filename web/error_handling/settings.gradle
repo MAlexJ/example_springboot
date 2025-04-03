@@ -4,4 +4,5 @@ include 'controller_level_exception_handler_annotation',
         'interface_handler_exception_resolver_implementation',
         'controller_advice_annotation',
         'response_status_exception_spring_5',
-        'application_property_error_configuration'
+        'application_property_error_configuration',
+        'rfc_9457_problem_details_for_http_api'

@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: request_factory
+
+  threads:
+    virtual:
+      enabled: true
+
+webservice:
+  connectTimeout: 1
+  readTimeout: 1
+
+  internal:
+    url: http://localhost:8080
+    path:
+      posts:
+        findAll: /v1/api/internal

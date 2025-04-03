@@ -4,4 +4,8 @@ include 'introduction_to_rest_client',
         'logging',
         'connection_response_timeout_and_request_factory',
         'interceptor',
-        'error_handling'
+        'error_handling',
+        'retry',
+        'retry:retry_simple_interceptor',
+        'retry:retry_spring_annotation',
+        'request_factory'

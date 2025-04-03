@@ -1,0 +1,11 @@
+### V1: Find all comments
+GET http://localhost:8080/api/comments
+
+
+### V2: Find all comments
+GET http://localhost:8080/api/comments
+Accept: application/vnd.comments.api-v2+json
+
+
+### Test internal API with replay interceptor
+GET http://localhost:8080/api/posts/test-api

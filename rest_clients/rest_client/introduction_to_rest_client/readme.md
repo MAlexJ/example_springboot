@@ -9,6 +9,8 @@ video: https://www.youtube.com/watch?v=iNWVlF8o0A4&list=PLLMxXO6kMiNiu1wcZovMFWs
 
 #### New in Spring 6.1: RestClient
 
+> **Noted:** RestClient is thread-safe
+
 Spring Framework 6.1 M2 introduces the RestClient, a new synchronous HTTP client.
 As the name suggests, RestClient offers the fluent API of WebClient with the infrastructure of RestTemplate
 
@@ -16,7 +18,7 @@ link: https://spring.io/blog/2023/07/13/new-in-spring-6-1-restclient
 
 #### Simple Fetching With HTTP Request Methods
 
-milar to RestTemplate, or any other rest client, RestClient allows us to make HTTP calls with request methods. Let’s
+Similar to RestTemplate, or any other rest client, RestClient allows us to make HTTP calls with request methods. Let’s
 walk through different HTTP methods to create, retrieve, modify, and delete resources.
 
 We’ll operate on an elementary Article class:
@@ -69,4 +71,42 @@ ResponseEntity<Void> response = restClient.put()
   .body(article)
   .retrieve()
   .toBodilessEntity();
+```
+
+#### Configuration
+
+### Create only one instance for a entire service
+
+```
+@Service
+public class HelloServiceClient {
+
+    private final RestClient restClient;
+
+    public HelloServiceClient() {
+        this.restClient = RestClient.builder()
+                .baseUrl("http://helloservice.com")
+                .requestInterceptor(new ClientCredentialTokenForHelloServiceInterceptor())
+                .build();
+    }
+    
+}
+```
+
+### One instance per one ServiceClient Class
+
+```
+@Service
+public class HelloServiceClient {
+    
+    private final RestClient restClient;
+
+    public HelloServiceClient() {
+        this.restClient = RestClient.builder()
+                .baseUrl("http://helloservice.com")
+                .requestInterceptor(new ClientCredentialTokenForHelloServiceInterceptor())
+                .build();
+    }
+
+}
 ```

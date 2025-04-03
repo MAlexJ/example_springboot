@@ -12,8 +12,8 @@ server:
   port: 8080
 
 webservice:
-  connectTimeout: 1
-  readTimeout: 2
+  connectTimeout: 5
+  readTimeout: 5
 
   client:
     url: ${HTTP_JSON_PLACEHOLDER_URL:https://jsonplaceholder.typicode.com}
@@ -22,6 +22,12 @@ webservice:
         findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_POSTS:posts}
       comments:
         findAll: ${HTTP_JSON_PLACEHOLDER_URL_PATH_COMMENTS:comments}
+
+  internal:
+    url: http://localhost:8080
+    path:
+      posts:
+        findAll: /api/posts/internal
 
 logging:
   level:
