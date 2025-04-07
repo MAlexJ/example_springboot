@@ -1,0 +1,11 @@
+spring:
+  mvc:
+    problemdetails:
+      enabled: true
+
+  application:
+    name: enabling_using_application_property
+
+  threads:
+    virtual:
+      enabled: true

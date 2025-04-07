@@ -1,6 +1,6 @@
 spring:
   application:
-    name: rfc_9457_problem_details_for_http_api
+    name: global_exception_handlers
 
   threads:
     virtual:

@@ -1,0 +1,9 @@
+### calculate
+POST http://localhost:8080/sales/calculate
+Content-Type: application/json
+
+{
+  "basePrice": 100,
+  "discount": 140
+}
+

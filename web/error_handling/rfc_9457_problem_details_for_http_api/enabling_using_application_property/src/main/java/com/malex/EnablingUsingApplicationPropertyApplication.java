@@ -1,12 +1,12 @@
-package com.malexj;
+package com.malex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Rfc9457ProblemDetailsForHttpApiApplication {
+public class EnablingUsingApplicationPropertyApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Rfc9457ProblemDetailsForHttpApiApplication.class, args);
+    SpringApplication.run(EnablingUsingApplicationPropertyApplication.class, args);
   }
 }

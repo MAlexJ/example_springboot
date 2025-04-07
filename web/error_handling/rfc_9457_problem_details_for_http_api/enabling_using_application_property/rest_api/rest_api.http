@@ -1,0 +1,17 @@
+### calculate
+POST http://localhost:8080/spring/validation
+Content-Type: application/json
+
+{
+  "basePrice": -23,
+  "discount": 100
+}
+
+
+### test ResponseStatusException - Problem Detail exist
+GET http://localhost:8080/test/-1
+
+
+### test RuntimeException - no Problem Detail
+GET http://localhost:8080/test/9
+

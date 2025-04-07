@@ -1,1 +1,4 @@
 rootProject.name = 'rfc_9457_problem_details_for_http_api'
+
+include 'global_exception_handlers',
+        'enabling_using_application_property'
