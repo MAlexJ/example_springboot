@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: response_status_annotation
+
+  threads:
+    virtual:
+      enabled: true

@@ -1,5 +1,1 @@
 rootProject.name = 'webflux'
-
-include 'handler_function',
-        'pagination_and_sorting',
-        'function_endpoints'
