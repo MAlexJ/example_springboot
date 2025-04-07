@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: using_custom_exception_class
+
+  threads:
+    virtual:
+      enabled: true
+
+  mvc:
+    problemdetails:
+      enabled: true

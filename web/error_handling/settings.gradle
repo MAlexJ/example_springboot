@@ -7,4 +7,5 @@ include 'controller_level_exception_handler_annotation',
         'application_property_error_configuration',
         'rfc_9457_problem_details_for_http_api',
         'rfc_9457_problem_details_for_http_api:global_exception_handlers',
-        'rfc_9457_problem_details_for_http_api:enabling_using_application_property'
+        'rfc_9457_problem_details_for_http_api:enabling_using_application_property',
+        'rfc_9457_problem_details_for_http_api:using_custom_exception_class'
