@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: global_default_time_zone
+
+  threads:
+    virtual:
+      enabled: true

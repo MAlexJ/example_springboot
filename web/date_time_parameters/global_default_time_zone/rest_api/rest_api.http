@@ -1,0 +1,5 @@
+### time:   "timestamp": "2025-04-08T20:00:22.098+00:00",
+POST http://localhost:8080/time
+
+
+### The +00:00 at the end of your timestamp means it's in UTC (Coordinated Universal Time).

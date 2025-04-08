@@ -1,5 +1,5 @@
 buildscript {
-    new BufferedReader(new FileReader(file('../../gradle.properties')))
+    new BufferedReader(new FileReader(file('../../../gradle.properties')))
             .withCloseable { reader ->
                 String line
                 while ((line = reader.readLine()) != null) {
@@ -18,7 +18,6 @@ plugins {
     id "com.github.ben-manes.versions" version "${benManesDependencyVersion}"
 }
 
-
 group = "${buildGroup}"
 version = "${buildVersion}"
 
@@ -26,11 +25,11 @@ java {
     sourceCompatibility = "${javaVersion}"
 }
 
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }
