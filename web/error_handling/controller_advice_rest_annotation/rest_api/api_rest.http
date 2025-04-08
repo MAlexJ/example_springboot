@@ -1,0 +1,18 @@
+###  id null
+POST http://localhost:8080/dto
+Content-Type: application/json
+
+{
+  "name": "Alex"
+}
+
+
+###  id null
+POST http://localhost:8080/dto
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+
