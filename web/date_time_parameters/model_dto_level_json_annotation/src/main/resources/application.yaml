@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: model_dto_level_json_annotation
+
+  threads:
+    virtual:
+      enabled: true

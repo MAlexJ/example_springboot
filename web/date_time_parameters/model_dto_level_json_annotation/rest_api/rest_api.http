@@ -1,0 +1,6 @@
+### Format:
+#2025-04-08 = Date
+#T = Separator
+#23:26:41 = Time (HH:mm:ss)
+#Z = UTC time zone (same as +00:00)
+GET http://localhost:8080/event
