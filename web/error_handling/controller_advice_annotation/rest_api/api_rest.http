@@ -1,0 +1,6 @@
+###  negative id
+GET http://localhost:8080/test/-1
+
+###  id < 10
+GET http://localhost:8080/test/7
+
