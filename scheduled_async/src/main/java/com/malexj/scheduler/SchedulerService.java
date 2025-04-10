@@ -8,7 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Profile({"pool-size-profile", "scheduling-configurer", "default-config"})
+@Profile({
+  "pool-size-profile",
+  "scheduling-configurer",
+  "default-config",
+  "virtual-scheduling-configurer"
+})
 public class SchedulerService {
 
   @Scheduled(cron = "*/1 * * * * *")
