@@ -1,5 +1,5 @@
 buildscript {
-    new BufferedReader(new FileReader(file('../../gradle.properties')))
+    new BufferedReader(new FileReader(file('../../../../gradle.properties')))
             .withCloseable { reader ->
                 String line
                 while ((line = reader.readLine()) != null) {
@@ -36,8 +36,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "com.corundumstudio.socketio:netty-socketio:${nettySocketIoVersion}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeJsr310Version}"
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }

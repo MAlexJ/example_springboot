@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: send_ack_data
+
+  threads:
+    virtual:
+      enabled: true
+
+socket-server:
+  port: 8085
+  host: localhost

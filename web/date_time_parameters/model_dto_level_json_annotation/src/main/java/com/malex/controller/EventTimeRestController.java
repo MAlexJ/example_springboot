@@ -1,6 +1,6 @@
 package com.malex.controller;
 
-import com.malex.dto.EventDto;
+import com.malex.event.EventDto;
 import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
