@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: soap
+
+  threads:
+    virtual:
+      enabled: true
