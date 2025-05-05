@@ -1,0 +1,5 @@
+### Using @Async: void
+GET http://localhost:8080/v1/tasks/async_void
+
+### Using @Async: CompletableFuture
+GET http://localhost:8080/v1/tasks/async_return_completable_future

@@ -1,4 +1,4 @@
-### Asynchronous process start by signal
+### Asynchronous process starts by signal
 
 link: https://habr.com/ru/articles/838402/
 
@@ -18,7 +18,7 @@ for example:
   kafka, the number of read threads is equal to the number of partitions subscribed to by the application, but they are
   usually few)
 
-* Run event on time - for example, perform a recount to DB
+* Run event on time—for example, perform a recount to DB
 
 Executor configuration:
 
