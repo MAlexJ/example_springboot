@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sensor Data WebSocket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #messages {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            white-space: pre-wrap;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Live Sensor Data</h1>
+<div id="messages">Connecting to WebSocket...</div>
+
+<script>
+    const ws = new WebSocket('ws://' + window.location.host + '/sensor-data');
+
+    const messagesDiv = document.getElementById('messages');
+
+    ws.onopen = () => {
+        messagesDiv.innerText = "Connected to WebSocket...\n";
+    };
+
+    ws.onmessage = (event) => {
+        messagesDiv.innerText += event.data + "\n";
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    };
+
+    ws.onerror = (error) => {
+        messagesDiv.innerText += "WebSocket error: " + error + "\n";
+    };
+
+    ws.onclose = () => {
+        messagesDiv.innerText += "WebSocket connection closed.\n";
+    };
+</script>
+
+</body>
+</html>
