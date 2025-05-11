@@ -1,4 +1,4 @@
-rootProject.name = 'multithreading_usage_patterns'
+rootProject.name = 'async_multithreading_usage_patterns'
 
 include 'async_annotation_virtual_thread',
         'asynchronous_process_on_signal',
