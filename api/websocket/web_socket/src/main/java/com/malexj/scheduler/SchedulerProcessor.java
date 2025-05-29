@@ -16,7 +16,7 @@ public class SchedulerProcessor {
 
   private final SensorWebSocketHandler sensorWebSocketHandler;
 
-  @Async
+  @Async("virtualThreadExecutor")
   @Scheduled(cron = "0/1 * * * * *")
   public void processLastMessage() {
     log.info("Sending sensor data");

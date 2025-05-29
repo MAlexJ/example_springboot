@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /*
  * Configuration class for setting up the {@link ObjectMapper}.
- * This configuration registers necessary modules, such as the {@link JavaTimeModule},
+ * This configuration registers the necessary modules, such as the {@link JavaTimeModule},
  * to enable proper serialization and deserialization of Java 8 Date/Time types.
  */
 @Configuration

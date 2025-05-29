@@ -1,12 +1,11 @@
 package com.malexj.configuration;
 
+import com.malexj.handler.SensorWebSocketHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-
-import com.malexj.handler.SensorWebSocketHandler;
 
 /**
  * WebSocket configuration class for registering WebSocket handlers. Enables WebSocket support and

@@ -1,8 +1,8 @@
 ### Project setup
 
 * Java 24
-* Springboot 3.4.5
-* Gradle 8.1.4
+* Springboot 3.5.0
+* Gradle 8.1.4.1
 
 ### Project configuration
 

@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 public class AsyncSchedulerConfiguration {
 
-    @Bean(name = "virtualThreadExecutor", destroyMethod = "shutdown")
-    public ExecutorService virtualThreadExecutor() {
-        return Executors.newVirtualThreadPerTaskExecutor();
-    }
+  @Bean(name = "virtualThreadExecutor", destroyMethod = "shutdown")
+  public ExecutorService virtualThreadExecutor() {
+    return Executors.newVirtualThreadPerTaskExecutor();
+  }
 }

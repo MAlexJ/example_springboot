@@ -1,13 +1,12 @@
 package com.malexj.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.malexj.handler.SensorWebSocketHandler;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketSession;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.malexj.handler.SensorWebSocketHandler;
 
 /*
  * Configuration class responsible for defining beans related to WebSocket message handling,
@@ -16,22 +15,22 @@ import com.malexj.handler.SensorWebSocketHandler;
 @Configuration
 public class WebSocketHandlerConfiguration {
 
-    /*
-     * Exposes a thread-safe list to store active WebSocket sessions.
-     * This allows other components to access and manage the currently connected clients.
-     */
-    @Bean
-    public List<WebSocketSession> webSocketSessions() {
-        return new CopyOnWriteArrayList<>();
-    }
+  /*
+   * Exposes a thread-safe list to store active WebSocket sessions.
+   * This allows other components to access and manage the currently connected clients.
+   */
+  @Bean
+  public List<WebSocketSession> webSocketSessions() {
+    return new CopyOnWriteArrayList<>();
+  }
 
-    /*
-     * Creates a WebSocket handler bean for managing sensor data communication.
-     * This handler is responsible for sending sensor messages to connected WebSocket clients.
-     */
-    @Bean
-    public SensorWebSocketHandler webSocketHandler(
-            ObjectMapper objectMapper, List<WebSocketSession> webSocketSessions) {
-        return new SensorWebSocketHandler(objectMapper, webSocketSessions);
-    }
+  /*
+   * Creates a WebSocket handler bean for managing sensor data communication.
+   * This handler is responsible for sending sensor messages to connected WebSocket clients.
+   */
+  @Bean
+  public SensorWebSocketHandler webSocketHandler(
+      ObjectMapper objectMapper, List<WebSocketSession> webSocketSessions) {
+    return new SensorWebSocketHandler(objectMapper, webSocketSessions);
+  }
 }
